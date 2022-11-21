@@ -21,7 +21,7 @@ namespace ASM_Auto.Web
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddIdentity<IdentityUser<Guid>,IdentityRole<Guid>>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ASMAutoDbContext>();
             builder.Services.AddControllersWithViews();
 

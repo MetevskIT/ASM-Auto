@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ASM_Auto.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,11 +10,17 @@ using System.Threading.Tasks;
 
 namespace ASM_Auto.Data
 {
-    public class ASMAutoDbContext : IdentityDbContext<IdentityUser<Guid>,IdentityRole<Guid>,Guid>
+    public class ASMAutoDbContext : IdentityDbContext<IdentityUser>
     {
         public ASMAutoDbContext(DbContextOptions options)
            : base(options)
         {
+        }
+        public DbSet<User> Users { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
         }
 
     }
