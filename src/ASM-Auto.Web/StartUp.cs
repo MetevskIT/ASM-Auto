@@ -1,9 +1,12 @@
+using ASM_Auto.Data;
+using ASM_Auto.Data.Seed;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace ASM_Auto.Web
 {
-    public class Program
+    public class StartUp
     {
         public static void Main(string[] args)
         {
@@ -12,15 +15,30 @@ namespace ASM_Auto.Web
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
                 ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+
+            builder.Services.AddDbContext<ASMAutoDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddIdentity<IdentityUser<Guid>,IdentityRole<Guid>>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ASMAutoDbContext>();
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddServices();
+
             var app = builder.Build();
+
+            //Seed Data
+
+            using (var scope = app.Services.CreateScope())
+            {
+               var dbContext = scope.ServiceProvider.GetRequiredService<ASMAutoDbContext>();
+                
+                dbContext.Database.Migrate();
+
+                new ASMAutoDbSeeder().SeedAsync(dbContext).GetAwaiter().GetResult();
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
