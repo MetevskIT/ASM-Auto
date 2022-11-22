@@ -1,4 +1,5 @@
 ﻿using ASM_Auto.Data.Models;
+using ASM_Auto.Data.Models.Products.Foil;
 using ASM_Auto.Data.Models.Products.Ledlights;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -24,8 +25,10 @@ namespace ASM_Auto.Data
         public DbSet<Order> Orders { get; set; } = null!;
         public DbSet<LedlightsType> LedlightsTypes { get; set; } = null!;
         public DbSet<LedlightsColor> LedlightsColors { get; set; } = null!;
-        public DbSet<LedlightsPower> ledlightsPowers { get; set; } = null!;
+        public DbSet<LedlightsPower> LedlightsPowers { get; set; } = null!;
         public DbSet<LedlightsFormat> LedlightsFormats { get; set; } = null!;
+        public DbSet<FoilsType> FoilsTypes { get; set; } = null!;
+        public DbSet<FoilsColor> FoilsColor { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
