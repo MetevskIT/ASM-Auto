@@ -2,7 +2,9 @@
 using ASM_Auto.Data.Seed.Common;
 using ASM_Auto.Data.Seed.Seeders;
 using ASM_Auto.Data.Seed.Seeders.Category;
+using ASM_Auto.Data.Seed.Seeders.Exterior;
 using ASM_Auto.Data.Seed.Seeders.Foil;
+using ASM_Auto.Data.Seed.Seeders.Interior;
 using ASM_Auto.Data.Seed.Seeders.Ledlights;
 using ASM_Auto.Data.Seed.Seeders.ProductTypes;
 using System;
@@ -24,7 +26,7 @@ namespace ASM_Auto.Data.Seed
 
             var seeders = new List<ISeeder>();
 
-             seeders.Add(new InteriorsAccessoriesSeed());
+             seeders.Add(new ExteriorsAccessoriesSeed());
              seeders.Add(new ProductTypesSeed());
              seeders.Add(new LedlightsTypeSeed());
              seeders.Add(new LedlightsColorSeed());
@@ -34,6 +36,7 @@ namespace ASM_Auto.Data.Seed
              seeders.Add(new FoilsColorSeed());
              seeders.Add(new FoilsPurposeSeed());
              seeders.Add(new InteriorsAccessoriesSeed());
+             seeders.Add(new CategoriesSeed());
 
             foreach (var seeder in seeders)
             {

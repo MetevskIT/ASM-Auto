@@ -1,5 +1,6 @@
 ﻿using ASM_Auto.Data.Models;
 using ASM_Auto.Data.Models.Products.Foil;
+using ASM_Auto.Data.Models.Products.Interior;
 using ASM_Auto.Data.Seed.Common;
 using System;
 using System.Collections.Generic;

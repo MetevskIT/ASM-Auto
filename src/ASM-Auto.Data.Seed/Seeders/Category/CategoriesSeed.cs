@@ -1,5 +1,4 @@
-﻿using ASM_Auto.Data.Models;
-using ASM_Auto.Data.Seed.Common;
+﻿using ASM_Auto.Data.Seed.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ASM_Auto.Data.Seed.Seeders.Category
 {
-    public class InteriorsAccessoriesSeed : ISeeder
+    public class CategoriesSeed : ISeeder
     {
         public async Task SeedAsync(ASMAutoDbContext dbContext)
         {

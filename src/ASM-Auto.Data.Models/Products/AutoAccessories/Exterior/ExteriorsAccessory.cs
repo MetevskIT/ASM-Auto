@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASM_Auto.Data.Models.Products.Foil
+namespace ASM_Auto.Data.Models.Products.Exterior
 {
-    public class InteriorsAccessory
+    public class ExteriorsAccessory
     {
         [Key]
-        public int InteriorAccessoryId { get; set; }
+        public int ExteriorAccessoryId { get; set; }
 
         [Required]
-        public string InteriorAccessory { get; set; } = null!;
+        public string ExteriorAccessory { get; set; } = null!;
     }
 }

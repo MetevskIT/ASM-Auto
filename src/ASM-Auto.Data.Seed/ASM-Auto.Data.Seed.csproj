@@ -11,8 +11,4 @@
     <ProjectReference Include="..\ASM-Auto.Data\ASM-Auto.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Seeders\" />
-  </ItemGroup>
-
 </Project>
