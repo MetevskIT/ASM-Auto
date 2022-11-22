@@ -17,4 +17,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ASM-Auto.Data.Models\ASM-Auto.Data.Models.csproj" />
+  </ItemGroup>
+
 </Project>

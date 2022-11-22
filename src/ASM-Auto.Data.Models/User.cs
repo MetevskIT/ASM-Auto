@@ -16,7 +16,7 @@ namespace ASM_Auto.Data.Models
             this.Id = Guid.NewGuid();
             //Cart = new List<Product>();
             //LikedProducts = new List<Product>();
-            //Orders = new List<Order>();
+            Orders = new List<Order>();
             Contacts = new List<Contact>();
         }
         [Key]
@@ -24,7 +24,7 @@ namespace ASM_Auto.Data.Models
 
         //public ICollection<Product> Cart { get; set; };
         //public ICollection<Product> LikedProducts { get; set; };
-        //public ICollection<Order> Orders { get; set; }
+        public ICollection<Order> Orders { get; set; }
         public ICollection<Contact> Contacts { get; set; }
 
         [Required]

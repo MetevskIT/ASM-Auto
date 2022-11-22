@@ -1,4 +1,5 @@
 ﻿using ASM_Auto.Data.Seed.Common;
+using ASM_Auto.Data.Seed.Seeders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,8 @@ namespace ASM_Auto.Data.Seed
 
             var seeders = new List<ISeeder>();
 
-           // seeders.Add(new CarDoorsSeeder());
-        
+             seeders.Add(new CategoriesSeed());
+             seeders.Add(new ProductTypesSeed());
 
             foreach (var seeder in seeders)
             {

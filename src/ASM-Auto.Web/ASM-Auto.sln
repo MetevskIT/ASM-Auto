@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASM-Auto.Data.Seed", "..\AS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASM-Auto.Services", "..\ASM-Auto.Services\ASM-Auto.Services.csproj", "{D9742A16-0ACB-49C5-9D13-E71F0544CF3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASM-Auto.Common", "..\ASM-Auto.Common\ASM-Auto.Common.csproj", "{C9453A67-86B2-4650-BF2D-DEDC84215593}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{D9742A16-0ACB-49C5-9D13-E71F0544CF3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9742A16-0ACB-49C5-9D13-E71F0544CF3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9742A16-0ACB-49C5-9D13-E71F0544CF3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9453A67-86B2-4650-BF2D-DEDC84215593}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9453A67-86B2-4650-BF2D-DEDC84215593}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9453A67-86B2-4650-BF2D-DEDC84215593}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9453A67-86B2-4650-BF2D-DEDC84215593}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
