@@ -1,4 +1,6 @@
 ﻿using ASM_Auto.Data.Models;
+using ASM_Auto.Data.Models.Car;
+using ASM_Auto.Data.Models.Products.AutoAccessories.Mats;
 using ASM_Auto.Data.Models.Products.Exterior;
 using ASM_Auto.Data.Models.Products.Foil;
 using ASM_Auto.Data.Models.Products.Interior;
@@ -34,7 +36,9 @@ namespace ASM_Auto.Data
         public DbSet<FoilsPurpose> FoilsPurpose { get; set; } = null!;
         public DbSet<InteriorsAccessory> InteriorsAccessories { get; set; } = null!;
         public DbSet<ExteriorsAccessory> ExteriorsAccessories { get; set; } = null!;
-
+        public DbSet<MatsType> MatsTypes { get; set; } = null!;
+        public DbSet<CarMake> CarsMakes { get; set; } = null!;
+        public DbSet<CarModel> CarsModels { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

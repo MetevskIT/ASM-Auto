@@ -1,11 +1,12 @@
-﻿using ASM_Auto.Data.Seed.Common;
+﻿using ASM_Auto.Data.Models;
+using ASM_Auto.Data.Seed.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASM_Auto.Data.Seed.Seeders.Category
+namespace ASM_Auto.Data.Seed.Seeders.Categories
 {
     public class CategoriesSeed : ISeeder
     {
@@ -15,7 +16,7 @@ namespace ASM_Auto.Data.Seed.Seeders.Category
             {
                 return;
             }
-
+          
             await dbContext.Categories.AddAsync(new Category { CategoryName = "AutoAccessories" });
             await dbContext.Categories.AddAsync(new Category { CategoryName = "AutoCosmetics" });
             await dbContext.Categories.AddAsync(new Category { CategoryName = "Multimedia" });

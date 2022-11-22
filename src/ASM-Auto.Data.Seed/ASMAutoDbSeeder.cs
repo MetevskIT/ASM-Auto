@@ -1,7 +1,5 @@
-﻿using ASM_Auto.Data.Models.Products.Ledlights;
-using ASM_Auto.Data.Seed.Common;
-using ASM_Auto.Data.Seed.Seeders;
-using ASM_Auto.Data.Seed.Seeders.Category;
+﻿using ASM_Auto.Data.Seed.Common;
+using ASM_Auto.Data.Seed.Seeders.Categories;
 using ASM_Auto.Data.Seed.Seeders.Exterior;
 using ASM_Auto.Data.Seed.Seeders.Foil;
 using ASM_Auto.Data.Seed.Seeders.Interior;
@@ -37,6 +35,8 @@ namespace ASM_Auto.Data.Seed
              seeders.Add(new FoilsPurposeSeed());
              seeders.Add(new InteriorsAccessoriesSeed());
              seeders.Add(new CategoriesSeed());
+             seeders.Add(new CarMakesSeed());
+             seeders.Add(new CarModelsSeed());
 
             foreach (var seeder in seeders)
             {
