@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASM_Auto.Data.Seed.Seeders
+namespace ASM_Auto.Data.Seed.Seeders.ProductTypes
 {
     public class ProductTypesSeed : ISeeder
     {

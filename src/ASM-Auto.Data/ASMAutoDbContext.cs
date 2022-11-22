@@ -1,4 +1,5 @@
 ﻿using ASM_Auto.Data.Models;
+using ASM_Auto.Data.Models.Products.Ledlights;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,10 @@ namespace ASM_Auto.Data
         public DbSet<Contact> Contacts { get; set; } = null!;
         public DbSet<ProductType> ProductTypes { get; set; } = null!;
         public DbSet<Order> Orders { get; set; } = null!;
+        public DbSet<LedlightsType> LedlightsTypes { get; set; } = null!;
+        public DbSet<LedlightsColor> LedlightsColors { get; set; } = null!;
+        public DbSet<LedlightsPower> ledlightsPowers { get; set; } = null!;
+        public DbSet<LedlightsFormat> LedlightsFormats { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

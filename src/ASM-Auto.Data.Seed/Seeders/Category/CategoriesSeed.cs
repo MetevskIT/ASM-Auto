@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASM_Auto.Data.Seed.Seeders
+namespace ASM_Auto.Data.Seed.Seeders.Category
 {
     public class CategoriesSeed : ISeeder
     {
@@ -16,7 +16,7 @@ namespace ASM_Auto.Data.Seed.Seeders
             {
                 return;
             }
-            
+
             await dbContext.Categories.AddAsync(new Category { CategoryName = "AutoAccessories" });
             await dbContext.Categories.AddAsync(new Category { CategoryName = "AutoCosmetics" });
             await dbContext.Categories.AddAsync(new Category { CategoryName = "Multimedia" });
