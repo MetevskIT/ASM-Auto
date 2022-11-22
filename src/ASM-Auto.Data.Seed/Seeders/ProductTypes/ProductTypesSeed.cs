@@ -16,7 +16,7 @@ namespace ASM_Auto.Data.Seed.Seeders.ProductTypes
             {
                 return;
             }
-            //Seed Autoaccsess Types
+            //Seed Autoaccessories Types
             await dbContext.AddAsync(new ProductType { CategoryId = 0, Type = "Ledlights" });
             await dbContext.AddAsync(new ProductType { CategoryId = 0, Type = "Foil" });
             await dbContext.AddAsync(new ProductType { CategoryId = 0, Type = "Interior" });

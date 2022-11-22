@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ASM_Auto.Data.Seed.Seeders.Category
 {
-    public class CategoriesSeed : ISeeder
+    public class InteriorsAccessoriesSeed : ISeeder
     {
         public async Task SeedAsync(ASMAutoDbContext dbContext)
         {

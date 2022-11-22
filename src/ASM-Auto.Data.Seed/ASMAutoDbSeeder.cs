@@ -24,7 +24,7 @@ namespace ASM_Auto.Data.Seed
 
             var seeders = new List<ISeeder>();
 
-             seeders.Add(new CategoriesSeed());
+             seeders.Add(new InteriorsAccessoriesSeed());
              seeders.Add(new ProductTypesSeed());
              seeders.Add(new LedlightsTypeSeed());
              seeders.Add(new LedlightsColorSeed());
@@ -33,6 +33,7 @@ namespace ASM_Auto.Data.Seed
              seeders.Add(new FoilsTypeSeed());
              seeders.Add(new FoilsColorSeed());
              seeders.Add(new FoilsPurposeSeed());
+             seeders.Add(new InteriorsAccessoriesSeed());
 
             foreach (var seeder in seeders)
             {

@@ -29,6 +29,10 @@ namespace ASM_Auto.Data
         public DbSet<LedlightsFormat> LedlightsFormats { get; set; } = null!;
         public DbSet<FoilsType> FoilsTypes { get; set; } = null!;
         public DbSet<FoilsColor> FoilsColor { get; set; } = null!;
+        public DbSet<FoilsPurpose> FoilsPurpose { get; set; } = null!;
+
+        public DbSet<InteriorsAccessory> InteriorsAccessories { get; set; } = null!;
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
