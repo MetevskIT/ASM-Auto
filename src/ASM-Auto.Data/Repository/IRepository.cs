@@ -9,7 +9,7 @@ namespace ASM_Auto.Data.Repository
     public interface IRepository<TEntity> : IDisposable
         where TEntity : class
     {
-        Task<IQueryable<TEntity>> GetAll();
+        IQueryable<TEntity> GetAll();
 
         Task AddAsync(TEntity entity);
 

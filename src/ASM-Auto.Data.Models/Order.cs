@@ -14,8 +14,8 @@ namespace ASM_Auto.Data.Models
         public Order()
         {
             //OrderedProducts = new List<Product>();
-            OrderedOn = DateTime.UtcNow;
-            Status = OrderStatus.Pending;
+            this.OrderedOn = DateTime.UtcNow;
+            this.Status = OrderStatus.Pending;
         }
 
         [Key]

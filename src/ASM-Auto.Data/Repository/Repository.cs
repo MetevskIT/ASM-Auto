@@ -26,7 +26,7 @@ namespace ASM_Auto.Data.Repository
         public void Delete(TEntity entity)
                => this.DbSet.Remove(entity);
 
-        public async Task<IQueryable<TEntity>> GetAll()
+        public IQueryable<TEntity> GetAll()
         {
             return this.DbSet;
         }
@@ -54,5 +54,7 @@ namespace ASM_Auto.Data.Repository
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
+      
     }
 }

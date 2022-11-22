@@ -16,8 +16,8 @@ namespace ASM_Auto.Data.Models
             this.Id = Guid.NewGuid();
             //Cart = new List<Product>();
             //LikedProducts = new List<Product>();
-            Orders = new List<Order>();
-            Contacts = new List<Contact>();
+            this.Orders = new List<Order>();
+            this.Contacts = new List<Contact>();
         }
         [Key]
         public Guid Id { get; set; }
