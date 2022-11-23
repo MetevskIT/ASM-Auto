@@ -9,6 +9,9 @@ namespace ASM_Auto.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "dbo");
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -324,7 +327,8 @@ namespace ASM_Auto.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "CartUserProduct",
+                schema: "dbo",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -332,9 +336,9 @@ namespace ASM_Auto.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserId);
+                    table.PrimaryKey("PK_CartUserProduct", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_Users_AspNetUsers_IdentityUserId",
+                        name: "FK_CartUserProduct_AspNetUsers_IdentityUserId",
                         column: x => x.IdentityUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -396,9 +400,10 @@ namespace ASM_Auto.Data.Migrations
                 {
                     table.PrimaryKey("PK_Contacts", x => x.ContactId);
                     table.ForeignKey(
-                        name: "FK_Contacts_Users_UserId",
+                        name: "FK_Contacts_CartUserProduct_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalSchema: "dbo",
+                        principalTable: "CartUserProduct",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -417,9 +422,10 @@ namespace ASM_Auto.Data.Migrations
                 {
                     table.PrimaryKey("PK_Orders", x => x.OrderId);
                     table.ForeignKey(
-                        name: "FK_Orders_Users_UserId",
+                        name: "FK_Orders_CartUserProduct_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalSchema: "dbo",
+                        principalTable: "CartUserProduct",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -449,9 +455,7 @@ namespace ASM_Auto.Data.Migrations
                     InteriorsAccessoryId = table.Column<int>(type: "int", nullable: true),
                     ExteriorsAccessoryId = table.Column<int>(type: "int", nullable: true),
                     CleaningAccessoryId = table.Column<int>(type: "int", nullable: true),
-                    MatsTypeId = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    UserId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    MatsTypeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -527,16 +531,6 @@ namespace ASM_Auto.Data.Migrations
                         principalTable: "ProductTypes",
                         principalColumn: "ProductTypeId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Product_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId");
-                    table.ForeignKey(
-                        name: "FK_Product_Users_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "Users",
-                        principalColumn: "UserId");
                 });
 
             migrationBuilder.CreateTable(
@@ -558,6 +552,56 @@ namespace ASM_Auto.Data.Migrations
                     table.ForeignKey(
                         name: "FK_OrderProduct_Product_OrderedProductsProductId",
                         column: x => x.OrderedProductsProductId,
+                        principalTable: "Product",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductUser",
+                columns: table => new
+                {
+                    LikedProductsProductId = table.Column<int>(type: "int", nullable: false),
+                    LikedUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductUser", x => new { x.LikedProductsProductId, x.LikedUserId });
+                    table.ForeignKey(
+                        name: "FK_ProductUser_CartUserProduct_LikedUserId",
+                        column: x => x.LikedUserId,
+                        principalSchema: "dbo",
+                        principalTable: "CartUserProduct",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductUser_Product_LikedProductsProductId",
+                        column: x => x.LikedProductsProductId,
+                        principalTable: "Product",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductUser1",
+                columns: table => new
+                {
+                    CartProductId = table.Column<int>(type: "int", nullable: false),
+                    CartUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductUser1", x => new { x.CartProductId, x.CartUserId });
+                    table.ForeignKey(
+                        name: "FK_ProductUser1_CartUserProduct_CartUserId",
+                        column: x => x.CartUserId,
+                        principalSchema: "dbo",
+                        principalTable: "CartUserProduct",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductUser1_Product_CartProductId",
+                        column: x => x.CartProductId,
                         principalTable: "Product",
                         principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
@@ -606,6 +650,12 @@ namespace ASM_Auto.Data.Migrations
                 name: "IX_CarsModels_CarMakeId",
                 table: "CarsModels",
                 column: "CarMakeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartUserProduct_IdentityUserId",
+                schema: "dbo",
+                table: "CartUserProduct",
+                column: "IdentityUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contacts_UserId",
@@ -693,24 +743,19 @@ namespace ASM_Auto.Data.Migrations
                 column: "ProductTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_UserId",
-                table: "Product",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Product_UserId1",
-                table: "Product",
-                column: "UserId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ProductTypes_CategoryId",
                 table: "ProductTypes",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_IdentityUserId",
-                table: "Users",
-                column: "IdentityUserId");
+                name: "IX_ProductUser_LikedUserId",
+                table: "ProductUser",
+                column: "LikedUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductUser1_CartUserId",
+                table: "ProductUser1",
+                column: "CartUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -737,6 +782,12 @@ namespace ASM_Auto.Data.Migrations
                 name: "OrderProduct");
 
             migrationBuilder.DropTable(
+                name: "ProductUser");
+
+            migrationBuilder.DropTable(
+                name: "ProductUser1");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -744,6 +795,10 @@ namespace ASM_Auto.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Product");
+
+            migrationBuilder.DropTable(
+                name: "CartUserProduct",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
                 name: "CarsModels");
@@ -785,16 +840,13 @@ namespace ASM_Auto.Data.Migrations
                 name: "ProductTypes");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "CarsMakes");
 
             migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
         }
     }
 }

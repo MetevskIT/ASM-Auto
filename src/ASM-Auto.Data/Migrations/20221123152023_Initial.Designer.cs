@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASM_Auto.Data.Migrations
 {
     [DbContext(typeof(ASMAutoDbContext))]
-    [Migration("20221123135408_Initial")]
+    [Migration("20221123152023_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -204,12 +204,6 @@ namespace ASM_Auto.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UserId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("ProductId");
 
                     b.HasIndex("CarMakeId");
@@ -239,10 +233,6 @@ namespace ASM_Auto.Data.Migrations
                     b.HasIndex("MatsTypeId");
 
                     b.HasIndex("ProductTypeId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Product");
                 });
@@ -470,7 +460,7 @@ namespace ASM_Auto.Data.Migrations
 
                     b.HasIndex("IdentityUserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("CartUserProduct", "dbo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -690,6 +680,36 @@ namespace ASM_Auto.Data.Migrations
                     b.ToTable("OrderProduct");
                 });
 
+            modelBuilder.Entity("ProductUser", b =>
+                {
+                    b.Property<int>("LikedProductsProductId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("LikedUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("LikedProductsProductId", "LikedUserId");
+
+                    b.HasIndex("LikedUserId");
+
+                    b.ToTable("ProductUser");
+                });
+
+            modelBuilder.Entity("ProductUser1", b =>
+                {
+                    b.Property<int>("CartProductId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("CartUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CartProductId", "CartUserId");
+
+                    b.HasIndex("CartUserId");
+
+                    b.ToTable("ProductUser1");
+                });
+
             modelBuilder.Entity("ASM_Auto.Data.Models.Car.CarModel", b =>
                 {
                     b.HasOne("ASM_Auto.Data.Models.Car.CarMake", "CarMake")
@@ -782,14 +802,6 @@ namespace ASM_Auto.Data.Migrations
                         .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ASM_Auto.Data.Models.User", null)
-                        .WithMany("Cart")
-                        .HasForeignKey("UserId");
-
-                    b.HasOne("ASM_Auto.Data.Models.User", null)
-                        .WithMany("LikedProducts")
-                        .HasForeignKey("UserId1");
 
                     b.Navigation("CarMake");
 
@@ -906,6 +918,36 @@ namespace ASM_Auto.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ProductUser", b =>
+                {
+                    b.HasOne("ASM_Auto.Data.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("LikedProductsProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ASM_Auto.Data.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("LikedUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProductUser1", b =>
+                {
+                    b.HasOne("ASM_Auto.Data.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("CartProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ASM_Auto.Data.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("CartUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ASM_Auto.Data.Models.Car.CarMake", b =>
                 {
                     b.Navigation("CarModels");
@@ -980,11 +1022,7 @@ namespace ASM_Auto.Data.Migrations
 
             modelBuilder.Entity("ASM_Auto.Data.Models.User", b =>
                 {
-                    b.Navigation("Cart");
-
                     b.Navigation("Contacts");
-
-                    b.Navigation("LikedProducts");
 
                     b.Navigation("Orders");
                 });

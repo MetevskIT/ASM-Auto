@@ -49,7 +49,7 @@ namespace ASM_Auto.Data
             modelBuilder.Entity<User>()
                .HasMany<Product>(p => p.LikedProducts)
                .WithMany(u => u.Liked);
-
+  
             modelBuilder.Entity<User>()
                .HasMany<Product>(p => p.Cart)
                .WithMany(u => u.Cart);
