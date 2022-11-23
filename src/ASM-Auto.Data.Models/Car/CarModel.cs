@@ -12,6 +12,7 @@ namespace ASM_Auto.Data.Models.Car
     {
         public CarModel()
         {
+            this.Products = new List<Product>();
         }
 
         [Key]
@@ -24,6 +25,8 @@ namespace ASM_Auto.Data.Models.Car
         [ForeignKey(nameof(CarMake))]
         public int CarMakeId { get; set; } 
         public CarMake CarMake { get; set; } = null!;
+
+        public ICollection<Product> Products { get; set; }
 
     }
 }

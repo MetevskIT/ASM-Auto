@@ -1,6 +1,7 @@
 ﻿using ASM_Auto.Data.Models;
 using ASM_Auto.Data.Models.Car;
 using ASM_Auto.Data.Models.Products.AutoAccessories.Mats;
+using ASM_Auto.Data.Models.Products.AutoCosmetics.CleaningAccessories;
 using ASM_Auto.Data.Models.Products.Exterior;
 using ASM_Auto.Data.Models.Products.Foil;
 using ASM_Auto.Data.Models.Products.Interior;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,9 +42,19 @@ namespace ASM_Auto.Data
         public DbSet<CarMake> CarsMakes { get; set; } = null!;
         public DbSet<CarModel> CarsModels { get; set; } = null!;
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        public DbSet<CleaningAccessory> CleaningAccessories { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
+            modelBuilder.Entity<User>()
+               .HasMany<Product>(p => p.LikedProducts)
+               .WithMany(u => u.Liked);
+
+            modelBuilder.Entity<User>()
+               .HasMany<Product>(p => p.Cart)
+               .WithMany(u => u.Cart);
+
+            base.OnModelCreating(modelBuilder);
         }
 
     }

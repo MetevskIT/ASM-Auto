@@ -1,4 +1,5 @@
 ﻿using ASM_Auto.Data.Seed.Common;
+using ASM_Auto.Data.Seed.Seeders.AutoCosmetics;
 using ASM_Auto.Data.Seed.Seeders.Categories;
 using ASM_Auto.Data.Seed.Seeders.Exterior;
 using ASM_Auto.Data.Seed.Seeders.Foil;

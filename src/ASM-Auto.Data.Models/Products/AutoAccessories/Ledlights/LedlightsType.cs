@@ -14,5 +14,7 @@ namespace ASM_Auto.Data.Models.Products.Ledlights
 
         [Required]
         public string LedlightType { get; set; } = null!;
+
+        public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }

@@ -12,15 +12,17 @@ namespace ASM_Auto.Data.Models.Car
         public CarMake()
         {
           
-            CarModels = new HashSet<CarModel>();
+            this.CarModels = new HashSet<CarModel>();
+            this.Products = new List<Product>();
         }
 
         [Key]
         public int CarMakeId { get; set; }
 
         [Required]
-        public string? CarMakeText { get; set; }
+        public string CarMakeText { get; set; } = null!;
 
         public ICollection<CarModel> CarModels { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }

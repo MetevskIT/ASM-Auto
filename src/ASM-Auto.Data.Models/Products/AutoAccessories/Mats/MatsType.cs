@@ -14,5 +14,7 @@ namespace ASM_Auto.Data.Models.Products.AutoAccessories.Mats
 
         [Required]
         public string MatsTypeName { get; set; } = null!;
+
+        public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }

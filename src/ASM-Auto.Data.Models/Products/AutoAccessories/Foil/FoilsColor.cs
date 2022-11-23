@@ -14,5 +14,7 @@ namespace ASM_Auto.Data.Models.Products.Foil
 
         [Required]
         public string FoilColor { get; set; } = null!;
+
+        public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }

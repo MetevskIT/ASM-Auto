@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASM_Auto.Data.Models.Products.Foil
+namespace ASM_Auto.Data.Models.Products.AutoCosmetics.CleaningAccessories
 {
-    public class FoilsType
+    public class CleaningAccessory
     {
         [Key]
-        public int FoilTypeId { get; set; }
+        public int CleaningAccessoryId { get; set; }
 
         [Required]
-        public string FoilType { get; set; } = null!;
+        public string CleaningAccessoryName { get; set; } = null!;
 
         public ICollection<Product> Products { get; set; } = new List<Product>();
     }

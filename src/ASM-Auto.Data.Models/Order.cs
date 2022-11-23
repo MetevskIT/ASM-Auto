@@ -13,7 +13,7 @@ namespace ASM_Auto.Data.Models
     {
         public Order()
         {
-            //OrderedProducts = new List<Product>();
+            this.OrderedProducts = new List<Product>();
             this.OrderedOn = DateTime.UtcNow;
             this.Status = OrderStatus.Pending;
         }
@@ -23,14 +23,14 @@ namespace ASM_Auto.Data.Models
 
         [Required]
         [ForeignKey(nameof(User))]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public User User { get; set; } = null!;
         public DateTime OrderedOn { get; set; }
 
         [Required]
         public OrderStatus Status { get; set; }
 
-        //[Required]
-        //public ICollection<Product> OrderedProducts { get; set; }
+        [Required]
+        public ICollection<Product> OrderedProducts { get; set; }
     }
 }

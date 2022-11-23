@@ -14,5 +14,7 @@ namespace ASM_Auto.Data.Models.Products.Interior
 
         [Required]
         public string InteriorAccessory { get; set; } = null!;
+
+        public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }
