@@ -1,0 +1,173 @@
+﻿body {
+  background: url(../img/white_leather.png) repeat 0 0;
+  font-family: 'Roboto Condensed',Sans-serif;
+  margin: 0px;
+}
+
+.nav {
+  background-color: #4790de;
+  margin: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 170px;
+  list-style-type: none;
+
+}
+
+.category-nav .nav {
+
+  padding-top: 0px;
+  padding-bottom: 0px;
+
+}
+
+.nav li {
+  display: inline;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: 60px;
+
+}
+
+.nav li a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline;
+}
+
+.nav li :hover {
+  color: #222;
+  text-decoration: none;
+
+}
+
+.category-nav .nav li :hover {
+  background-color: #222;
+}
+
+.logo {
+  text-align: center;
+}
+
+.logo h1 {
+  padding-top: 30px;
+  color: #666;
+  font-size: 50px;
+  margin: 0px;
+}
+
+.logo h1 span {
+  color: #4790de;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.category-nav .nav li {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.category-nav .nav li a {
+  font-size: 14px;
+  color: white;
+  padding: 22px 7px;
+  text-decoration: none;
+}
+
+.dropbtn {
+  background-color: #4790de;
+  font-family: 'Titillium Web',Sans-serif;
+  color: white;
+  padding: 8px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  font-size: 14px;
+  border: 0px;
+  height: 60px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #222;
+  min-width: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 16px 16px;
+  font-size: 13px;
+  text-decoration: none;
+  display: block;
+
+}
+
+.dropdown-content a:hover {
+  background-color: #4790de;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+ 
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #222;
+}
+
+.footer{
+  text-align: center;
+  background-color: #444;
+  
+}
+.container{
+  height: 700px;
+}
+.footer section{
+  text-align: center;
+  align-items: center;
+  display: inline-block;
+  padding-right: 150px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  vertical-align: top;
+  
+}
+
+.footer section a{
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 4px;
+}
+.footer h3{
+  margin: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #999;
+}
+
+.footer p{
+  margin: 0px;
+  color: white;
+}
+.secfooter{
+  background-color: black;
+  height: 50px;
+  color: white;
+  padding-top: 1px;
+  padding-left: 70px;
+
+}

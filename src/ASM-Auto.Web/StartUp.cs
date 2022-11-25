@@ -23,6 +23,7 @@ namespace ASM_Auto.Web
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ASMAutoDbContext>();
+               // .AddRoles<IdentityRole>();
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddServices();

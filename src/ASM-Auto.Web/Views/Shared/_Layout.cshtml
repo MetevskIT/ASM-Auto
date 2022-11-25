@@ -1,35 +1,108 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ASM_Auto.Web</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/ASM_Auto.Web.styles.css" asp-append-version="true" />
+    <title>@ViewData["Title"] - ASM Auto</title>
+    <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
 </head>
+
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ASM_Auto.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        <nav>
+            <section class="user-nav">
+            <ul class="nav">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <li>
+                        <a asp-area="" asp-controller="User" asp-action="Account">Моят акаунт</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="User" asp-action="LikedProducts">Харесани продукти</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="User" asp-action="Cart">Количка</a>
+                    </li>
+
+                }
+                else
+                {
+                    <li>
+                        <a asp-area="" asp-controller="Account" asp-action="Login">Влез</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
+                    </li>
+                }
+            </ul>
+            </section>
+            <section class="logo">
+                <h1>ASM<span>Auto</span></h1>
+                <h2>Всичко за вашия автомобил!</h2>
+            </section>
+
+            <section class="category-nav">
+                <ul class="nav">
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Index">НАЧАЛО</a>
+                    </li>
+
+                    <div class="dropdown">
+                        <button class="dropbtn">
+                            АВТОАКСЕСОАРИ
+             
+                        </button>
+                        <div class="dropdown-content">
+                            <a asp-area="" asp-controller="AutoAccessories" asp-action="Ledlights">ЛЕД ОСВЕТЛЕНИЕ</a>
+                            <a asp-area="" asp-controller="AutoAccessories" asp-action="Mats">СТЕЛКИ</a>
+                            <a asp-area="" asp-controller="AutoAccessories" asp-action="Foil">ФОЛИО</a>
+                            <a asp-area="" asp-controller="AutoAccessories" asp-action="Interior">ИНТЕРИОРНИ АКСЕСОАРИ</a>
+                            <a asp-area="" asp-controller="AutoAccessories" asp-action="Exterior">ВЪНШНИ АКСЕСОАРИ</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropbtn">
+                            АВТОКОЗМЕТИКА
+             
+                        </button>
+                        <div class="dropdown-content">
+                            <a asp-area="" asp-controller="AutoCosmetics" asp-action="Autoshampoo">АВТОШАМПОАНИ</a>
+                            <a asp-area="" asp-controller="AutoCosmetics" asp-action="CleaningTools">ГЪБИ,КЪРПИ,ЧЕТКИ И ГЮДЕРИИ</a>
+                            <a asp-area="" asp-controller="AutoCosmetics" asp-action="PolishingPastes">ПОЛИРАЩИ ПАСТИ</a>
+                            <a asp-area="" asp-controller="AutoCosmetics" asp-action="CleaningProducts">ПОЧИСТВАЩИ ПРЕПАРАТИ</a>
+                            <a asp-area="" asp-controller="AutoCosmetics" asp-action="Flavorings">АРОМАТИЗАТОРИ</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropbtn">
+                            НАВИГАЦИИ
+
+                        </button>
+                        <div class="dropdown-content">
+                            <a asp-area="" asp-controller="Multimedia" asp-action="Multimedia">МУЛТИМЕДИИ</a>
+                            <a asp-area="" asp-controller="Multimedia" asp-action="BackupCameras">КАМЕРИ ЗА ЗАДНО ВИЖДАНЕ</a>
+                            <a asp-area="" asp-controller="Multimedia" asp-action="DashCams">ВИДЕОРЕГИСТРАТОРИ</a>
+                        </div>
+                    </div>
+
+                        
+                        <li>
+                            <a asp-area="" asp-controller="Home" asp-action="Contact">КОНТАКТИ</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li>
+                            <a asp-area="" asp-controller="Home" asp-action="AboutUs">ЗА НАС</a>
                         </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
+                     
+
+                </ul>
+                
+            </section>
         </nav>
+       
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -37,14 +110,38 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - ASM_Auto.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer>
+    <div class="footer">
+        <section class="Links">
+            <h3>ASM<span>Auto</span></h3>
+            <p>ASMAuto е онлайн магазин за <br> качествени автомобилни продукти!</p>
+        </section>
+        <section class="User">
+            <h3>Потребител</h3>
+            @if (SignInManager.IsSignedIn(User)) { 
+              <a asp-area="" asp-controller="User" asp-action="Account">Моят профил</a>
+              <a asp-area="" asp-controller="User" asp-action="LikedProducts">Харесани продукти</a>
+              <a asp-area="" asp-controller="User" asp-action="Cart">Количка</a>
+            }
+            else
+            {
+              <a asp-area="" asp-controller="Account" asp-action="Login">Влез</a>
+              <a asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
+            }
+        </section>
+        <section class="Redirects">
+            <h3>Страници</h3>
+             <a asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
+             <a asp-area="" asp-controller="Home" asp-action="Contact">Контакти</a>
+            <a asp-area="" asp-controller="Home" asp-action="AboutUs">За нас</a>
+        </section>
+        </div>
+
+        <div class="secfooter">
+            <p>&copy; @DateTime.UtcNow.Year - ASMAuto. Всички правя запазени!</p>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
