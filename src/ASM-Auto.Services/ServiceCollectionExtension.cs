@@ -1,4 +1,6 @@
 ﻿using ASM_Auto.Data.Repository;
+using ASM_Auto.Services.AutoAccessoriesServices;
+using ASM_Auto.Services.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             //Add Services
-            
+            services.AddScoped<ILedlightsService, LedlightsService>();
+
 
             return services;
         }

@@ -16,8 +16,13 @@ namespace ASM_Auto.Data.Models
 {
     public class Product
     {
+        public Product()
+        {
+            this.ProductId = Guid.NewGuid();
+            this.AddDate = DateTime.UtcNow;
+        }
         [Key]
-        public int ProductId { get; set; }
+        public Guid ProductId { get; set; }
 
         [Required]
         public string Title { get; set; } = null!;
@@ -35,6 +40,14 @@ namespace ASM_Auto.Data.Models
         public bool IsActive { get; set; }
 
         [Required]
+        public string? ImageUrl { get; set; }
+
+        [Required]
+        public DateTime? AddDate { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(ProductType))]
+        public int? ProductTypeId { get; set; }
         public ProductType ProductType { get; set; } = null!;
 
         [Required]

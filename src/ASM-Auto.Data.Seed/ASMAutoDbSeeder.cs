@@ -6,6 +6,7 @@ using ASM_Auto.Data.Seed.Seeders.Foil;
 using ASM_Auto.Data.Seed.Seeders.Interior;
 using ASM_Auto.Data.Seed.Seeders.Ledlights;
 using ASM_Auto.Data.Seed.Seeders.ProductTypes;
+using ASM_Auto.Data.Seed.Seeders.Test;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,7 @@ namespace ASM_Auto.Data.Seed
              seeders.Add(new InteriorsAccessoriesSeed());
              seeders.Add(new CarMakesSeed());
              seeders.Add(new CarModelsSeed());
+            seeders.Add(new TestProducts());
 
             foreach (var seeder in seeders)
             {

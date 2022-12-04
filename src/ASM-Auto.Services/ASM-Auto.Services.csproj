@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ASM-Auto.Data\ASM-Auto.Data.csproj" />
+    <ProjectReference Include="..\ASM-Auto.ViewModels\ASM-Auto.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

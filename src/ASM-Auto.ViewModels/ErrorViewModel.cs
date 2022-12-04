@@ -1,4 +1,4 @@
-namespace ASM_Auto.Web.Models
+namespace ASM_Auto.Web.ViewModels
 {
     public class ErrorViewModel
     {

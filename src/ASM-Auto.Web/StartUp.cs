@@ -1,5 +1,9 @@
 using ASM_Auto.Data;
+using ASM_Auto.Data.Models;
+using ASM_Auto.Data.Repository;
 using ASM_Auto.Data.Seed;
+using ASM_Auto.Services.AutoAccessoriesServices;
+using ASM_Auto.Services.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,10 +25,11 @@ namespace ASM_Auto.Web
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ASMAutoDbContext>();
                // .AddRoles<IdentityRole>();
             builder.Services.AddControllersWithViews();
+
 
             builder.Services.AddServices();
 

@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>ASM_Auto.Data.Models</RootNamespace>
+    <RootNamespace>ASM_Auto.ViewModels</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.11" />
+    <ProjectReference Include="..\ASM-Auto.Data.Models\ASM-Auto.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>

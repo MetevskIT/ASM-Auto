@@ -1,0 +1,113 @@
+﻿.title{
+    margin-bottom: 0px;
+    margin-top: 20px;
+    text-align: center;
+    color: #4790de;
+    text-shadow: 1px 1px 3px black;
+    font-size: 35px;
+}
+.form-group, .form-control{
+    display: inline-block;
+}
+.form-group{
+    text-align: center;
+    padding-bottom: 10px;
+    padding-right: 20px;
+}
+.sbtBtn{
+text-align: center;
+background-color: #4790de;
+border-radius: 5px;
+border-color: #4790de;
+color: white;
+width: 85px;
+height: 28px;
+}
+.form{
+    padding-top: 25px;
+    text-align: center;
+}
+
+.form-control{
+    padding-left: 5px;
+    border-radius: 5px;
+    width: 120px;
+    height: 28px;
+    border-color: white;
+}
+
+.form-control:focus{
+border-color: #4790de;
+}
+hr.lineUnForm{
+    border-top: 1px solid #4790de;
+    width: 98%;
+}
+
+.card {
+    box-shadow: 0 2px 4px 0 black;
+    max-width: 250px;
+    text-align: center;
+    font-family: arial;
+    display: inline-block;
+background-color: rgb(236, 236, 236);
+  margin: 20px;
+  }
+    .card:hover{
+box-shadow:0 7px 10px 0 black;
+
+    }
+  
+
+  
+  .card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #4790de;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    margin: 0px;
+  }
+  
+  .card button:hover {
+    opacity: 0.7;
+  }
+
+  .card p {
+    margin: 0px;
+    padding-top: 18px;
+  }
+    .price {
+    color: grey;
+    font-size: 22px;
+    
+  }
+  .card h1{
+    margin: 0px;
+    padding-top: 20px;
+  }
+
+  .products{
+padding-left: 210px;
+padding-right: 210px;
+padding-top: 40px;
+padding-bottom: 50px;
+  }
+
+.card a{
+    text-decoration: none;
+    color: black;
+}
+
+.nf{
+    color: #4790de;
+    text-align: center;
+    font-size: 25px;
+    margin: 0px;
+    padding-top: 30px;
+    padding-bottom: 200px;
+}

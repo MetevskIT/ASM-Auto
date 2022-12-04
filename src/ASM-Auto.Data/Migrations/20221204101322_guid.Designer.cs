@@ -4,6 +4,7 @@ using ASM_Auto.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASM_Auto.Data.Migrations
 {
     [DbContext(typeof(ASMAutoDbContext))]
-    partial class ASMAutoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221204101322_guid")]
+    partial class guid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,10 +142,6 @@ namespace ASM_Auto.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("AddDate")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
-
                     b.Property<int?>("CarMakeId")
                         .HasColumnType("int");
 
@@ -200,8 +198,7 @@ namespace ASM_Auto.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("ProductTypeId")
-                        .IsRequired()
+                    b.Property<int>("ProductTypeId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")

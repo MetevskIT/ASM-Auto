@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASM_Auto.Data.Migrations
 {
     [DbContext(typeof(ASMAutoDbContext))]
-    [Migration("20221123152307_Edit")]
-    partial class Edit
+    [Migration("20221204102209_newRelqation")]
+    partial class newRelqation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -100,8 +100,9 @@ namespace ASM_Auto.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ContactId");
 
@@ -124,8 +125,9 @@ namespace ASM_Auto.Data.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("OrderId");
 
@@ -136,11 +138,9 @@ namespace ASM_Auto.Data.Migrations
 
             modelBuilder.Entity("ASM_Auto.Data.Models.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<Guid>("ProductId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("CarMakeId")
                         .HasColumnType("int");
@@ -170,6 +170,10 @@ namespace ASM_Auto.Data.Migrations
                     b.Property<bool>("FreeDelivery")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("InteriorsAccessoryId")
                         .HasColumnType("int");
 
@@ -194,7 +198,8 @@ namespace ASM_Auto.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProductTypeId")
+                    b.Property<int?>("ProductTypeId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -448,75 +453,6 @@ namespace ASM_Auto.Data.Migrations
 
             modelBuilder.Entity("ASM_Auto.Data.Models.User", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("IdentityUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId");
-
-                    b.HasIndex("IdentityUserId");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
@@ -578,6 +514,58 @@ namespace ASM_Auto.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -667,8 +655,8 @@ namespace ASM_Auto.Data.Migrations
 
             modelBuilder.Entity("OrderProduct", b =>
                 {
-                    b.Property<int>("OrderedProductsProductId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("OrderedProductsProductId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("OrdersOrderId")
                         .HasColumnType("int");
@@ -682,30 +670,30 @@ namespace ASM_Auto.Data.Migrations
 
             modelBuilder.Entity("ProductUser", b =>
                 {
-                    b.Property<int>("LikedProductsProductId")
-                        .HasColumnType("int");
+                    b.Property<string>("LikedId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("LikedUserId")
+                    b.Property<Guid>("LikedProductsProductId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("LikedProductsProductId", "LikedUserId");
+                    b.HasKey("LikedId", "LikedProductsProductId");
 
-                    b.HasIndex("LikedUserId");
+                    b.HasIndex("LikedProductsProductId");
 
                     b.ToTable("ProductUser");
                 });
 
             modelBuilder.Entity("ProductUser1", b =>
                 {
-                    b.Property<int>("CartProductId")
-                        .HasColumnType("int");
+                    b.Property<string>("CartId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("CartUserId")
+                    b.Property<Guid>("CartProductId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("CartProductId", "CartUserId");
+                    b.HasKey("CartId", "CartProductId");
 
-                    b.HasIndex("CartUserId");
+                    b.HasIndex("CartProductId");
 
                     b.ToTable("ProductUser1");
                 });
@@ -841,17 +829,6 @@ namespace ASM_Auto.Data.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("ASM_Auto.Data.Models.User", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
-                        .WithMany()
-                        .HasForeignKey("IdentityUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("IdentityUser");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -863,7 +840,7 @@ namespace ASM_Auto.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("ASM_Auto.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -872,7 +849,7 @@ namespace ASM_Auto.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("ASM_Auto.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -887,7 +864,7 @@ namespace ASM_Auto.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("ASM_Auto.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -896,7 +873,7 @@ namespace ASM_Auto.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("ASM_Auto.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -920,30 +897,30 @@ namespace ASM_Auto.Data.Migrations
 
             modelBuilder.Entity("ProductUser", b =>
                 {
-                    b.HasOne("ASM_Auto.Data.Models.Product", null)
+                    b.HasOne("ASM_Auto.Data.Models.User", null)
                         .WithMany()
-                        .HasForeignKey("LikedProductsProductId")
+                        .HasForeignKey("LikedId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ASM_Auto.Data.Models.User", null)
+                    b.HasOne("ASM_Auto.Data.Models.Product", null)
                         .WithMany()
-                        .HasForeignKey("LikedUserId")
+                        .HasForeignKey("LikedProductsProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("ProductUser1", b =>
                 {
-                    b.HasOne("ASM_Auto.Data.Models.Product", null)
+                    b.HasOne("ASM_Auto.Data.Models.User", null)
                         .WithMany()
-                        .HasForeignKey("CartProductId")
+                        .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ASM_Auto.Data.Models.User", null)
+                    b.HasOne("ASM_Auto.Data.Models.Product", null)
                         .WithMany()
-                        .HasForeignKey("CartUserId")
+                        .HasForeignKey("CartProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

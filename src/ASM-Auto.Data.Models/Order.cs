@@ -23,7 +23,7 @@ namespace ASM_Auto.Data.Models
 
         [Required]
         [ForeignKey(nameof(User))]
-        public Guid UserId { get; set; }
+        public string? UserId { get; set; }
         public User User { get; set; } = null!;
         public DateTime OrderedOn { get; set; }
 

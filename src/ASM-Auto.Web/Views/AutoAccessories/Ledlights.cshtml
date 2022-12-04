@@ -1,0 +1,86 @@
+﻿@model AllLedlightsQueryModel
+@{
+    ViewData["Title"] = "Светлини";
+}
+<h2 class = "title">Светлини</h2>
+
+<section class="form">
+
+<form method="get">
+    <div class="form-group">
+            <label></label>
+            <select asp-for="LedlightsType" class="form-control">
+                    <option value="" disabled selected hidden>Тип</option>
+                    @foreach (var type in Model.LedlightsTypes)
+                    {
+                       <option value="@type.LedlightType">@type.LedlightType</option>
+                    }
+                    
+                </select>
+            </div>
+
+               <div class="form-group">
+                <label ></label>
+
+            <select asp-for="LedlightsColor" class="form-control">
+                    <option value="" disabled selected hidden>Цвят</option>
+                @foreach (var color in Model.LedlightsColors)
+                {
+                    <option value="@color.LedlightColor">@color.LedlightColor</option>
+                }
+                </select>
+            </div>
+
+               <div class="form-group">
+                <label ></label>
+
+                <select asp-for="LedlightsPower" class="form-control">
+                    <option value="" disabled selected hidden> Мощност</option>
+                    @foreach (var power in Model.LedlightsPowers)
+                {
+                    <option value="@power.LedlightPower">@power.LedlightPower</option>
+                }
+                </select>
+            </div>
+
+               <div class="form-group">
+                <label ></label>
+
+            <select asp-for="LedlightsFormat" class="form-control">
+                    <option value="" disabled selected hidden>Размер</option>
+                @foreach (var format in Model.LedlightsFormats)
+                {
+                    <option value="@format.LedlightFormat">@format.LedlightFormat</option>
+                }
+                </select>
+            </div>
+             <div class="form-group">
+                <label ></label>
+
+            <select asp-for="OrderedProducts" class="form-control">
+                    <option value="" disabled selected hidden>Подреди по</option>
+                    <option value="1">Цена (възходящо)</option>
+                    <option value="2">Цена (низходящо)</option>
+                    <option value="0">Най-нови</option>
+                </select>
+            </div>
+    <input type="submit" value="Търсене..." class ="sbtBtn" />
+
+
+</form>
+<hr class ="lineUnForm">
+
+</section>
+<section class="products">
+
+    @if (Model.Ledlights.Any()) {
+        @foreach (var product in Model.Ledlights)
+        {
+            <partial name="_PartialProduct" model="@product" />
+        }
+
+    }
+    else{
+    <p class="nf">Няма намерени резултати!</p>
+    }
+</section>

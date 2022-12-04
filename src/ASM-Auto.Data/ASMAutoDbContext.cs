@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace ASM_Auto.Data
 {
-    public class ASMAutoDbContext : IdentityDbContext<IdentityUser>
+    public class ASMAutoDbContext : IdentityDbContext<User>
     {
         public ASMAutoDbContext(DbContextOptions options)
            : base(options)

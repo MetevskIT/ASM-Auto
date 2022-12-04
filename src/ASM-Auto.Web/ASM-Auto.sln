@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASM-Auto.Data.Seed", "..\AS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASM-Auto.Services", "..\ASM-Auto.Services\ASM-Auto.Services.csproj", "{D9742A16-0ACB-49C5-9D13-E71F0544CF3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASM-Auto.Common", "..\ASM-Auto.Common\ASM-Auto.Common.csproj", "{C9453A67-86B2-4650-BF2D-DEDC84215593}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASM-Auto.Common", "..\ASM-Auto.Common\ASM-Auto.Common.csproj", "{C9453A67-86B2-4650-BF2D-DEDC84215593}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASM-Auto.ViewModels", "..\ASM-Auto.ViewModels\ASM-Auto.ViewModels.csproj", "{F535EFCF-F64E-4BD2-94B8-787C55C02871}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{C9453A67-86B2-4650-BF2D-DEDC84215593}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9453A67-86B2-4650-BF2D-DEDC84215593}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9453A67-86B2-4650-BF2D-DEDC84215593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F535EFCF-F64E-4BD2-94B8-787C55C02871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F535EFCF-F64E-4BD2-94B8-787C55C02871}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F535EFCF-F64E-4BD2-94B8-787C55C02871}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F535EFCF-F64E-4BD2-94B8-787C55C02871}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +69,7 @@ Global
 		{BF87ACA2-C56F-4A44-97F7-9FABF53A9AD8} = {39FCFD1C-7718-46B2-8352-0A946308967B}
 		{7E580C95-218E-42AD-9F27-00BD8C251DA6} = {39FCFD1C-7718-46B2-8352-0A946308967B}
 		{D9742A16-0ACB-49C5-9D13-E71F0544CF3B} = {F758838A-4F6C-4D6C-86CD-A1DC07258128}
+		{F535EFCF-F64E-4BD2-94B8-787C55C02871} = {60C51DE5-D20E-4FC3-B3B1-243B5F5625DC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E336A43B-AF63-4FF7-A004-E74F7D124F54}

@@ -9,9 +9,6 @@ namespace ASM_Auto.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.EnsureSchema(
-                name: "dbo");
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -327,19 +324,43 @@ namespace ASM_Auto.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CartUserProduct",
-                schema: "dbo",
+                name: "Contacts",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdentityUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    ContactId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Theme = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Question = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartUserProduct", x => x.UserId);
+                    table.PrimaryKey("PK_Contacts", x => x.ContactId);
                     table.ForeignKey(
-                        name: "FK_CartUserProduct_AspNetUsers_IdentityUserId",
-                        column: x => x.IdentityUserId,
+                        name: "FK_Contacts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OrderedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.OrderId);
+                    table.ForeignKey(
+                        name: "FK_Orders_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -386,61 +407,16 @@ namespace ASM_Auto.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Contacts",
-                columns: table => new
-                {
-                    ContactId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Theme = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Question = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Contacts", x => x.ContactId);
-                    table.ForeignKey(
-                        name: "FK_Contacts_CartUserProduct_UserId",
-                        column: x => x.UserId,
-                        principalSchema: "dbo",
-                        principalTable: "CartUserProduct",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    OrderId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.OrderId);
-                    table.ForeignKey(
-                        name: "FK_Orders_CartUserProduct_UserId",
-                        column: x => x.UserId,
-                        principalSchema: "dbo",
-                        principalTable: "CartUserProduct",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Product",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductTypeId = table.Column<int>(type: "int", nullable: false),
                     FreeDelivery = table.Column<bool>(type: "bit", nullable: false),
                     CarMakeId = table.Column<int>(type: "int", nullable: true),
@@ -537,7 +513,7 @@ namespace ASM_Auto.Data.Migrations
                 name: "OrderProduct",
                 columns: table => new
                 {
-                    OrderedProductsProductId = table.Column<int>(type: "int", nullable: false),
+                    OrderedProductsProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OrdersOrderId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -561,18 +537,17 @@ namespace ASM_Auto.Data.Migrations
                 name: "ProductUser",
                 columns: table => new
                 {
-                    LikedProductsProductId = table.Column<int>(type: "int", nullable: false),
-                    LikedUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    LikedId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LikedProductsProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductUser", x => new { x.LikedProductsProductId, x.LikedUserId });
+                    table.PrimaryKey("PK_ProductUser", x => new { x.LikedId, x.LikedProductsProductId });
                     table.ForeignKey(
-                        name: "FK_ProductUser_CartUserProduct_LikedUserId",
-                        column: x => x.LikedUserId,
-                        principalSchema: "dbo",
-                        principalTable: "CartUserProduct",
-                        principalColumn: "UserId",
+                        name: "FK_ProductUser_AspNetUsers_LikedId",
+                        column: x => x.LikedId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProductUser_Product_LikedProductsProductId",
@@ -586,18 +561,17 @@ namespace ASM_Auto.Data.Migrations
                 name: "ProductUser1",
                 columns: table => new
                 {
-                    CartProductId = table.Column<int>(type: "int", nullable: false),
-                    CartUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CartId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CartProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductUser1", x => new { x.CartProductId, x.CartUserId });
+                    table.PrimaryKey("PK_ProductUser1", x => new { x.CartId, x.CartProductId });
                     table.ForeignKey(
-                        name: "FK_ProductUser1_CartUserProduct_CartUserId",
-                        column: x => x.CartUserId,
-                        principalSchema: "dbo",
-                        principalTable: "CartUserProduct",
-                        principalColumn: "UserId",
+                        name: "FK_ProductUser1_AspNetUsers_CartId",
+                        column: x => x.CartId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProductUser1_Product_CartProductId",
@@ -650,12 +624,6 @@ namespace ASM_Auto.Data.Migrations
                 name: "IX_CarsModels_CarMakeId",
                 table: "CarsModels",
                 column: "CarMakeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CartUserProduct_IdentityUserId",
-                schema: "dbo",
-                table: "CartUserProduct",
-                column: "IdentityUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Contacts_UserId",
@@ -748,14 +716,14 @@ namespace ASM_Auto.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductUser_LikedUserId",
+                name: "IX_ProductUser_LikedProductsProductId",
                 table: "ProductUser",
-                column: "LikedUserId");
+                column: "LikedProductsProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductUser1_CartUserId",
+                name: "IX_ProductUser1_CartProductId",
                 table: "ProductUser1",
-                column: "CartUserId");
+                column: "CartProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -797,8 +765,7 @@ namespace ASM_Auto.Data.Migrations
                 name: "Product");
 
             migrationBuilder.DropTable(
-                name: "CartUserProduct",
-                schema: "dbo");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "CarsModels");
@@ -838,9 +805,6 @@ namespace ASM_Auto.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProductTypes");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "CarsMakes");
