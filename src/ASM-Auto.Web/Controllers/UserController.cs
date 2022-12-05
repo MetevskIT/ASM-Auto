@@ -1,5 +1,6 @@
 ﻿using ASM_Auto.Services.Common;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 
 namespace ASM_Auto.Web.Controllers
@@ -17,8 +18,18 @@ namespace ASM_Auto.Web.Controllers
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            await this.userService.AddToCart(paramId, userId);
 
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddToLiked([FromQuery] Guid paramId) 
+        {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            await userService.AddToLikedCollection(paramId, userId);
+
+            return View();
         }
     }
 }

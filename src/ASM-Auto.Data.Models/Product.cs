@@ -114,6 +114,6 @@ namespace ASM_Auto.Data.Models
         public ICollection<Order> Orders { get; set; } = new List<Order>();
 
         public virtual ICollection<User> Liked { get; set; } = new List<User>();
-        public virtual ICollection<User> Cart { get; set; } = new List<User>();
+        public virtual ICollection<CartProduct> Cart { get; set; } = new List<CartProduct>();
     }
 }

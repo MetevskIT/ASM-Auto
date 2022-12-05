@@ -1,8 +1,10 @@
 ﻿using ASM_Auto.Data.Models;
+using ASM_Auto.Services.Common;
 using ASM_Auto.ViewModels.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ASM_Auto.Web.Controllers
 {
@@ -10,11 +12,13 @@ namespace ASM_Auto.Web.Controllers
     {
         public UserManager<User> userManager;
         public SignInManager<User> signInManager;
+        public ICartService cartService;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ICartService cartService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.cartService = cartService;
         }
 
         [HttpGet]
@@ -91,7 +95,10 @@ namespace ASM_Auto.Web.Controllers
             
             if (result.Succeeded)
             {
+                await cartService.CreateCart(user.Id);
                 await signInManager.PasswordSignInAsync(user, model.Password, false, false);
+
+
                 return RedirectToAction("Index", "Home");
                 
             }

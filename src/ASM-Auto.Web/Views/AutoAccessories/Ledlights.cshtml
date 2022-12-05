@@ -109,7 +109,7 @@
    Назад
    </a>
 
-<a class="paginationBtn @(Model.currentPage==maxPage? "isDisabled" : String.Empty)"
+<a class="paginationBtn @(Model.currentPage>=maxPage? "isDisabled" : String.Empty)"
    asp-controller="AutoAccessories"
    asp-action="Ledlights"
    asp-route-currentPage="@(Model.currentPage + 1)"

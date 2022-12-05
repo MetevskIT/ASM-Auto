@@ -9,6 +9,7 @@ namespace ASM_Auto.Services.Common
 
     public interface IUserService
     {
-        public Task AddToCart(Guid productId, string userId);
+        public Task AddToLikedCollection(Guid productId, string userId);
+        public Task RemoveFromLikedCollection(Guid productId, string userId);
     }
 }

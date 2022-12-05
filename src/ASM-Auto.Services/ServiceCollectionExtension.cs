@@ -1,6 +1,7 @@
 ﻿
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.AutoAccessoriesServices;
+using ASM_Auto.Services.CartService;
 using ASM_Auto.Services.Common;
 using ASM_Auto.Services.UserServices;
 
@@ -17,6 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
             //Add Services
             services.AddScoped<ILedlightsService, LedlightsService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICartService, CartService>();
 
 
             return services;

@@ -23,7 +23,7 @@ namespace ASM_Auto.Services.UserServices
             this.productRepository = productRepository;
         }
 
-        public async Task AddToCart(Guid productId, string userId)
+        public async Task AddToLikedCollection(Guid productId, string userId)
         {
             var product = await productRepository.GetAll()
                  .Where(x => x.ProductId == productId)
@@ -43,9 +43,37 @@ namespace ASM_Auto.Services.UserServices
                 throw new ArgumentNullException("Потребителя не е намерен!");
             }
 
-            user.Cart.Add(product);
+            user.LikedProducts.Add(product);
             await userRepository.SaveChangesAsync();
             await productRepository.SaveChangesAsync();
+        }
+
+        public async Task RemoveFromLikedCollection(Guid productId, string userId)
+        {
+            var product = await productRepository.GetAll()
+               .Where(x => x.ProductId == productId)
+               .FirstOrDefaultAsync();
+
+            var user = await userRepository.GetAll()
+                .Where(u => u.Id == userId)
+                .FirstOrDefaultAsync();
+
+            if (product == null)
+            {
+                throw new ArgumentNullException("Продукта не е намерен!");
+            }
+
+            if (user == null)
+            {
+                throw new ArgumentNullException("Потребителя не е намерен!");
+            }
+
+            if (user.LikedProducts.Contains(product))
+            {
+                user.LikedProducts.Remove(product);
+                await userRepository.SaveChangesAsync();
+                await productRepository.SaveChangesAsync();
+            }
         }
     }
 }

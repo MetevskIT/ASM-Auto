@@ -4,6 +4,7 @@ using ASM_Auto.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASM_Auto.Data.Migrations
 {
     [DbContext(typeof(ASMAutoDbContext))]
-    partial class ASMAutoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221205212731_nullable")]
+    partial class nullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,6 +69,9 @@ namespace ASM_Auto.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("ProductCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -74,24 +79,6 @@ namespace ASM_Auto.Data.Migrations
                     b.HasKey("CartId");
 
                     b.ToTable("Carts");
-                });
-
-            modelBuilder.Entity("ASM_Auto.Data.Models.CartProduct", b =>
-                {
-                    b.Property<Guid>("CartId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ProductCount")
-                        .HasColumnType("int");
-
-                    b.HasKey("CartId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("CartProduct");
                 });
 
             modelBuilder.Entity("ASM_Auto.Data.Models.Category", b =>
@@ -558,6 +545,21 @@ namespace ASM_Auto.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("CartProduct", b =>
+                {
+                    b.Property<Guid>("CartId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductsProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CartId", "ProductsProductId");
+
+                    b.HasIndex("ProductsProductId");
+
+                    b.ToTable("CartProduct");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -736,25 +738,6 @@ namespace ASM_Auto.Data.Migrations
                     b.Navigation("CarMake");
                 });
 
-            modelBuilder.Entity("ASM_Auto.Data.Models.CartProduct", b =>
-                {
-                    b.HasOne("ASM_Auto.Data.Models.Cart", "Cart")
-                        .WithMany("Products")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ASM_Auto.Data.Models.Product", "Product")
-                        .WithMany("Cart")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("ASM_Auto.Data.Models.Contact", b =>
                 {
                     b.HasOne("ASM_Auto.Data.Models.User", "User")
@@ -885,6 +868,21 @@ namespace ASM_Auto.Data.Migrations
                     b.Navigation("Cart");
                 });
 
+            modelBuilder.Entity("CartProduct", b =>
+                {
+                    b.HasOne("ASM_Auto.Data.Models.Cart", null)
+                        .WithMany()
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ASM_Auto.Data.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -980,19 +978,12 @@ namespace ASM_Auto.Data.Migrations
 
             modelBuilder.Entity("ASM_Auto.Data.Models.Cart", b =>
                 {
-                    b.Navigation("Products");
-
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("ASM_Auto.Data.Models.Category", b =>
                 {
                     b.Navigation("Types");
-                });
-
-            modelBuilder.Entity("ASM_Auto.Data.Models.Product", b =>
-                {
-                    b.Navigation("Cart");
                 });
 
             modelBuilder.Entity("ASM_Auto.Data.Models.Products.AutoAccessories.Mats.MatsType", b =>

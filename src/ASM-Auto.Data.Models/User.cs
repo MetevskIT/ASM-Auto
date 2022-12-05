@@ -14,13 +14,13 @@ namespace ASM_Auto.Data.Models
         public User()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.Cart = new List<Product>();
             this.LikedProducts = new List<Product>();
             this.Orders = new List<Order>();
             this.Contacts = new List<Contact>();
         }
-
-        public ICollection<Product> Cart { get; set; }
+        [ForeignKey(nameof(Cart))]
+        public Guid? CartId { get; set; }
+        public Cart? Cart { get; set; }
         public ICollection<Product> LikedProducts { get; set; }
         public ICollection<Order> Orders { get; set; }
         public ICollection<Contact> Contacts { get; set; }

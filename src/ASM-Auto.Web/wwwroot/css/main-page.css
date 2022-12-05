@@ -75,9 +75,6 @@ box-shadow:0 7px 10px 0 black;
   .card button a{
     color: white;
   }
-  .card button:hover {
-    opacity: 0.7;
-  }
 
   .card p {
     margin: 0px;

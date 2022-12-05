@@ -41,7 +41,7 @@ namespace ASM_Auto.Data
         public DbSet<MatsType> MatsTypes { get; set; } = null!;
         public DbSet<CarMake> CarsMakes { get; set; } = null!;
         public DbSet<CarModel> CarsModels { get; set; } = null!;
-
+        public DbSet<Cart> Carts { get; set; } = null!;
         public DbSet<CleaningAccessory> CleaningAccessories { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -49,10 +49,14 @@ namespace ASM_Auto.Data
             modelBuilder.Entity<User>()
                .HasMany<Product>(p => p.LikedProducts)
                .WithMany(u => u.Liked);
-  
+
             modelBuilder.Entity<User>()
-               .HasMany<Product>(p => p.Cart)
-               .WithMany(u => u.Cart);
+               .HasOne<Cart>(c => c.Cart)
+               .WithOne(c => c.User)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<CartProduct>()
+                .HasKey(pk => new { pk.CartId, pk.ProductId });
 
             base.OnModelCreating(modelBuilder);
         }
