@@ -10,6 +10,7 @@
     <title>@ViewData["Title"] - ASM Auto</title>
     <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/main-page.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
 </head>
 
 <body>
@@ -20,7 +21,7 @@
                 @if (SignInManager.IsSignedIn(User))
                 {
                     <li>
-                        <a asp-area="" asp-controller="User" asp-action="Account">Моят акаунт</a>
+                        <a asp-area="" asp-controller="User" asp-action="MyAccount">Моят акаунт</a>
                     </li>
                     <li>
                         <a asp-area="" asp-controller="User" asp-action="LikedProducts">Харесани продукти</a>
@@ -28,12 +29,15 @@
                     <li>
                         <a asp-area="" asp-controller="User" asp-action="Cart">Количка</a>
                     </li>
+                    <li>
+                     <a asp-area="" asp-controller="Account" asp-action="Logout">Излез</a>
+                    </li>
 
                 }
                 else
                 {
                     <li>
-                        <a asp-area="" asp-controller="Account" asp-action="Login">Влез</a>
+                        <a asp-area="" asp-controller="Account" asp-action="Login">Вход</a>
                     </li>
                     <li>
                         <a asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
@@ -120,13 +124,13 @@
         <section class="User">
             <h3>Потребител</h3>
             @if (SignInManager.IsSignedIn(User)) { 
-              <a asp-area="" asp-controller="User" asp-action="Account">Моят профил</a>
+              <a asp-area="" asp-controller="User" asp-action="MyAccount">Моят профил</a>
               <a asp-area="" asp-controller="User" asp-action="LikedProducts">Харесани продукти</a>
               <a asp-area="" asp-controller="User" asp-action="Cart">Количка</a>
             }
             else
             {
-              <a asp-area="" asp-controller="Account" asp-action="Login">Влез</a>
+              <a asp-area="" asp-controller="Account" asp-action="Login">Вход</a>
               <a asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
             }
         </section>
@@ -142,6 +146,9 @@
             <p>&copy; @DateTime.UtcNow.Year - ASMAuto. Всички правя запазени!</p>
         </div>
     </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

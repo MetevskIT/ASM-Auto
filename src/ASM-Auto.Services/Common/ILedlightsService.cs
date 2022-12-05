@@ -12,12 +12,14 @@ namespace ASM_Auto.Services.Common
 {
     public interface ILedlightsService
     {
+        public Task<int> GetLedlightsCount();
         public Task<IEnumerable<LedlightsColor>> GetLedlightsColors();
         public Task<IEnumerable<LedlightsFormat>> GetLedlightsFormats();
         public Task<IEnumerable<LedlightsModel>> GetLedlightsModels();
         public Task<IEnumerable<LedlightsPower>> GetLedlightsPower();
         public Task<IEnumerable<LedlightsType>> GetLedlightsTypes();
-        public Task<IEnumerable<LedlightsModel>> GetLedlights(int currentPage = 1,
+        public Task<IEnumerable<LedlightsModel>> GetLedlights(
+            int currentPage,
             string? ledlightsType = null,
             string? ledlightsColor = null,
             string? ledlightsPower = null,

@@ -1,0 +1,71 @@
+﻿.accForm{
+    text-align: center;
+    display: inline-block;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 0px;
+    box-shadow: 0 2px 4px 0 black;
+    margin: 50px;
+    padding-top: 50px;
+    padding-bottom: 60px;
+    padding-left: 60px;
+    padding-right: 60px;
+    background-color: white
+}
+.accForm .field{
+
+    padding-top: 15px;
+}
+.sectionLoginForm{
+    text-align: center;
+}
+
+.accForm .field label{
+    color: #4790de;
+    font-size: 18px;
+}
+
+.accForm .form-control{
+    min-width:300px;
+    background-color: #e0e3e6;
+    box-shadow: 0 1px 5px 0 black;
+    font-size: 15px;
+    margin-top: 12px;
+    padding-left: 18px;
+    height: 40px;
+    border-radius: 2px;
+    border-width:0px;
+    border-style: solid;
+    border-color: black;
+}
+
+.accForm .form-control:focus{
+ outline-width: 1px;
+ outline-color: #7a7a7a ;
+}
+.formTitle{
+    margin: 0px;
+    padding-bottom: 15px;
+    color: #4790de;
+    font-size: 25px;
+}
+.fSpan{
+    margin: 0px;
+    padding: 0px;
+}
+.btn-primary{
+    margin: 35px;
+    background-color: #4790de;
+    color: white;
+    width: auto;
+    height: 30px;
+    border-radius: 5px;
+    border: 0px;
+
+}
+.btn-primary:hover{
+    background-color: #316ba8;
+}
+.text-danger{
+    color: red;
+}

@@ -18,13 +18,14 @@ namespace ASM_Auto.Web.Controllers
         {
              
             var products = await ledlightsService.GetLedlights(
-                AllLedlightsQueryModel.productsPerPage,
+                queryModel.currentPage,
                 queryModel.LedlightsType,
                 queryModel.LedlightsColor,
                 queryModel.LedlightsPower,
                 queryModel.LedlightsFormat,
                 queryModel.OrderedProducts);
 
+            queryModel.LedlightsCount = await ledlightsService.GetLedlightsCount();
             queryModel.LedlightsFormats = await ledlightsService.GetLedlightsFormats();
             queryModel.LedlightsPowers = await ledlightsService.GetLedlightsPower();
             queryModel.LedlightsColors = await ledlightsService.GetLedlightsColors();

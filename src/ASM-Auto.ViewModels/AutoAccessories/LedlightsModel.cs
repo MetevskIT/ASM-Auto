@@ -5,6 +5,8 @@ namespace ASM_Auto.Web.ViewModels.AutoAccessories
     public class LedlightsModel
     {
         [Required]
+        public Guid LedlightId { get; set; }
+        [Required]
         public string? Title { get; set; }
         [Required]
         public decimal Price { get; set; }

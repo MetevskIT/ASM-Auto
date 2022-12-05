@@ -1,0 +1,29 @@
+﻿@using ASM_Auto.ViewModels.Account
+@model LoginViewModel 
+
+<section class="sectionLoginForm">
+    <form class="accForm" method="post">
+        <h2 class="formTitle">Вход</h2>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    
+        <div class="field">
+            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            <br>
+            <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Email" placeholder="Email" />
+        </div>
+        <div class="field">
+
+            <span asp-validation-for="@Model.Password" class="text-danger"></span>
+            <br>
+            <input class="form-control" type="password" autocomplete="new-password" aria-required="true" asp-for="@Model.Password" placeholder="*********" />
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn-primary">Вход</button>
+            <br>
+            <span class="fSpan">Нямате профил? Регистрирайте се от <a href="/Account/Register">тук</a>.</span>
+        </div>
+    </form>
+</section>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial.cshtml" />
+}

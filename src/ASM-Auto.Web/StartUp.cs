@@ -33,6 +33,13 @@ namespace ASM_Auto.Web
 
             builder.Services.AddServices();
 
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
+                options.AccessDeniedPath = "/Shared/AccessDenied";
+            });
+
             var app = builder.Build();
 
             //Seed Data

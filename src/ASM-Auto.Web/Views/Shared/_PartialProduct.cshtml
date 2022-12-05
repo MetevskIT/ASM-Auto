@@ -1,10 +1,10 @@
 ﻿@model LedlightsModel
 <div class="card">
-                  <a href="https://www.w3docs.com/">
+                  <a href="/Product?productId=@Model.LedlightId">
   <img src="@Model.ImageUrl" alt="Denim Jeans" style="width:100%">
   <h1>@Model.Title</h1>
   <p class="price">@Model.Price лв.</p>
   <p>@Model.Description</p>
   </a>
-  <p><button>Добави в количката</button></p>
+    <p><button><a href="/User/AddToCart?paramId=@Model.LedlightId">Добави в количката</a></button></p>
 </div>

@@ -1,0 +1,38 @@
+﻿@using ASM_Auto.ViewModels.Account
+@model RegisterViewModel 
+
+<section class="sectionLoginForm">
+
+<form class="accForm" method="post">
+        <h2 class="formTitle">Регистрация</h2>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="field">
+        <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+            <br>
+        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.UserName" placeholder="Потребителско име"/>
+    </div>
+    <div class="field">
+        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+            <br>
+        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Email" placeholder="Email"/>
+    </div>
+    <div class="field">
+        <span asp-validation-for="@Model.Password" class="text-danger"></span>
+            <br>
+        <input class="form-control" type="password" autocomplete="new-password" aria-required="true" asp-for="@Model.Password" placeholder="*********"/>
+    </div>
+    <div class="field">
+            <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+            <br>
+            <input class="form-control" type="password" autocomplete="new-password" aria-required="true" asp-for="@Model.ConfirmPassword" placeholder="*********" />
+    </div>
+    <div class="text-center">
+            <button class="btn-primary" type="submit">Регистрация</button>
+        <br>
+            <span class="fSpan" >Вече имате регистрация? Влезте от <a href="/Account/Login">тук</a>.</span>
+    </div>
+</form>
+</section>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial.cshtml" />
+}

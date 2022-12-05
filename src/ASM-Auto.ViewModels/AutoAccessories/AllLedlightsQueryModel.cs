@@ -20,6 +20,7 @@ namespace ASM_Auto.Web.ViewModels.AutoAccessories
         public int currentPage { get; set; } = 1;
 
         public const int productsPerPage = 20;
+        public int LedlightsCount { get; set; }
 
         public string? LedlightsType { get; set; }
         public string? LedlightsColor { get; set; }

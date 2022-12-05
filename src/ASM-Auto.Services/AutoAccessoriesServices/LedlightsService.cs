@@ -40,7 +40,16 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             this.ledLightsTypeRepo = ledLightsTypeRepo;
 
         }
-        public async Task<IEnumerable<LedlightsModel>> GetLedlights(int currentPage = 1,
+        public async Task<int> GetLedlightsCount() 
+        {
+           return repository
+                  .GetAll()
+                  .Where(t => t.ProductType.Type == "Ledlights")
+                  .AsQueryable()
+                  .Count();
+        }
+        public async Task<IEnumerable<LedlightsModel>> GetLedlights(
+            int currentPage = 1,
             string? ledlightsType = null,
             string? ledlightsColor = null,
             string? ledlightsPower = null,
@@ -52,6 +61,7 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             var result = new List<LedlightsModel>();
 
             var ledlights = this.repository.GetAll()
+                .Where(p=>p.ProductType.Type == "Ledlights")
                 .Where(p => p.IsActive);
 
             if (!String.IsNullOrEmpty(ledlightsType))
@@ -84,8 +94,12 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
                     break;
             }
 
-            result = await ledlights.Select(p => new LedlightsModel
+            result = await ledlights
+                .Skip((currentPage-1)*productsPerPage)
+                .Take(productsPerPage)
+                .Select(p => new LedlightsModel
             {
+                LedlightId = p.ProductId,
                 Title = p.Title,
                 Description = p.Description,
                 Price = p.Price,

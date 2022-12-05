@@ -72,7 +72,9 @@ box-shadow:0 7px 10px 0 black;
     font-size: 18px;
     margin: 0px;
   }
-  
+  .card button a{
+    color: white;
+  }
   .card button:hover {
     opacity: 0.7;
   }
@@ -110,4 +112,30 @@ padding-bottom: 50px;
     margin: 0px;
     padding-top: 30px;
     padding-bottom: 200px;
+}
+.paginationSection .paginationBtn{
+    text-decoration: none;
+    background-color: #4790de;
+    color: white;
+    margin-left: 25px;
+    padding: 4px;
+    padding-left: 5px;
+    border-radius: 3px;
+}
+
+
+.paginationSection .paginationBtn:hover{
+ background-color: #316ba8;
+ box-shadow:0 1px 3px 0 black;
+}
+
+.paginationSection .isDisabled {
+    pointer-events: none;
+    background-color: #316ba8;
+  }
+
+.paginationSection{
+text-align: center;
+padding-bottom: 60px;
+
 }
