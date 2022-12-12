@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASM-Auto.Services", "..\ASM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASM-Auto.Common", "..\ASM-Auto.Common\ASM-Auto.Common.csproj", "{C9453A67-86B2-4650-BF2D-DEDC84215593}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASM-Auto.ViewModels", "..\ASM-Auto.ViewModels\ASM-Auto.ViewModels.csproj", "{F535EFCF-F64E-4BD2-94B8-787C55C02871}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASM-Auto.ViewModels", "..\ASM-Auto.ViewModels\ASM-Auto.ViewModels.csproj", "{F535EFCF-F64E-4BD2-94B8-787C55C02871}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

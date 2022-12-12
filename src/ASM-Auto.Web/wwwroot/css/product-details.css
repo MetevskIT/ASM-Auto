@@ -1,0 +1,177 @@
+﻿.details{
+text-align: center;
+
+padding-left: 250px;
+}
+
+.details-area{
+    margin: 60px;
+    padding: 30px;
+    padding-left: 50px;
+    text-align: justify;
+    width: 1200px;
+    height: 560px;
+border-radius: 10px;
+background-color: white;
+}
+.details-area img{
+
+    width: 650px;
+    height: 430px;
+    display: inline-block;
+}
+.main-img{
+    border-radius: 10px;
+}
+.mini-imgs{
+    display: inline-block;
+}
+.image-area{
+    display: inline-block;
+
+}
+
+.mini-imgs img{
+    padding-top: 10px;
+    width: 86px;
+    height: 60px;
+
+}
+.mini-imgs img:hover, .active{ 
+    filter:opacity(60%)
+}
+
+.text{
+    display: inline-block;
+    padding-top: 0px;
+    position:absolute;
+    width:400px;
+
+    margin-left: 70px;
+
+}
+
+.text hr{
+    border-top: 1px solid #4790de;
+    border-bottom: 0px;
+
+}
+
+.text .details-title{
+    padding-left:0px;
+    display: inline-block;
+    margin-bottom: 0px;
+    color: #666;
+}
+.image-area{
+    padding-top: 20px;
+}
+.text{
+    padding-top: 60px;
+}
+.text .price{
+    font-size: 19px;
+    color: #4790de;
+    padding-left: 5px;
+}
+.text .priceArea{
+    margin-top: 0px;
+    font-size: 19px;
+    color:#666;
+    margin-bottom: 15px;
+}
+.text .oldPrice{
+    color: black;
+    text-decoration: line-through;
+}
+.text .car{
+    font-size: 17px;
+
+}
+
+.text .car span{
+    color: #666;
+
+}
+
+.text .hidden{
+    display: none;
+}
+.text .line-description{
+    margin-top: 0px;
+    display: inline-block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color:#666
+}
+.text .description-icon{
+    padding-right: 5px;
+    font-size: 14px;
+    color:#4790de
+}
+.text form{
+    display: inline-block;
+    margin-top: 20px;
+}
+.text form input[type=submit]{
+background-color: #4790de;
+border: 0px;
+padding: 10px;
+border-radius: 5px;
+color: white;
+font-size: 18px;
+
+}
+.text form input[type=submit]:hover{
+background-color: #316ba8;
+}
+
+.text form input[type=number]{
+border-color: #316ba8;
+border-style: solid;
+border-radius: 5px;
+height:34px;
+margin-right: 10px;
+font-size: 16px;
+padding-left: 12px;
+}
+
+.text form input[type=submit]:disabled{
+    background-color: #316ba8;
+    }
+
+.text a{
+    text-decoration: none;
+    background-color: #4790de;
+    color: white;
+    padding: 10px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 5px;
+    font-size: 18px;
+
+}
+.text a:hover{
+    background-color: #316ba8;
+}
+.text .categpry{
+    margin-top: 0px;
+    color: #4790de;
+}
+
+.text .availale{
+    color: green;
+    font-weight:700;
+}
+.text .delivery{
+    font-weight: 600;
+}
+
+.text .not-availale{
+    margin-top: 0px;
+    color: red;
+    font-weight:700;
+}
+.text .icon{
+    padding-right: 5px;
+}

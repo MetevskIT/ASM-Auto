@@ -1,6 +1,7 @@
 ﻿using ASM_Auto.Data.Models;
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,8 @@ namespace ASM_Auto.Services.CartService
             this.cartRepository = cartRepository;
         }
 
-        public async Task CreateCart(string userId)
+
+        public async Task<Guid> CreateCart(string userId)
         {
             var cart = new Cart()
             {
@@ -26,6 +28,23 @@ namespace ASM_Auto.Services.CartService
             };
            await cartRepository.AddAsync(cart);
            await cartRepository.SaveChangesAsync();
+
+            return cart.CartId;
         }
+
+        //public async Task<Product> GetCartProducts(string userId)
+        //{
+        //    var products = await cartRepository.GetAll()
+        //        .Where(c => c.UserId == userId)
+        //        .Include(u => u.Products)
+        //        .ThenInclude(p=>p.Product)
+        //        .Select(p=> new 
+        //        {
+
+        //        })
+        //        .ToListAsync();
+
+        //    return products;
+        //}
     }
 }

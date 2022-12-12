@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace ASM_Auto.Services.Common
 {
-    public interface ICartService
+    public interface IProductService
     {
-        public Task<Guid> CreateCart(string userId);
-
-        //public Task<List<CartProduct>> GetCartProducts(string userId);
+        public Task<Product> GetProductById(Guid productId);
     }
 }

@@ -4,6 +4,7 @@ using ASM_Auto.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASM_Auto.Data.Migrations
 {
     [DbContext(typeof(ASMAutoDbContext))]
-    partial class ASMAutoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221207185250_addProductModelProperty")]
+    partial class addProductModelProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -229,9 +231,6 @@ namespace ASM_Auto.Data.Migrations
 
                     b.Property<int?>("LedlightsTypeId")
                         .HasColumnType("int");
-
-                    b.Property<string>("LineDescription")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("MatsTypeId")
                         .HasColumnType("int");

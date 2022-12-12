@@ -19,7 +19,7 @@ namespace ASM_Auto.Data.Seed.Seeders.Test
                 Description = "Test from database!!!!",
                 IsActive = true,
                 FreeDelivery = false,
-                ImageUrl = "https://d1hv7ee95zft1i.cloudfront.net/custom/blog-post-photo/gallery/xenon-hid-60d2ca5007b84.jpg",
+                ImageUrl= "https://d1hv7ee95zft1i.cloudfront.net/custom/blog-post-photo/gallery/xenon-hid-60d2ca5007b84.jpg",
                 ProductTypeId = 2,
                 Price = 30,
                 LedlightsColorId = 1,
@@ -152,21 +152,27 @@ namespace ASM_Auto.Data.Seed.Seeders.Test
                 Title = "Test10",
                 Quantity = 50,
                 Description = "Test from database!!!!",
+                LineDescription = "Test. Test2. Red2. Red3. Red4.",
                 IsActive = true,
-                FreeDelivery = false,
+                FreeDelivery = true,
                 ImageUrl = "https://d1hv7ee95zft1i.cloudfront.net/custom/blog-post-photo/gallery/xenon-hid-60d2ca5007b84.jpg",
                 ProductTypeId = 1,
                 Price = 50,
                 LedlightsColorId = 1,
                 LedlightsFormatId = 1,
                 LedlightsPowerId = 1,
-                LedlightsTypeId = 1
+                LedlightsTypeId = 1,
+                NewPrice = 50,
+                CarMakeId =1,
+                CarModelId = 1,
+                IsAvailable=false
+
             });
             await dbContext.AddAsync(new Product
             {
                 Title = "Test11",
                 Quantity = 50,
-                Description = "Test from database!!!!",
+                Description = "Test from database!!!! . RED2 . tEST 3 . RED 5 .",
                 IsActive = true,
                 FreeDelivery = false,
                 ImageUrl = "https://d1hv7ee95zft1i.cloudfront.net/custom/blog-post-photo/gallery/xenon-hid-60d2ca5007b84.jpg",
@@ -175,7 +181,8 @@ namespace ASM_Auto.Data.Seed.Seeders.Test
                 LedlightsColorId = 2,
                 LedlightsFormatId = 2,
                 LedlightsPowerId = 2,
-                LedlightsTypeId = 2
+                LedlightsTypeId = 2,
+                NewPrice = 200
             });
 
             await dbContext.SaveChangesAsync();

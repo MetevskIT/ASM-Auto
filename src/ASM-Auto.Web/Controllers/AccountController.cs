@@ -95,9 +95,12 @@ namespace ASM_Auto.Web.Controllers
             
             if (result.Succeeded)
             {
-                await cartService.CreateCart(user.Id);
-                await signInManager.PasswordSignInAsync(user, model.Password, false, false);
+                 
+                 user.CartId = await cartService.CreateCart(user.Id);
 
+                 await userManager.UpdateAsync(user);
+
+                await signInManager.PasswordSignInAsync(user, model.Password, false, false);
 
                 return RedirectToAction("Index", "Home");
                 

@@ -20,6 +20,8 @@ namespace ASM_Auto.Data.Models
         {
             this.ProductId = Guid.NewGuid();
             this.AddDate = DateTime.UtcNow;
+            this.IsActive = true;
+            this.IsAvailable = true;
         }
         [Key]
         public Guid ProductId { get; set; }
@@ -32,12 +34,18 @@ namespace ASM_Auto.Data.Models
 
         [Required]
         public decimal Price { get; set; }
-        
+
+        public decimal? NewPrice { get; set; }
+
         [Required]
         public int Quantity { get; set; }
 
         [Required]
         public bool IsActive { get; set; }
+
+        [Required]
+        public bool IsAvailable { get; set; }
+        public string? LineDescription { get; set; }
 
         [Required]
         public string? ImageUrl { get; set; }
