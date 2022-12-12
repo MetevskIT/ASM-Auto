@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/main-page.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/product-details.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/cart.css" asp-append-version="true" />
 </head>
 
 <body>
@@ -18,31 +20,7 @@
         <nav>
             <section class="user-nav">
             <ul class="nav">
-                @if (SignInManager.IsSignedIn(User))
-                {
-                    <li>
-                        <a asp-area="" asp-controller="User" asp-action="MyAccount">Моят акаунт</a>
-                    </li>
-                    <li>
-                        <a asp-area="" asp-controller="User" asp-action="LikedProducts">Харесани продукти</a>
-                    </li>
-                    <li>
-                        <a asp-area="" asp-controller="User" asp-action="Cart">Количка</a>
-                    </li>
-                    <li>
-                     <a asp-area="" asp-controller="Account" asp-action="Logout">Излез</a>
-                    </li>
-
-                }
-                else
-                {
-                    <li>
-                        <a asp-area="" asp-controller="Account" asp-action="Login">Вход</a>
-                    </li>
-                    <li>
-                        <a asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
-                    </li>
-                }
+               <partial name="_LoginPartial.cshtml"></partial>
             </ul>
             </section>
             <section class="logo">

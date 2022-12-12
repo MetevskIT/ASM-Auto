@@ -14,22 +14,60 @@ namespace ASM_Auto.Web.Controllers
             this.userService = userService;
         }
 
-        public async Task AddToCart([FromQuery]Guid paramId)
+        private string? GetUserId() 
         {
-            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+           return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? null;   
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddToLiked([FromQuery] Guid productId)
+        {
+            try
+            {
+                await userService.AddToLikedCollection(productId, GetUserId());
 
 
+                return Redirect($"/Products/Details?productId={productId}");
+            }
+            catch (Exception ex)
+            {
+
+                return View("Error");
+            }
 
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddToLiked([FromQuery] Guid paramId) 
+        public async Task<IActionResult> RemoveFromLiked([FromQuery] Guid productId)
         {
-            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            await userService.AddToLikedCollection(paramId, userId);
+            await userService.RemoveFromLikedCollection(productId, GetUserId());
 
+            return Redirect($"/Products/Details?productId={productId}");
+        }
+        [HttpGet]
+        public async Task<IActionResult> AddToCart([FromQuery] Guid productId, int quantity) 
+        {
+
+            try
+            {
+                await userService.AddToCart(productId, quantity, GetUserId());
+                return Redirect($"/Products/Details?productId={productId}");
+
+            }
+            catch (Exception)
+            {
+
+                return View("Error");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Cart()
+        {
             return View();
         }
+
+
     }
 }

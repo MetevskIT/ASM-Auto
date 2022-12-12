@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@if (SignInManager.IsSignedIn(User))
+{
+    <li>
+        <a asp-area="" asp-controller="User" asp-action="MyAccount">Моят акаунт</a>
+    </li>
+    <li>
+        <a asp-area="" asp-controller="User" asp-action="LikedProducts">Харесани продукти</a>
+    </li>
+    <li>
+        <a asp-area="" asp-controller="User" asp-action="Cart">Количка</a>
+    </li>
+    <li>
+        <a asp-area="" asp-controller="Account" asp-action="Logout">Излез</a>
+    </li>
+
+}
+else
+{
+    <li>
+        <a asp-area="" asp-controller="Account" asp-action="Login">Вход</a>
+    </li>
+    <li>
+        <a asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
+    </li>
+}
