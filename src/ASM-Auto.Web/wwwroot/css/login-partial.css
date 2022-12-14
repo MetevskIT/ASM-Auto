@@ -1,0 +1,75 @@
+﻿.login-partial .dropbtn {
+    background-color: #4790de;
+    font-family: 'Titillium Web',Sans-serif;
+    color: white;
+    padding: 8px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-size: 14px;
+    border: 0px;
+    height: 22px;
+  }
+  
+  .login-partial .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .login-partial .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #222;
+    min-width: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  
+  }
+  
+  .login-partial .dropdown-content a {
+    color: white;
+    padding: 16px 16px;
+    font-size: 13px;
+    text-decoration: none;
+    display: block;
+  
+  }
+  
+  .login-partial .dropdown-content a:hover {
+    background-color: #4790de;
+  }
+  
+  .login-partial .dropdown:hover .dropdown-content {
+    display: block;
+   
+  }
+  
+  .login-partial .dropdown:hover .dropbtn {
+    background-color: #222;
+  }
+  
+
+  .initials{
+    color: white;
+    display: inline-block;
+    top: 9px;
+    text-align: center;
+    border-radius: 100%;
+    
+    width: 40px;
+    line-height: 40px;
+
+}
+.user{
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+.user hr{
+    color: #000;
+}
+.user-name{
+    margin-left: 8px;
+    margin-right: 8px;
+    color: white;
+    font-size: 13px;
+}

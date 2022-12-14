@@ -1,11 +1,21 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+<div class="login-partial">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li>
-        <a asp-area="" asp-controller="User" asp-action="MyAccount">Моят акаунт</a>
-    </li>
+    <div class="dropdown">
+        <button class="dropbtn">
+            Моят акаунт
+         </button>
+        <div class="dropdown-content">
+                <div class="user">
+                    <p class="user-name">@User.Identity.Name</p>
+                </div>
+            <a asp-area="" asp-controller="User" asp-action="Orders">Мойте поръчки</a>
+            <a asp-area="" asp-controller="User" asp-action="ChangePassword">Смени парола</a>
+        </div>
+    </div>
     <li>
         <a asp-area="" asp-controller="User" asp-action="LikedProducts">Харесани продукти</a>
     </li>
@@ -26,3 +36,5 @@ else
         <a asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
     </li>
 }
+</div>
+<script src="/js/user-initials.js"></script>
