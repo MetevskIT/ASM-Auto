@@ -14,6 +14,5 @@ namespace ASM_Auto.Services.Common
 
         public Task<bool> IsLiked(Guid productId, string userId);
 
-        public Task AddToCart(Guid productId,int quantity, string userId);
     }
 }

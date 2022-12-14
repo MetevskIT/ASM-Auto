@@ -1,4 +1,13 @@
-﻿<div class="cart-div">
+﻿@using ASM_Auto.ViewModels.Cart
+@model AllCartProductsViewModel
+
+<div class="cart-div">
+   @if (!Model.Products.Any())
+    {
+        <H2 class="empty">Вашата количка е празна!</H2>
+    }
+    else
+    {
     <h2>Количка</h2>
     <hr>
 <table class="cart">
@@ -7,91 +16,48 @@
         <th>Количество</th>
         <th>Цена</th>
     </tr>
-    <tr class="body">
-        <td>
-            <div class="cart-product">
-                <img src="https://i.ytimg.com/vi/oXrlgOEiy6o/maxresdefault.jpg" class="product-img">
-                <p class="title">Product name Test</p>
-                <p class="price">Цена: 250lv</p>
-                <a href="/User/RemoveFromCart?productId=">Премахни</a>
-            </div>
-        </td>
-         
-        <td>
-            <div class="quantity">
-            <input type="number"></input>
-                </div>
-        </td>
-        <td>
-                <p class="price">500лв.</p>
-            
-        </td>
-    </tr>
 
-        <tr class="body">
-            <td>
-                <div class="cart-product">
-                    <img src="https://i.ytimg.com/vi/oXrlgOEiy6o/maxresdefault.jpg" class="product-img">
-                    <p class="title">Product name Test</p>
-                    <p class="price">Цена: 250lv</p>
-                    <a href="/User/RemoveFromCart?productId=">Премахни</a>
-                </div>
-            </td>
+    @foreach (var product in Model.Products)
+    {
+            <tr class="body">
+                <td>
+                    <div class="cart-product">
+                        <img src="@product.ImageUrl" class="product-img">
+                        <p class="title">@product.Title</p>
+                        <p class="price">Цена: @product.Price</p>
+                        <a href="/User/RemoveFromCart?productId=@product.ProductId">Премахни</a>
+                    </div>
+                </td>
 
-            <td>
-                <div class="quantity">
-                    <input type="number"></input>
-                </div>
-            </td>
-            <td>
-                <p class="price">500лв.</p>
+                <td>
+                    <div class="quantity">
+                        <input type="number" value="@product.Quantity"></input>
+                    </div>
+                </td>
+                <td class="price-area">
+                    <p class="price"></p>
 
-            </td>
-        </tr>
-        <tr class="body">
-            <td>
-                <div class="cart-product">
-                    <img src="https://i.ytimg.com/vi/oXrlgOEiy6o/maxresdefault.jpg" class="product-img">
-                    <p class="title">Product name Test</p>
-                    <p class="price">Цена: 250lv</p>
-                    <a href="/User/RemoveFromCart?productId=">Премахни</a>
-                </div>
-            </td>
-
-            <td>
-                <div class="quantity">
-                    <input type="number"></input>
-                </div>
-            </td>
-            <td>
-                <p class="price">500лв.</p>
-
-            </td>
-        </tr>
-
-        <tr class="body">
-            <td>
-                <div class="cart-product">
-                    <img src="https://i.ytimg.com/vi/oXrlgOEiy6o/maxresdefault.jpg" class="product-img">
-                    <p class="title">Product name Test</p>
-                    <p class="price">Цена: 250lv</p>
-                    <a href="/User/RemoveFromCart?productId=">Премахни</a>
-                </div>
-            </td>
-
-            <td>
-                <div class="quantity">
-                    <input type="number"></input>
-                </div>
-            </td>
-            <td>
-                <p class="price">500лв.</p>
-
-            </td>
-        </tr>
-     
-   
+                </td>
+            </tr>
+        }
 </table>
 
- 
+    <table class="price-table">
+        <tr>
+            <td>Цена:</td>
+            <td class="product-price"></td>
+        </tr>
+        <tr>
+            <td>ДДС:</td>
+            <td class="dds"></td>
+        </tr>
+        <tr>
+            <td>Обща цена:</td>
+            <td class="total-price"></td>
+        </tr>
+    </table>
+    <a class="sbtBtn" href="/Order/CreateOrder">Поръчай</a>
+ }
+
 </div>
+<script src="/js/cart.js"></script>

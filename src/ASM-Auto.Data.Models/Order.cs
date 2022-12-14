@@ -13,7 +13,7 @@ namespace ASM_Auto.Data.Models
     {
         public Order()
         {
-            this.OrderedProducts = new List<Product>();
+            this.OrderedProducts = new List<CartProduct>();
             this.OrderedOn = DateTime.UtcNow;
             this.Status = OrderStatus.Pending;
         }
@@ -26,11 +26,25 @@ namespace ASM_Auto.Data.Models
         public string? UserId { get; set; }
         public User User { get; set; } = null!;
         public DateTime OrderedOn { get; set; }
+        [Required]
+        public string? FirstName { get; set; }
+
+        [Required]
+        public string? LastName { get; set; }
+
+        [Required]
+        public string? Address { get; set; }
+
+        [Required]
+        public string? Town { get; set; }
+
+        [Required]
+        public string PhoneNumber { get; set; }
 
         [Required]
         public OrderStatus Status { get; set; }
 
         [Required]
-        public ICollection<Product> OrderedProducts { get; set; }
+        public ICollection<CartProduct> OrderedProducts { get; set; }
     }
 }

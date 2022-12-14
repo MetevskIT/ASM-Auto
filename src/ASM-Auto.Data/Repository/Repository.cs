@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +26,9 @@ namespace ASM_Auto.Data.Repository
 
         public void Delete(TEntity entity)
                => this.DbSet.Remove(entity);
+
+        public void DeleteRange(List<TEntity> entities)
+               => this.DbSet.RemoveRange(entities);
 
         public IQueryable<TEntity> GetAll()
         {

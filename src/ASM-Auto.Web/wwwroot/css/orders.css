@@ -1,0 +1,106 @@
+﻿
+.orders{
+    margin-right: 350px;
+    margin-left: 350px;
+    margin-bottom: 80px;
+    margin-top: 30px;
+}
+.order{
+    background-color: white;
+    margin-left: 25px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+}
+.order h2{
+padding-top: 15px;
+font-size: 18px;
+
+}
+.product-info, .status, .delivery-time, .time, .quantity{
+  display: inline-block;
+}
+
+.product-info .product-img{
+    width: 120px;
+    height: 80px;
+    border-radius: 3px;
+}
+
+
+.product-info .title{
+    font-size: 16px;
+    display: inline-block;
+    position:absolute;
+    margin-top: 5px;
+    margin-left: 12px;
+    margin-bottom: 0px;
+    color: black;
+}
+.product-info .price{
+    font-size: 16px;
+    display: inline-block;
+    position:absolute;
+    margin-top: 30px;
+    margin-left: 12px;
+    margin-bottom: 0px;
+    color: black;
+}
+
+
+.status{
+    margin-left: 380px;
+    position: absolute;
+}
+
+.time{
+    margin-left: 850px;
+    position: absolute;
+}
+.orderNumber, .orderStatus, .orderDate{
+    display: inline;
+    padding-bottom: 20px;
+}
+.orderNumber{
+    padding-right: 80px;
+}
+.orderStatus{
+    padding-left: 300px;
+    padding-right: 300px;
+}
+.head{
+    text-align: left;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.priceP{
+    display: inline;
+    position:absolute;
+    margin-left: 836px;
+}
+.line-under-title{
+    border-top: 1px solid #4790de;
+    border-bottom: 0px;
+    margin: 20px;
+}
+
+.line-under-head{
+    border-top: 1px solid #4790de;
+    border-bottom: 0px;
+margin-right: 15px;
+}
+
+.cancelBtn{
+    text-align: right;
+    margin-right: 60px;
+    margin-bottom: 8px;
+}
+.cancelBtn a{
+    text-decoration: none;
+    color: white;
+    margin-right: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(236, 35, 35);
+}

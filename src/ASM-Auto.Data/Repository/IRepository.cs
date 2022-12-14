@@ -16,6 +16,7 @@ namespace ASM_Auto.Data.Repository
         void Update(TEntity entity);
 
         void Delete(TEntity entity);
+        void DeleteRange(List<TEntity> entities);
 
         //Task<TEntity> GetByIdAsync(int id);
 

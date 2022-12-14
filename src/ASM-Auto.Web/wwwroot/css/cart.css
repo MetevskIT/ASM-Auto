@@ -3,7 +3,6 @@
     border-collapse: collapse;
     margin-top: 40px;
     margin-left: 400px;
-    margin-bottom: 70px;
     width: auto;
     height: auto;
 
@@ -57,7 +56,7 @@
     border-style: solid;
     border-radius: 5px;
     height:20px;
-    width: 30px;
+    width: 40px;
     margin-right: 10px;
     font-size: 16px;
     padding-left: 10px;
@@ -86,4 +85,37 @@
 .cart-div h2{
     text-align: center;
     color: #4790de;
+}
+
+.price-table{
+background-color: white;
+margin-left: 1077px;
+margin-bottom: 70px;
+width: 340px;
+text-align: left;
+border-color: #316ba8;
+border-top-style:solid;
+border-width: 1px;
+color: #666;
+}
+.price-table tr td{
+    padding: 5px;
+}
+
+.empty{
+padding-top: 150px;
+padding-bottom: 200px;
+    text-align: center;
+    color: #4790de;
+
+}
+
+.cart-div{
+    text-align: center;
+    margin-bottom: 70px;
+}
+.cart-div .sbtBtn{
+    text-decoration: none;
+    padding: 5px;
+    
 }

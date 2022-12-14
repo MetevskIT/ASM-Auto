@@ -116,6 +116,7 @@ namespace ASM_Auto.Services.UserServices
             return user.LikedProducts.Any(x => x.ProductId == productId) ? true : false;
         }
 
+
         public async Task RemoveFromLikedCollection(Guid productId, string userId)
         {
             var product = await productRepository.GetAll()
