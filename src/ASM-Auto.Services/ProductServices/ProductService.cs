@@ -1,6 +1,7 @@
 ﻿using ASM_Auto.Data.Models;
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
+using ASM_Auto.ViewModels.User;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

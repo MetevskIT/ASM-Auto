@@ -45,13 +45,13 @@
                         </td>
                     </tr>
                 </div>
-                @if (order.Status==OrderStatus.Pending)
-                {
-                    <div class="cancelBtn">
-                        <a href="/Order/Cancel?Order=@order.OrderId">Откажи</a>
-                    </div>
-                }
-               
+                
+            }
+            @if (order.Status == OrderStatus.Pending)
+            {
+                <div class="cancelBtn">
+                    <a href="/Order/Cancel?Order=@order.OrderId">Откажи</a>
+                </div>
             }
         </div>
 

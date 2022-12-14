@@ -56,5 +56,20 @@ namespace ASM_Auto.Web.Controllers
             }
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Cancel(int order) 
+        {
+            try
+            {
+
+               await orderService.CancelOrder(order);
+                return RedirectToAction("Orders", "User");
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+        }
     }
 }

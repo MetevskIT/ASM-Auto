@@ -1,6 +1,7 @@
 ﻿using ASM_Auto.Data.Models;
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
+using ASM_Auto.ViewModels.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -145,5 +146,26 @@ namespace ASM_Auto.Services.UserServices
                 await productRepository.SaveChangesAsync();
             }
         }
+
+        public async Task<List<LikedProductsViewModel>> GetLikedProducts(string userId)
+        {
+            var products = await userRepository.GetAll()
+                .Include(p => p.LikedProducts)
+                .Where(u => u.Id == userId)
+                .SelectMany(p => p.LikedProducts)
+                .Select(lp => new LikedProductsViewModel
+                  {
+                      Title = lp.Title,
+                      Description = lp.Description,
+                      Price = lp.Price,
+                      ImageUrl = lp.ImageUrl,
+                      ProductId = lp.ProductId
+                  })
+                .ToListAsync();
+
+           
+            return products;
+        }
+
     }
 }

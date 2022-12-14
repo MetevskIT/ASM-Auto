@@ -1,5 +1,7 @@
 ﻿using ASM_Auto.Services.Common;
 using ASM_Auto.ViewModels.Cart;
+using ASM_Auto.ViewModels.Order;
+using ASM_Auto.ViewModels.User;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
@@ -10,9 +12,11 @@ namespace ASM_Auto.Web.Controllers
     {
         private IUserService userService;
         private ICartService cartService;
+        private IOrderService orderService;
 
-        public UserController(IUserService userService, ICartService cartService)
+        public UserController(IUserService userService, ICartService cartService, IOrderService orderService)
         {
+            this.orderService = orderService;
             this.cartService = cartService;
             this.userService = userService;
         }
@@ -41,13 +45,21 @@ namespace ASM_Auto.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> RemoveFromLiked([FromQuery] Guid productId)
+        public async Task<IActionResult> RemoveFromLiked([FromQuery] Guid productId, bool redirect = true)
         {
             try
             {
                 await userService.RemoveFromLikedCollection(productId, GetUserId());
 
-                return Redirect($"/Products/Details?productId={productId}");
+                if (redirect)
+                {
+                    return Redirect($"/Products/Details?productId={productId}");
+
+                }
+                else
+                {
+                    return RedirectToAction("LikedProducts", "User");
+                }
             }
             catch (Exception ex)
             {
@@ -56,14 +68,25 @@ namespace ASM_Auto.Web.Controllers
             }
          
         }
+
+
         [HttpGet]
-        public async Task<IActionResult> AddToCart([FromQuery]Guid productId, int quantity) 
+        public async Task<IActionResult> AddToCart([FromQuery]Guid productId, int quantity,bool redirect=true) 
         {
 
             try
             {
                 await cartService.AddToCart(productId, quantity, GetUserId());
-                return Redirect($"/Products/Details?productId={productId}");
+                if (redirect)
+                {
+                    return Redirect($"/Products/Details?productId={productId}");
+
+                }
+                else 
+                {
+                    await userService.RemoveFromLikedCollection(productId, GetUserId());
+                    return RedirectToAction("LikedProducts", "User");
+                }
 
             }
             catch (Exception ex)
@@ -113,7 +136,23 @@ namespace ASM_Auto.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Orders()
         {
-            return View();
+            var model = new AllOrders
+            {
+                Orders = await orderService.GetOrders()
+            };
+
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LikedProducts()
+        {
+            var model = new AllLikedProductsViewModel
+            {
+                LikedProducts = await userService.GetLikedProducts(GetUserId())
+            };
+            return View(model);
         }
 
 

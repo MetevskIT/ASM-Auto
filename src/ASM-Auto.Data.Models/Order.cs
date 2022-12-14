@@ -13,8 +13,8 @@ namespace ASM_Auto.Data.Models
     {
         public Order()
         {
-            this.OrderedProducts = new List<CartProduct>();
-            this.OrderedOn = DateTime.UtcNow;
+            this.OrderedProducts = new List<OrderProduct>();
+            this.OrderedOn = DateTime.Now;
             this.Status = OrderStatus.Pending;
         }
 
@@ -45,6 +45,6 @@ namespace ASM_Auto.Data.Models
         public OrderStatus Status { get; set; }
 
         [Required]
-        public ICollection<CartProduct> OrderedProducts { get; set; }
+        public ICollection<OrderProduct> OrderedProducts { get; set; }
     }
 }

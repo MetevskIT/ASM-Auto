@@ -43,6 +43,7 @@ namespace ASM_Auto.Data
         public DbSet<CarModel> CarsModels { get; set; } = null!;
         public DbSet<Cart> Carts { get; set; } = null!;
         public DbSet<CleaningAccessory> CleaningAccessories { get; set; } = null!;
+        public DbSet<OrderProduct> OrderProducts { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -57,6 +58,9 @@ namespace ASM_Auto.Data
 
             modelBuilder.Entity<CartProduct>()
                 .HasKey(pk => new { pk.CartId, pk.ProductId });
+
+            modelBuilder.Entity<OrderProduct>()
+              .HasKey(pk => new { pk.OrderId, pk.ProductId });
 
             base.OnModelCreating(modelBuilder);
         }

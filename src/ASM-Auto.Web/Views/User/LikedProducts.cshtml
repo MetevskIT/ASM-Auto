@@ -1,0 +1,31 @@
+﻿@using ASM_Auto.ViewModels.User
+@model AllLikedProductsViewModel
+
+<div class="liked-products">
+   @if (!Model.LikedProducts.Any())
+    {
+        <h2 class="none">Нямате харесани продукти!</h2>
+    }
+    else
+    {
+        <h2>Харесани продукти</h2>
+        <hr>
+    }
+  @foreach (var product in Model.LikedProducts)
+  {
+        <div class="card">
+            <a href="/Products/Details?productId=@product.ProductId">
+                <img src="@product.ImageUrl" alt="@product.Title" style="width:100%">
+                <a class="delete-btn" href="/User/RemoveFromLiked?productId=@product.ProductId&redirect=false">X</a>
+                <h1>@product.Title</h1>
+                <p class="price">@product.Price лв.</p>
+                <p>@product.Description</p>
+            </a>
+            <a href="/User/AddToCart?productId=@product.ProductId&quantity=1&redirect=false">
+                <p><button>Добави в количката</button></p>
+            </a>
+
+        </div>
+    }
+
+</div>

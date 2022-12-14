@@ -12,6 +12,7 @@ namespace ASM_Auto.Data.Models.Enums.Order
         Declined,
         Confirmed,
         Shipped,
-        Completed
+        Completed,
+        Cancelled
     }
 }

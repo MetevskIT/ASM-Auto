@@ -87,6 +87,13 @@
     color: #4790de;
 }
 
+.cart-div hr{
+    border-top: 1px solid #4790de;
+    border-bottom: 0px;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
 .price-table{
 background-color: white;
 margin-left: 1077px;
