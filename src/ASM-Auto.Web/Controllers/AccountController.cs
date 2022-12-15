@@ -114,6 +114,40 @@ namespace ASM_Auto.Web.Controllers
             return View(model);
 
         }
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            var model = new ChangePasswordViewModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Възникна грешка!");
+                return View(model);
+            }
+            var user = await userManager.FindByIdAsync(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+            if (user==null)
+            {
+                ModelState.AddModelError("", "Няма логнат потребител! Моля влезте отново!");
+                return View(model);
+            }
+
+
+           var result = await userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", result.Errors.First().Description);
+                return View(model);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+
 
         [HttpGet]
         public async Task<IActionResult> Logout()

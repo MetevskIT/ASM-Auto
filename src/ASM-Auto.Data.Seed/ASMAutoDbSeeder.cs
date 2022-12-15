@@ -1,4 +1,5 @@
 ﻿using ASM_Auto.Data.Seed.Common;
+using ASM_Auto.Data.Seed.Seeders.AutoAccessories.Mats;
 using ASM_Auto.Data.Seed.Seeders.AutoCosmetics;
 using ASM_Auto.Data.Seed.Seeders.Categories;
 using ASM_Auto.Data.Seed.Seeders.Exterior;
@@ -39,6 +40,7 @@ namespace ASM_Auto.Data.Seed
              seeders.Add(new InteriorsAccessoriesSeed());
              seeders.Add(new CarMakesSeed());
              seeders.Add(new CarModelsSeed());
+            seeders.Add(new MatsTypesSeed());
             seeders.Add(new TestProducts());
 
             foreach (var seeder in seeders)

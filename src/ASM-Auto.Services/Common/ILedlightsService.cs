@@ -1,7 +1,8 @@
 ﻿
 using ASM_Auto.Data.Models.Enums.Products;
 using ASM_Auto.Data.Models.Products.Ledlights;
-using ASM_Auto.Web.ViewModels.AutoAccessories;
+using ASM_Auto.ViewModels;
+using ASM_Auto.ViewModels.AutoAccessories.LedLights;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace ASM_Auto.Services.Common
         public Task<IEnumerable<LedlightsModel>> GetLedlightsModels();
         public Task<IEnumerable<LedlightsPower>> GetLedlightsPower();
         public Task<IEnumerable<LedlightsType>> GetLedlightsTypes();
-        public Task<IEnumerable<LedlightsModel>> GetLedlights(
+        public Task<IEnumerable<PartialProductModel>> GetLedlights(
             int currentPage,
             string? ledlightsType = null,
             string? ledlightsColor = null,

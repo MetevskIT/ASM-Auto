@@ -1,6 +1,7 @@
 ﻿
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.AutoAccessoriesServices;
+using ASM_Auto.Services.Car;
 using ASM_Auto.Services.CartService;
 using ASM_Auto.Services.Common;
 using ASM_Auto.Services.OrdersServices;
@@ -23,6 +24,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IMatsService, MatsService>();
+            services.AddScoped<ICarService, CarService>();
+            services.AddScoped<IFoilService, FoilsService>();
 
             return services;
         }

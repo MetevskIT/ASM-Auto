@@ -17,9 +17,9 @@ namespace ASM_Auto.Data.Seed.Seeders.Categories
                 return;
             }
           
-            await dbContext.Categories.AddAsync(new Category { CategoryName = "AutoAccessories" });
-            await dbContext.Categories.AddAsync(new Category { CategoryName = "AutoCosmetics" });
-            await dbContext.Categories.AddAsync(new Category { CategoryName = "Multimedia" });
+            await dbContext.Categories.AddAsync(new Category { CategoryName = "Автоаксесоари" });
+            await dbContext.Categories.AddAsync(new Category { CategoryName = "Автокозметика" });
+            await dbContext.Categories.AddAsync(new Category { CategoryName = "Мултимедии" });
 
             await dbContext.SaveChangesAsync();
 

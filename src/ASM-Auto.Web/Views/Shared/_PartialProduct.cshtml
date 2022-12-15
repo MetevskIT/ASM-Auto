@@ -1,6 +1,7 @@
-﻿@model LedlightsModel
+﻿@using ASM_Auto.ViewModels
+@model PartialProductModel
 <div class="card">
-                  <a href="/Products/Details?productId=@Model.LedlightId">
+                  <a href="/Products/Details?productId=@Model.ProductId">
   <img src="@Model.ImageUrl" alt="@Model.Title" style="width:100%">
   <h1>@Model.Title</h1>
   <p class="price">@Model.Price лв.</p>

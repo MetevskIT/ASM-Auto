@@ -4,6 +4,10 @@
 
 <h1 class="title">Поръчки</h1>
 <hr class="line-under-title">
+@if (!Model.Orders.Any())
+{
+    <H2 class="empty">Все още нямате направени поръчки!</H2>
+}
 
 <div class="orders">
 

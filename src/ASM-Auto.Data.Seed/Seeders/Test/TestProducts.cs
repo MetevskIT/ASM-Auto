@@ -12,6 +12,23 @@ namespace ASM_Auto.Data.Seed.Seeders.Test
     {
         public async Task SeedAsync(ASMAutoDbContext dbContext)
         {
+
+            await dbContext.AddAsync(new Product
+            {
+                Title = "Test2",
+                Quantity = 30,
+                Description = "Test from database!!!!",
+                IsActive = true,
+                FreeDelivery = false,
+                ImageUrl = "https://d1hv7ee95zft1i.cloudfront.net/custom/blog-post-photo/gallery/xenon-hid-60d2ca5007b84.jpg",
+                ProductTypeId = 3,
+                Price = 30,
+                MatsTypeId = 1,
+                CarMakeId = 1,
+                CarModelId = 1
+            });
+
+
             await dbContext.AddAsync(new Product
             {
                 Title = "Test",

@@ -46,7 +46,7 @@ namespace ASM_Auto.Web.Controllers
                
                 await cartService.RemoveAllProductsFromCart(userId);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Orders", "User");
 
             }
             catch (Exception ex)

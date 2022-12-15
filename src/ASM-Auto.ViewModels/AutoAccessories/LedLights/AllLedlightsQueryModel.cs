@@ -1,7 +1,5 @@
-﻿
-using ASM_Auto.Data.Models.Enums.Products;
+﻿using ASM_Auto.Data.Models.Enums.Products;
 using ASM_Auto.Data.Models.Products.Ledlights;
-using ASM_Auto.Web.ViewModels.AutoAccessories;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASM_Auto.Web.ViewModels.AutoAccessories
+namespace ASM_Auto.ViewModels.AutoAccessories.LedLights
 {
     public class AllLedlightsQueryModel
     {
         public AllLedlightsQueryModel()
         {
-            this.Ledlights = Enumerable.Empty<LedlightsModel>();
+            Ledlights = Enumerable.Empty<PartialProductModel>();
         }
         public int currentPage { get; set; } = 1;
 
@@ -33,6 +31,6 @@ namespace ASM_Auto.Web.ViewModels.AutoAccessories
         public IEnumerable<LedlightsFormat>? LedlightsFormats { get; set; }
         public OrderedProducts OrderedProducts { get; set; }
 
-        public IEnumerable<LedlightsModel>? Ledlights { get; set; } 
+        public IEnumerable<PartialProductModel>? Ledlights { get; set; }
     }
 }

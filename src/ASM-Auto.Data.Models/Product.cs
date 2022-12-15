@@ -1,4 +1,5 @@
 ﻿using ASM_Auto.Data.Models.Car;
+using ASM_Auto.Data.Models.Products.AutoAccessories.Mats;
 using ASM_Auto.Data.Models.Products.AutoCosmetics.CleaningAccessories;
 using ASM_Auto.Data.Models.Products.Exterior;
 using ASM_Auto.Data.Models.Products.Foil;
@@ -88,6 +89,13 @@ namespace ASM_Auto.Data.Models
         [ForeignKey(nameof(LedlightsFormat))]
         public int? LedlightsFormatId { get; set; }
         public LedlightsFormat? LedlightsFormat { get; set; }
+
+        //Mats Product
+
+        //Foil Product
+        [ForeignKey(nameof(MatsType))]
+        public int? MatsTypeId { get; set; }
+        public MatsType? MatsType { get; set; }
 
         //Foil Product
         [ForeignKey(nameof(FoilsType))]

@@ -1,11 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ASM_Auto.Web.ViewModels.AutoAccessories
+namespace ASM_Auto.ViewModels.AutoAccessories.Mats
 {
-    public class LedlightsModel
+    public class MatsViewModel
     {
         [Required]
-        public Guid LedlightId { get; set; }
+        public Guid MatId { get; set; }
+
         [Required]
         public string? Title { get; set; }
         [Required]
@@ -22,14 +28,6 @@ namespace ASM_Auto.Web.ViewModels.AutoAccessories
         public string? ImageUrl { get; set; }
         [Required]
         public int? ProductTypeId { get; set; }
-        [Required]
-        public int? LedlightsColorId { get; set; }
-        [Required]
-        public int? LedlightsFormatId { get; set; }
-        [Required]
-        public int? LedlightsPowerId { get; set; }
-        [Required]
-        public int? LedlightsTypeId { get; set; }
 
     }
 }

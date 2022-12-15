@@ -3,7 +3,8 @@ using ASM_Auto.Data.Models.Enums.Products;
 using ASM_Auto.Data.Models.Products.Ledlights;
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
-using ASM_Auto.Web.ViewModels.AutoAccessories;
+using ASM_Auto.ViewModels;
+using ASM_Auto.ViewModels.AutoAccessories.LedLights;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
@@ -40,15 +41,15 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             this.ledLightsTypeRepo = ledLightsTypeRepo;
 
         }
-        public async Task<int> GetLedlightsCount() 
+        public Task<int> GetLedlightsCount() 
         {
            return repository
                   .GetAll()
                   .Where(t => t.ProductType.Type == "Ledlights")
                   .AsQueryable()
-                  .Count();
+                  .CountAsync();
         }
-        public async Task<IEnumerable<LedlightsModel>> GetLedlights(
+        public async Task<IEnumerable<PartialProductModel>> GetLedlights(
             int currentPage = 1,
             string? ledlightsType = null,
             string? ledlightsColor = null,
@@ -58,7 +59,7 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             int productsPerPage = 20)
         {
  
-            var result = new List<LedlightsModel>();
+            var result = new List<PartialProductModel>();
 
             var ledlights = this.repository.GetAll()
                 .Where(p=>p.ProductType.Type == "Ledlights")
@@ -97,9 +98,9 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             result = await ledlights
                 .Skip((currentPage-1)*productsPerPage)
                 .Take(productsPerPage)
-                .Select(p => new LedlightsModel
+                .Select(p => new PartialProductModel
             {
-                LedlightId = p.ProductId,
+                ProductId = p.ProductId,
                 Title = p.Title,
                 Description = p.Description,
                 Price = p.Price,
@@ -107,11 +108,8 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
                 ImageUrl = p.ImageUrl,
                 IsActive = p.IsActive,
                 Quantity = p.Quantity,
-                ProductTypeId = p.ProductTypeId,
-                LedlightsColorId = p.LedlightsColorId,
-                LedlightsFormatId = p.LedlightsFormatId,
-                LedlightsPowerId = p.LedlightsPowerId,
-                LedlightsTypeId = p.LedlightsTypeId
+                ProductTypeId = p.ProductTypeId
+              
 
             }).ToListAsync();
             return result;
