@@ -142,6 +142,28 @@ namespace ASM_Auto.Data.Migrations
                     b.ToTable("Contacts");
                 });
 
+            modelBuilder.Entity("ASM_Auto.Data.Models.Image", b =>
+                {
+                    b.Property<int>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImageId"), 1L, 1);
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ImageId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("ASM_Auto.Data.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
@@ -249,7 +271,6 @@ namespace ASM_Auto.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("InteriorsAccessoryId")
@@ -803,6 +824,15 @@ namespace ASM_Auto.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ASM_Auto.Data.Models.Image", b =>
+                {
+                    b.HasOne("ASM_Auto.Data.Models.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("ASM_Auto.Data.Models.Order", b =>
                 {
                     b.HasOne("ASM_Auto.Data.Models.Product", null)
@@ -1045,6 +1075,8 @@ namespace ASM_Auto.Data.Migrations
             modelBuilder.Entity("ASM_Auto.Data.Models.Product", b =>
                 {
                     b.Navigation("Cart");
+
+                    b.Navigation("Images");
 
                     b.Navigation("Orders");
                 });

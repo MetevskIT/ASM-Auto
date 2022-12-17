@@ -1,9 +1,16 @@
-﻿
+﻿@using ASM_Auto.ViewModels
+@model HomeViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Начало";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <img src="../img/home.png"></img>
+</div>
+<div class="index-products">
+    <h2>Най-нови продукти</h2>
+    @foreach (var product in Model.Products)
+    {
+        <partial name="_PartialProduct" model="@product" />
+    }
 </div>

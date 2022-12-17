@@ -44,6 +44,7 @@ namespace ASM_Auto.Data
         public DbSet<Cart> Carts { get; set; } = null!;
         public DbSet<CleaningAccessory> CleaningAccessories { get; set; } = null!;
         public DbSet<OrderProduct> OrderProducts { get; set; } = null!;
+        public DbSet<Image> Images { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

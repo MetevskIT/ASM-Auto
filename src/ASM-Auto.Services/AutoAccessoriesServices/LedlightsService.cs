@@ -4,6 +4,7 @@ using ASM_Auto.Data.Models.Products.Ledlights;
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
 using ASM_Auto.ViewModels;
+using ASM_Auto.ViewModels.Administration.CreateProducts;
 using ASM_Auto.ViewModels.AutoAccessories.LedLights;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -23,13 +24,15 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
         public readonly IRepository<LedlightsModel> ledLightsModelRepo;
         public readonly IRepository<LedlightsFormat> ledLightsFormatRepo;
         public readonly IRepository<LedlightsColor> ledLightsColortRepo;
+        private readonly IImageService imageService;
         public LedlightsService(
             IRepository<Product> repository,
             IRepository<LedlightsType> ledLightsTypeRepo,
             IRepository<LedlightsPower> ledLightsPowerRepo,
             IRepository<LedlightsModel> ledLightsModelRepo,
             IRepository<LedlightsFormat> ledLightsFormatRepo,
-            IRepository<LedlightsColor> ledLightsColortRepo
+            IRepository<LedlightsColor> ledLightsColortRepo,
+            IImageService imageService
             )
         {
 
@@ -39,6 +42,7 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             this.ledLightsColortRepo = ledLightsColortRepo;
             this.ledLightsPowerRepo = ledLightsPowerRepo;
             this.ledLightsTypeRepo = ledLightsTypeRepo;
+            this.imageService = imageService;
 
         }
         public Task<int> GetLedlightsCount() 
@@ -62,6 +66,7 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             var result = new List<PartialProductModel>();
 
             var ledlights = this.repository.GetAll()
+                .Include(i => i.Images)
                 .Where(p=>p.ProductType.Type == "Ledlights")
                 .Where(p => p.IsActive);
 
@@ -105,8 +110,8 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
                 Description = p.Description,
                 Price = p.Price,
                 FreeDelivery = p.FreeDelivery,
-                ImageUrl = p.ImageUrl,
-                IsActive = p.IsActive,
+                    ImageUrl = p.Images.FirstOrDefault().ImageUrl,
+                    IsActive = p.IsActive,
                 Quantity = p.Quantity,
                 ProductTypeId = p.ProductTypeId
               
@@ -142,5 +147,32 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             return this.ledLightsTypeRepo.GetAll();
         }
 
+        public async Task CreateLedLight(CreateLedLightViewModel model)
+        {
+            var product = new Product
+            {
+                ProductTypeId = 1,
+                Title = model.Title,
+                Quantity = model.Quantity,
+                Description = model.Description,
+                Price = model.Price,
+                IsActive= model.IsActive,
+        
+                LineDescription = model.LineDescription,
+                FreeDelivery = model.FreeDelivery,
+                LedlightsColorId = model.LedlightsColorId,
+                LedlightsFormatId = model.LedlightsFormatId,
+                LedlightsPowerId = model.LedlightsPowerId,
+                LedlightsTypeId = model.LedlightsTypeId
+            };
+
+            foreach (var img in model.Images)
+            {
+                product.Images.Add(await imageService.UploadImage(img));
+
+            }
+            await repository.AddAsync(product);
+            await repository.SaveChangesAsync();
+        }
     }
 }

@@ -73,6 +73,7 @@ namespace ASM_Auto.Services.OrdersServices
             var orderProducts = await orderRepository.GetAll()
                 .Include(p => p.OrderedProducts)
                 .ThenInclude(p=>p.Product)
+                .ThenInclude(i=>i.Images)
                 .Select(o=>new OrderViewModel 
                 {
                 OrderId = o.OrderId,
@@ -82,8 +83,8 @@ namespace ASM_Auto.Services.OrdersServices
                              .Select(p=>new OrderProductViewModel 
                              { 
                              Title = p.Product.Title,
-                             ImageUrl = p.Product.ImageUrl,
-                             ProductId = p.ProductId,
+                                 ImageUrl = p.Product.Images.FirstOrDefault().ImageUrl,
+                                 ProductId = p.ProductId,
                              Quantity = p.ProductCount,
                              Price = p.Product.Price
                              }).ToList()

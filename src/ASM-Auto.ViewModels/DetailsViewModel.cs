@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ASM_Auto.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace ASM_Auto.ViewModels
 
         [Required]
         public string? Title { get; set; }
+
+        public ICollection<Image> Images { get; set; } = new List<Image>();
 
         [Required]
         public string? ImagesUrl { get; set; }

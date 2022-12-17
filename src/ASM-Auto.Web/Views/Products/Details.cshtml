@@ -3,12 +3,12 @@
 <section class="details">
     <div class="details-area">
         <div class="image-area">
-        <img class="main-img" src="@Model.ImagesUrl" alt="Denim Jeans">
+        <img class="main-img" src="@Model.Images.First().ImageUrl" alt="Image">
         <br>
         <div class="mini-imgs">
-                @foreach (var url in Model.ImagesUrl)
+                @foreach (var url in Model.Images)
                 {
-                  
+                  <img src="@url.ImageUrl"></img>
                 }
         </div>
         </div>

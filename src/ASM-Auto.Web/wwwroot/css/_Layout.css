@@ -169,3 +169,16 @@
   padding-left: 70px;
 
 }
+.text-center{
+  margin: 0px;
+  text-align: center;
+}
+.text-center img{
+  width: 100%;
+  height: auto;
+}
+
+.adminBtn{
+  background-color: #316ba8;
+  margin-left: 1000px;
+}

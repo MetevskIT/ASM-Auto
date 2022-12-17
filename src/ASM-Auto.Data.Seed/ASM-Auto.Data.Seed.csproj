@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ASM-Auto.Data\ASM-Auto.Data.csproj" />
+    <ProjectReference Include="..\ASM-Auto.Services\ASM-Auto.Services.csproj" />
   </ItemGroup>
 
 </Project>

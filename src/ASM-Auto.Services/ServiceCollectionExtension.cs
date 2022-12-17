@@ -1,9 +1,12 @@
 ﻿
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.AutoAccessoriesServices;
+using ASM_Auto.Services.AutoCosmetics;
 using ASM_Auto.Services.Car;
 using ASM_Auto.Services.CartService;
 using ASM_Auto.Services.Common;
+using ASM_Auto.Services.ImageService;
+using ASM_Auto.Services.MultimediaServices;
 using ASM_Auto.Services.OrdersServices;
 using ASM_Auto.Services.ProductServices;
 using ASM_Auto.Services.UserServices;
@@ -27,6 +30,12 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IMatsService, MatsService>();
             services.AddScoped<ICarService, CarService>();
             services.AddScoped<IFoilService, FoilsService>();
+            services.AddScoped<IAutoshampooService, AutoshampooService>();
+            services.AddScoped<ICleaningAccessoryService, CleaningAccessoryService>();
+            services.AddScoped<IMultimediaService, MultimediaService>();
+            services.AddScoped<IBackUpCameraService, BackUpCameraService>();
+            services.AddScoped<ICloudinaryService, CloudinaryService>();
+            services.AddScoped<IImageService, ImageService>();
 
             return services;
         }

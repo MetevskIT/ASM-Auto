@@ -151,6 +151,7 @@ namespace ASM_Auto.Services.UserServices
         {
             var products = await userRepository.GetAll()
                 .Include(p => p.LikedProducts)
+                .ThenInclude(i=>i.Images)
                 .Where(u => u.Id == userId)
                 .SelectMany(p => p.LikedProducts)
                 .Select(lp => new LikedProductsViewModel
@@ -158,8 +159,8 @@ namespace ASM_Auto.Services.UserServices
                       Title = lp.Title,
                       Description = lp.Description,
                       Price = lp.Price,
-                      ImageUrl = lp.ImageUrl,
-                      ProductId = lp.ProductId
+                    ImageUrl = lp.Images.FirstOrDefault().ImageUrl,
+                    ProductId = lp.ProductId
                   })
                 .ToListAsync();
 

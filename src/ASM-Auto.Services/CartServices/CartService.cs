@@ -50,6 +50,8 @@ namespace ASM_Auto.Services.CartService
 
 
             var products = await cartProductRepository.GetAll()
+              .Include(p=>p.Product)
+              .ThenInclude(i=>i.Images)
               .Where(c => c.CartId == userCart.CartId)
               .Select(p => new CartViewModel
               {
@@ -57,7 +59,7 @@ namespace ASM_Auto.Services.CartService
                   Title = p.Product.Title,
                   Quantity = p.ProductCount,
                   Price = p.Product.Price,
-                  ImageUrl = p.Product.ImageUrl
+                  ImageUrl = p.Product.Images.FirstOrDefault().ImageUrl,
               })
               .ToListAsync();
 

@@ -1,0 +1,103 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>@ViewData["Title"] - ASM Auto</title>
+    <link rel="stylesheet" href="~/css/_Admin-layout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/main-page.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/product-details.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/cart.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/orders.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/liked-products.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/login-partial.css" asp-append-version="true" />
+</head>
+
+<body>
+    <header>
+        <nav>
+            <section class="user-nav">
+            <ul class="nav">
+            </ul>
+            </section>
+            <section class="logo">
+                <h1>ASM<span>Auto</span></h1>
+                <h2>Всичко за вашия автомобил!</h2>
+
+                <h2 class="admTitle">АДМИНИСТРАЦИЯ</h2>
+            </section>
+
+            <section class="category-nav">
+                <ul class="nav">
+                    <li class="back">
+                        <a asp-area="" asp-controller="Home" asp-action="Index">НАЗАД</a>
+                    </li>
+
+                    <div class="dropdown">
+                        <button class="dropbtn">
+                            ДОБАВИ ПРОДУКТ
+             
+                        </button>
+                        <div class="dropdown-content">
+                            <a asp-area="Administration" asp-controller="CreateProduct" asp-action="CreateLedlights">ЛЕД ОСВЕТЛЕНИЕ</a>
+                            <a asp-area="Administration" asp-controller="CreateProduct" asp-action="CreateMats">СТЕЛКИ</a>
+                            <a asp-area="Administration" asp-controller="CreateProduct" asp-action="CreateFoils">ФОЛИО</a>
+                            <a asp-area="Administration" asp-controller="CreateProduct" asp-action="CreateAutoshampoo">АВТОШАМПОАНИ</a>
+                            <a asp-area="Administration" asp-controller="CreateProduct" asp-action="CreateCleaningAccessories">ПОЧИСТВАЩИ ПРИНАДЛЕЖНОСТИ</a>
+                            <a asp-area="Administration" asp-controller="CreateProduct" asp-action="CreateMultimedia">МУЛТИМЕДИИ</a>
+                            <a asp-area="Administration" asp-controller="CreateProduct" asp-action="CreateBackupCameras">КАМЕРИ ЗА ЗАДНО ВИЖДАНЕ</a>
+                        </div>
+                    </div>
+
+                    <li >
+                        <a asp-area="" asp-controller="Home" asp-action="Index">УПРАВЛЕНИЕ НА ПРОДУКТИТЕ</a>
+                    </li>
+
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Index">ПОРЪЧКИ</a>
+                    </li>
+
+                    <li >
+                        <a asp-area="" asp-controller="Home" asp-action="Index">ВЪПРОСИ</a>
+                    </li>
+                    
+
+                </ul>
+                
+            </section>
+        </nav>
+       
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+    <div class="footer">
+        <section class="Links">
+            <h3>ASM<span>Auto</span></h3>
+            <p>ASMAuto е онлайн магазин за <br> качествени автомобилни продукти!</p>
+        </section>
+      
+        </div>
+
+        <div class="secfooter">
+            <p>&copy; @DateTime.UtcNow.Year - ASMAuto. Всички правя запазени!</p>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

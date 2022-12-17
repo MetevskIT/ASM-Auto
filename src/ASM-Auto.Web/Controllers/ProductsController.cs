@@ -1,5 +1,6 @@
 ﻿using ASM_Auto.Services.Common;
 using ASM_Auto.ViewModels;
+using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -27,6 +28,7 @@ namespace ASM_Auto.Web.Controllers
                 {
                     productId = product.ProductId,
                     Title = product.Title,
+                    Images = product.Images,
                     Description = product.Description,
                     LineDescription = product.LineDescription,
                     Price = product.Price,
@@ -43,7 +45,7 @@ namespace ASM_Auto.Web.Controllers
                 };
                 return View(model);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return View("Error");

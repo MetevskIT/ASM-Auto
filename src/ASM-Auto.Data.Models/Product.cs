@@ -48,7 +48,6 @@ namespace ASM_Auto.Data.Models
         public bool IsAvailable { get; set; }
         public string? LineDescription { get; set; }
 
-        [Required]
         public string? ImageUrl { get; set; }
 
         [Required]
@@ -126,10 +125,12 @@ namespace ASM_Auto.Data.Models
         [ForeignKey(nameof(CleaningAccessory))]
         public int? CleaningAccessoryId { get; set; }
         public CleaningAccessory? CleaningAccessory { get; set; }
-
+        public ICollection<Image> Images { get; set; } = new List<Image>();
         public ICollection<Order> Orders { get; set; } = new List<Order>();
 
         public virtual ICollection<User> Liked { get; set; } = new List<User>();
         public virtual ICollection<CartProduct> Cart { get; set; } = new List<CartProduct>();
+
+
     }
 }

@@ -12,13 +12,15 @@ namespace ASM_Auto.Web.Controllers
     {
         public UserManager<User> userManager;
         public SignInManager<User> signInManager;
+        public RoleManager<IdentityRole> roleManager;
         public ICartService cartService;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ICartService cartService)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ICartService cartService, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.cartService = cartService;
+            this.roleManager = roleManager;
         }
 
         [HttpGet]
@@ -97,8 +99,8 @@ namespace ASM_Auto.Web.Controllers
             {
                  
                  user.CartId = await cartService.CreateCart(user.Id);
-
                  await userManager.UpdateAsync(user);
+                await userManager.AddToRoleAsync(user, "User");
 
                 await signInManager.PasswordSignInAsync(user, model.Password, false, false);
 

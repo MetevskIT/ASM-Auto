@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 <!DOCTYPE html>
@@ -55,7 +56,7 @@
                         </button>
                         <div class="dropdown-content">
                             <a asp-area="" asp-controller="AutoCosmetics" asp-action="Autoshampoo">АВТОШАМПОАНИ</a>
-                            <a asp-area="" asp-controller="AutoCosmetics" asp-action="CleaningProducts">ПОЧИСТВАЩИ ПРЕПАРАТИ</a>
+                            <a asp-area="" asp-controller="AutoCosmetics" asp-action="CleaningAccessories">ПОЧИСТВАЩИ ПРИНАДЛЕЖНОСТИ</a>
                         </div>
                     </div>
                     <div class="dropdown">
@@ -76,6 +77,16 @@
                         <li>
                             <a asp-area="" asp-controller="Home" asp-action="AboutUs">ЗА НАС</a>
                         </li>
+
+                    @{
+                        var user = await UserManager.FindByIdAsync(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+                    }
+                        @if ((User?.Identity?.IsAuthenticated??false) && await UserManager.IsInRoleAsync(user,"Administrator"))
+                    {
+                        <li>
+                            <a class="adminBtn" asp-area="Administration" asp-controller="Admin" asp-action="Index">AdminArea</a>
+                        </li>
+                    }
                      
 
                 </ul>

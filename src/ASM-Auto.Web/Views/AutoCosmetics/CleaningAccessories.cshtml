@@ -1,0 +1,86 @@
+﻿@using ASM_Auto.ViewModels.AutoCosmetics.CleaningAccessories
+@model CleaningAccessoriesQueryModel
+@{
+    ViewData["Title"] = "Стелки";
+}
+<h2 class="title">Автошампоани</h2>
+
+<section class="form">
+
+    <form method="get">
+
+        <div class="form-group">
+            <label></label>
+            <select asp-for="AccessoriesTypeId" class="form-control carMakes">
+                <option value="" disabled selected hidden>Тип</option>
+                @foreach (var type in Model.AccessoriesType)
+                {
+                    <option value="@type.CleaningAccessoryId">@type.CleaningAccessoryName</option>
+                }
+
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label></label>
+
+            <select asp-for="OrderedProducts" class="form-control">
+                <option value="" disabled selected hidden>Подреди по</option>
+                <option value="1">Цена (възходящо)</option>
+                <option value="2">Цена (низходящо)</option>
+                <option value="0">Най-нови</option>
+            </select>
+        </div>
+        <input type="submit" value="Търсене..." class="sbtBtn" />
+
+
+    </form>
+    <hr class="lineUnForm">
+
+</section>
+<section class="products">
+
+    @if (!Model.Accessories.Any())
+    {
+        <p class="nf">Няма намерени резултати!</p>
+    }
+    @foreach (var product in Model.Accessories)
+    {
+        <partial name="_PartialProduct" model="@product" />
+    }
+
+</section>
+
+@{
+    var previosPage = Model.currentPage - 1;
+
+    if (previosPage < 1)
+    {
+        previosPage = 1;
+    }
+
+    var maxPage = Math.Ceiling((double)(Model.AccessoriesCount / CleaningAccessoriesQueryModel.productsPerPage));
+}
+
+@if (Model.Accessories.Any())
+{
+    <section class="paginationSection">
+        <a class="paginationBtn @(Model.currentPage==1? "isDisabled" : String.Empty)"
+       asp-controller="AutoCosmetics"
+       asp-action="CleaningAccessories"
+       asp-route-currentPage="@previosPage"
+       asp-route-AccessoriesTypeId="@Model.AccessoriesTypeId"
+       asp-route-OrderedProducts="@((int)Model.OrderedProducts)">
+            Назад
+        </a>
+
+        <a class="paginationBtn @(Model.currentPage>=maxPage? "isDisabled" : String.Empty)"
+       asp-controller="AutoCosmetics"
+       asp-action="CleaningAccessories"
+       asp-route-currentPage="@(Model.currentPage + 1)"
+       asp-route-AccessoriesTypeId="@Model.AccessoriesTypeId"
+       asp-route-OrderedProducts="@((int)Model.OrderedProducts)">
+            Напред
+        </a>
+    </section>
+}

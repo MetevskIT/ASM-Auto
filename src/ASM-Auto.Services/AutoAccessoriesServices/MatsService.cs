@@ -3,7 +3,9 @@ using ASM_Auto.Data.Models.Enums.Products;
 using ASM_Auto.Data.Models.Products.AutoAccessories.Mats;
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
+using ASM_Auto.Services.ImageService;
 using ASM_Auto.ViewModels;
+using ASM_Auto.ViewModels.Administration.CreateProducts;
 using ASM_Auto.ViewModels.AutoAccessories.Mats;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,10 +20,39 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
     {
         private IRepository<MatsType> matsTypesRepository;
         private IRepository<Product> matsRepository;
-        public MatsService(IRepository<MatsType> matsTypesRepository,IRepository<Product> matsRepository)
+        private IImageService imageService;
+        public MatsService(IRepository<MatsType> matsTypesRepository,IRepository<Product> matsRepository, IImageService imageService)
         {
             this.matsRepository = matsRepository;
             this.matsTypesRepository = matsTypesRepository;
+            this.imageService = imageService;
+        }
+
+        public async Task CreateMat(CreateMatViewModel model)
+        {
+            var product = new Product
+            {
+                ProductTypeId = 3,
+                Title = model.Title,
+                Quantity = model.Quantity,
+                Description = model.Description,
+                Price = model.Price,
+                IsActive = model.IsActive,
+
+                LineDescription = model.LineDescription,
+                FreeDelivery = model.FreeDelivery,
+               CarMakeId = model.CarMakeId,
+               CarModelId = model.CarModelId,
+               MatsTypeId = model.MatTypeId
+            };
+
+            foreach (var img in model.Images)
+            {
+                product.Images.Add(await imageService.UploadImage(img));
+
+            }
+            await matsRepository.AddAsync(product);
+            await matsRepository.SaveChangesAsync();
         }
 
         public async Task<List<PartialProductModel>> GetMats(int currentPage = 1, int? CarMakeId = null, int? CarModelId = null, int? MatTypeId = null, OrderedProducts sorting = OrderedProducts.Newest,int productsPerPage = 20)
@@ -29,6 +60,7 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             var products = new List<PartialProductModel>();
 
             var result = matsRepository.GetAll()
+                .Include(i => i.Images)
                 .Include(c=>c.CarMake)
                 .Include(cm=>cm.CarModel)
                  .Where(pt => pt.ProductType.Type == "Mats")
@@ -70,7 +102,7 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
                     Description = p.Description,
                     Price = p.Price,
                     FreeDelivery = p.FreeDelivery,
-                    ImageUrl = p.ImageUrl,
+                    ImageUrl = p.Images.FirstOrDefault().ImageUrl,
                     IsActive = p.IsActive,
                     Quantity = p.Quantity,
                     ProductTypeId = p.ProductTypeId
