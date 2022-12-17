@@ -8,6 +8,7 @@ using ASM_Auto.Services.AutoAccessoriesServices;
 using ASM_Auto.Services.Common;
 using CloudinaryDotNet;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 
@@ -47,6 +48,17 @@ namespace ASM_Auto.Web
             // Cloudinary api
 
             builder.Services.AddSingleton(new Cloudinary(new Account("dh6kqijic", "639656954689724", "yyBqb6eizRMvAYp27ZSN6W4-OkU")));
+
+            builder.Services.AddControllersWithViews(
+              options =>
+              {
+                  options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+              });
+
+            builder.Services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
 
             var app = builder.Build();
 
