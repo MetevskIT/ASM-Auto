@@ -21,7 +21,6 @@ namespace ASM_Auto.ViewModels.Account
         [Required]
         [StringLength(25,MinimumLength=6)]
         [PasswordPropertyText]
-        [Compare(nameof(ConfirmPassword))]
         public string Password { get; set; } = null!;
 
         [Required]

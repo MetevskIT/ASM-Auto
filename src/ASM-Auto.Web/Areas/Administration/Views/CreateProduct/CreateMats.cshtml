@@ -7,16 +7,19 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="field">
-
+            <span asp-validation-for="@Model.Title" class="text-danger"></span>
+            <br>
             <input class="form-control " autocomplete="title" aria-required="true" asp-for="@Model.Title" placeholder="Загалвие на продукта" required/>
         </div>
         <div class="field">
-
-            <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control " autocomplete="price" aria-required="true" asp-for="@Model.Price" placeholder="Цена" required />
+            <span asp-validation-for="@Model.Price" class="text-danger"></span>
+            <br>
+            <input type="number" value="null" class="form-control " autocomplete="price" aria-required="true" asp-for="@Model.Price" placeholder="Цена" required />
         </div>
 
         <div class="field">
-
+            <span asp-validation-for="@Model.Description" class="text-danger"></span>
+            <br>
             <input class="form-control " autocomplete="description" aria-required="true" asp-for="@Model.Description" placeholder="Описание" required />
         </div>
 
@@ -25,6 +28,8 @@
             <input class="form-control " autocomplete="line-description" aria-required="true" asp-for="@Model.LineDescription" placeholder="Описание-списък" />
         </div>
         <div class="field">
+            <span asp-validation-for="@Model.MatTypeId" class="text-danger"></span>
+            <br>
         <select asp-for="MatTypeId" class="form-control">
             <option value="" disabled selected hidden>Тип</option>
             @foreach (var type in Model.MatsTypes)
@@ -36,6 +41,8 @@
         </div>
 
         <div class="field">
+            <span asp-validation-for="@Model.CarMakeId" class="text-danger"></span>
+            <br>
             <select asp-for="CarMakeId" class="form-control carMakes">
                     <option value="" disabled selected hidden>Марка</option>
                 @foreach (var make in Model.CarMakes)
@@ -46,6 +53,8 @@
         </div>
 
         <div class="field">
+            <span asp-validation-for="@Model.CarModelId" class="text-danger"></span>
+            <br>
             <select asp-for="CarModelId" class="form-control carModels">
                 <option value="" disabled selected hidden> Модел</option>
                
@@ -54,7 +63,7 @@
 
         <div class="field">
             <select asp-for="FreeDelivery" class="form-control">
-                <option value="" disabled selected hidden>Доставка</option>
+                <option value="false">Доставка</option>
 
                 <option value="true">Безплатна доставка</option>
 
@@ -65,6 +74,8 @@
             <label for="upload">Избери изображения</label>
          <br>
          <br>
+            <span asp-validation-for="@Model.Images" class="text-danger"></span>
+            <br>
             <input id="upload" asp-for="@Model.Images" multiple accept="image/gif, image/jpeg, image/png">
         </div>
 

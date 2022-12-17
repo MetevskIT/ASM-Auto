@@ -4,8 +4,10 @@ using ASM_Auto.Data.Models.Products.AutoAccessories.Mats;
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
 using ASM_Auto.Services.ImageService;
+using ASM_Auto.Services.ProductServices;
 using ASM_Auto.ViewModels;
 using ASM_Auto.ViewModels.Administration.CreateProducts;
+using ASM_Auto.ViewModels.Administration.EditProducts;
 using ASM_Auto.ViewModels.AutoAccessories.Mats;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -52,6 +54,37 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
 
             }
             await matsRepository.AddAsync(product);
+            await matsRepository.SaveChangesAsync();
+        }
+
+        public async Task EditMat(EditMatViewModel model)
+        {
+            var product = await matsRepository.GetAll()
+                .Where(i => i.ProductId == model.ProductId)
+                .FirstOrDefaultAsync(); 
+
+            product.Title = model.Title;
+            product.Quantity = model.Quantity;
+            product.Description = model.Description;
+            product.Price = model.Price;
+            product.NewPrice = model.NewPrice;
+            product.IsActive = model.IsActive;
+            product.LineDescription = model.LineDescription;
+            product.FreeDelivery = model.FreeDelivery;
+            product.CarMakeId = model.CarMakeId;
+            product.CarModelId = model.CarModelId;
+            product.MatsTypeId = model.MatTypeId;
+
+            if (model.Images.Any())
+            {
+                product.Images.Clear();
+                await imageService.RemoveImages(product.ProductId);
+                foreach (var img in model.Images)
+                {
+                    product.Images.Add(await imageService.UploadImage(img));
+
+                }
+            }
             await matsRepository.SaveChangesAsync();
         }
 

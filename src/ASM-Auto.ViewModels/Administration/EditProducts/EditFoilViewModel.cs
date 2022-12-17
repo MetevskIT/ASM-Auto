@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ASM_Auto.ViewModels.Administration.CreateProducts
+namespace ASM_Auto.ViewModels.Administration.EditProducts
 {
     public class EditFoilViewModel
     {
@@ -18,6 +18,8 @@ namespace ASM_Auto.ViewModels.Administration.CreateProducts
         [Required]
         [Range(0.00, 9999.00)]
         public decimal Price { get; set; }
+        [Range(0.00, 9999.00)]
+        public decimal NewPrice { get; set; }
         [Required]
         public int Quantity { get; set; } = 50;
         [Required]

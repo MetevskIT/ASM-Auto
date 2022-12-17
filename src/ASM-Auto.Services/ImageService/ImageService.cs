@@ -2,6 +2,7 @@
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,17 @@ namespace ASM_Auto.Services.ImageService
         {
             this.imageRepository = imageRepository;
             this.cloudinaryService = cloudinaryService;
+        }
+
+        public async Task RemoveImages(Guid productId)
+        {
+            var images = await imageRepository.GetAll()
+                 .Include(p => p.Product)
+                 .Where(p => p.ProductId == productId)
+                 .ToListAsync();
+
+             imageRepository.DeleteRange(images);
+            await imageRepository.SaveChangesAsync();
         }
 
         public async Task<Image> UploadImage(IFormFile imageFile)

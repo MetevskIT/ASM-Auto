@@ -14,10 +14,12 @@ namespace ASM_Auto.ViewModels.Administration.CreateProducts
         [Required]
         public string? Title { get; set; }
         [Required]
+        [Range(0.00,9999.00)]
         public decimal Price { get; set; }
         [Required]
         public int Quantity { get; set; } = 50;
         [Required]
+        [StringLength(200,MinimumLength =5)]
         public string? Description { get; set; }
 
         public string? LineDescription { get; set; }

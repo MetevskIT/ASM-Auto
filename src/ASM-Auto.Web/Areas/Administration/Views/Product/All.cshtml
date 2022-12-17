@@ -1,0 +1,96 @@
+﻿@using ASM_Auto.ViewModels.Administration.Products
+@model AllProductsQueryModel
+@{
+    ViewData["Title"] = "Светлини";
+}
+<h2 class="title">Светлини</h2>
+
+<section class="form">
+
+    <form method="get">
+        <div class="form-group">
+            <label></label>
+            <select asp-for="ProductTypeId" class="form-control">
+                <option value="">Всички</option>
+                @foreach (var type in Model.ProductTypes)
+                {
+                    <option value="@type.ProductTypeId">@type.Type</option>
+                }
+
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label></label>
+
+            <select asp-for="IsActive" class="form-control">
+                <option value="true" selected>Активни</option>
+                    <option value="false">Неактивни</option>
+            </select>
+        </div>
+
+       
+        <div class="form-group">
+            <label></label>
+
+            <select asp-for="OrderedProducts" class="form-control">
+                <option value="" disabled selected hidden>Подреди по</option>
+                <option value="1">Цена (възходящо)</option>
+                <option value="2">Цена (низходящо)</option>
+                <option value="0">Най-нови</option>
+            </select>
+        </div>
+        <input type="submit" value="Търсене..." class="sbtBtn" />
+
+
+    </form>
+    <hr class="lineUnForm">
+
+</section>
+<section class="products">
+
+    @if (!Model.Products.Any())
+    {
+        <p class="nf">Няма намерени резултати!</p>
+    }
+    @foreach (var product in Model.Products)
+    {
+        <partial name="_PartialProduct" model="@product" />
+    }
+
+</section>
+
+@{
+    var previosPage = Model.currentPage - 1;
+
+    if (previosPage < 1)
+    {
+        previosPage = 1;
+    }
+
+    var maxPage = Math.Ceiling((double)(Model.ProductsCount / AllProductsQueryModel.productsPerPage));
+}
+
+@if (Model.Products.Any())
+{
+    <section class="paginationSection">
+        <a class="paginationBtn @(Model.currentPage==1? "isDisabled" : String.Empty)"
+       asp-controller="Product"
+       asp-action="All"
+       asp-route-currentPage="@previosPage"
+       asp-route-ProductTypeId="@Model.ProductTypeId"
+       asp-route-IsActive="@Model.IsActive"
+       asp-route-OrderedProducts="@((int)Model.OrderedProducts)">
+            Назад
+        </a>
+
+        <a class="paginationBtn @(Model.currentPage>=maxPage? "isDisabled" : String.Empty)"
+       asp-controller="Product"
+       asp-action="All"
+       asp-route-ProductTypeId="@Model.ProductTypeId"
+       asp-route-IsActive="@Model.IsActive"
+       asp-route-OrderedProducts="@((int)Model.OrderedProducts)">
+            Напред
+        </a>
+    </section>
+}

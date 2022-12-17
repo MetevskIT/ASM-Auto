@@ -1,20 +1,25 @@
-﻿@using ASM_Auto.ViewModels.Administration.CreateProducts
-@model CreateNavigationViewModel
+﻿@using ASM_Auto.ViewModels.Administration.EditProducts
+@model EditMatViewModel
 
 <section class="sectionLoginForm">
     <form class="accForm" method="post" enctype="multipart/form-data">
-        <h2 class="formTitle">Добави мултимедия</h2>
+        <h2 class="formTitle">Добави стелки</h2>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="field">
             <span asp-validation-for="@Model.Title" class="text-danger"></span>
             <br>
-            <input class="form-control " autocomplete="title" aria-required="true" asp-for="@Model.Title" placeholder="Загалвие на продукта" required/>
+            <input class="form-control " autocomplete="title" aria-required="true" asp-for="@Model.Title" placeholder="Загалвие на продукта" required />
         </div>
         <div class="field">
             <span asp-validation-for="@Model.Price" class="text-danger"></span>
             <br>
-            <input type="number" value="null" step="0.01" class="form-control " autocomplete="price" aria-required="true" asp-for="@Model.Price" placeholder="Цена" required />
+            <input type="number"  class="form-control " autocomplete="price" aria-required="true" asp-for="@Model.Price" placeholder="Цена" required />
+        </div>
+        <div class="field">
+            <span asp-validation-for="@Model.NewPrice" class="text-danger"></span>
+            <br>
+            <input type="number" value="null" class="form-control " autocomplete="price" aria-required="true" asp-for="@Model.NewPrice" placeholder="Нова Цена" />
         </div>
 
         <div class="field">
@@ -24,20 +29,31 @@
         </div>
 
         <div class="field">
-
             <input class="form-control " autocomplete="line-description" aria-required="true" asp-for="@Model.LineDescription" placeholder="Описание-списък" />
+        </div>
+        <div class="field">
+            <span asp-validation-for="@Model.MatTypeId" class="text-danger"></span>
+            <br>
+            <select asp-for="MatTypeId" class="form-control">
+                <option value="" disabled selected hidden>Тип</option>
+                @foreach (var type in Model.MatsTypes)
+                {
+                    <option value="@type.MatsTypeId">@type.MatsTypeName</option>
+                }
+
+            </select>
         </div>
 
         <div class="field">
             <span asp-validation-for="@Model.CarMakeId" class="text-danger"></span>
             <br>
             <select asp-for="CarMakeId" class="form-control carMakes">
-                    <option value="" disabled selected hidden>Марка</option>
+                <option value="" disabled selected hidden>Марка</option>
                 @foreach (var make in Model.CarMakes)
                 {
                     <option value="@make.CarMakeId">@make.CarMakeText</option>
                 }
-                </select>
+            </select>
         </div>
 
         <div class="field">
@@ -45,7 +61,7 @@
             <br>
             <select asp-for="CarModelId" class="form-control carModels">
                 <option value="" disabled selected hidden> Модел</option>
-               
+
             </select>
         </div>
 
@@ -57,22 +73,29 @@
 
             </select>
         </div>
+        <div class="field">
+            <select asp-for="IsActive" class="form-control">
+                <option value="true" selected>Активна</option>
+                <option value="false">Неактивна</option>
+
+            </select>
+        </div>
         <br>
         <div class="field">
             <label for="upload">Избери изображения</label>
-         <br>
-         <br>
+            <br>
+            <br>
             <span asp-validation-for="@Model.Images" class="text-danger"></span>
             <br>
             <input id="upload" asp-for="@Model.Images" multiple accept="image/gif, image/jpeg, image/png">
         </div>
 
         <div class="text-center">
-            <button type="submit" class="btn-primary">Създай</button>
+            <button type="submit" class="btn-primary">Редактирай</button>
         </div>
     </form>
 </section>
-    <script src="/js/get-car-models.js"></script>
+<script src="/js/get-car-models.js"></script>
 @section Scripts {
     <partial name="_ValidationScriptsPartial.cshtml" />
 }

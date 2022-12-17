@@ -1,0 +1,63 @@
+﻿@using ASM_Auto.ViewModels
+@model DetailsViewModel
+<section class="details">
+    <div class="details-area">
+        <div class="image-area">
+        <img class="main-img" src="@Model.Images.First().ImageUrl" alt="Image">
+        <br>
+        <div class="mini-imgs">
+                @foreach (var url in Model.Images)
+                {
+                  <img src="@url.ImageUrl"></img>
+                }
+        </div>
+        </div>
+
+        <div class="text">
+            <h2 class="details-title">@Model.Title</h2>
+            <hr>
+            <p class="categpry">@Model.Category > @Model.Type</p>
+            @{
+                var isHaveNewPrice = Model.NewPrice != null ? true : false;
+                var isHaveCarDetails = Model.Make != null ? true : false;
+            }
+
+           @if (Model.IsAvailable==true)
+            {
+                <p class="availale" class><span class="icon">&#10003;</span>  В наличност!</p>
+                <p class="priceArea">Цена: <span class="price @(isHaveNewPrice==true ? "oldPrice" : "")">@Model.Price лв.</span><span class="price @(isHaveNewPrice == true? "newPrice" : "hidden")">@Model.NewPrice лв.</span></p>
+            }else
+            {
+                <p class="not-availale" class><span class="icon">&#10005;</span> Няма наличност!</p>
+            }
+            
+            <p class="car" style="display:@(isHaveCarDetails==true?@String.Empty : "none")"><span>Марка: </span>@Model.Make<br><span>Модел:</span> @Model.Model</p>
+            @{
+                if (Model.LineDescription!=null)
+                {
+                    var descriptionLines = Model.LineDescription.Trim().Split(". ").ToList();
+
+                    foreach (var line in descriptionLines)
+                    {
+                        <p class=line-description><span class="description-icon">&#9679;</span>@line</p>
+
+                        <br>
+
+                    }
+                }
+            
+            }
+             <p class=description>@Model.Description</p>
+
+
+             @if (Model.IsFreeDelivery==true&&Model.IsAvailable)
+            {
+                <p class="delivery"><span class="icon">&#128666;</span>Безплатна доставака!</p>
+            }
+
+            <a class="editBtn" href="/EditProduct/@Model.Type?productId=@Model.productId">Редактирай</a>
+      
+        </div>
+    </div>
+</section>
+<script src="/js/details-page.js"></script>

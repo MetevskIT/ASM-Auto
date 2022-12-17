@@ -6,23 +6,29 @@
     <form class="accForm" method="post">
         <h2 class="formTitle">Поръчка</h2>
         <div class="field">
-
+            <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+            <br>
             <input class="form-control " autocomplete="firstname" aria-required="true" asp-for="@Model.FirstName" placeholder="Име" />
         </div>
         <div class="field">
+            <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+            <br>
 
             <input class="form-control " autocomplete="lastname" aria-required="true" asp-for="@Model.LastName" placeholder="Фамилия" />
         </div>
         <div class="field">
-
+            <span asp-validation-for="@Model.Town" class="text-danger"></span>
+            <br>
             <input class="form-control " autocomplete="town" aria-required="true" asp-for="@Model.Town" placeholder="Град" />
         </div>
         <div class="field">
-
+            <span asp-validation-for="@Model.Address" class="text-danger"></span>
+            <br>
             <input class="form-control " autocomplete="address" aria-required="true" asp-for="@Model.Address" placeholder="Адрес" />
         </div>
         <div class="field">
-
+            <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
+            <br>
             <input class="form-control " autocomplete="phoneNumber" aria-required="true" asp-for="@Model.PhoneNumber" placeholder="Телефон" />
         </div>
      
@@ -32,3 +38,6 @@
         </div>
     </form>
 </section>
+@section Scripts {
+        <partial name="_ValidationScriptsPartial.cshtml" />
+}

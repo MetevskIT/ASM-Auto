@@ -11,5 +11,6 @@ namespace ASM_Auto.Services.Common
     public interface IImageService
     {
         public Task<Image> UploadImage(IFormFile imageFile);
+        public Task RemoveImages(Guid productId);
     }
 }

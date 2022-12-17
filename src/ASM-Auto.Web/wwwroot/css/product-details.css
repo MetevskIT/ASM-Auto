@@ -73,7 +73,10 @@ background-color: white;
     font-size: 19px;
     color: #4790de;
     padding-left: 5px;
+    padding: 0px;
+    margin: 10px;
 }
+
 .text .priceArea{
     margin-top: 0px;
     font-size: 19px;

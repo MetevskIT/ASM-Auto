@@ -77,7 +77,7 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateMats()
         {
-            var model = new CreateMatViewModel();
+            var model = new CreateMatViewModel ();
              model.MatsTypes = await matsService.MatsTypes();
              model.CarMakes = await carService.CarMakes();
 
@@ -112,7 +112,7 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateFoils()
         {
-            var model = new CreateFoilViewModel();
+            var model = new EditFoilViewModel();
             model.FoilsPurposes = await foilService.GetFoilsPurposes();
             model.FoilsColors = await foilService.GetFoilsColors();
             model.FoilsTypes = await foilService.GetTypes();
@@ -121,7 +121,7 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateFoils(CreateFoilViewModel model)
+        public async Task<IActionResult> CreateFoils(EditFoilViewModel model)
         {
             if (!ModelState.IsValid)
             {

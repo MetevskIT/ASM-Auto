@@ -17,6 +17,7 @@ namespace ASM_Auto.ViewModels.Account
 
         [Required]
         [PasswordPropertyText]
+        [StringLength(20,MinimumLength =5)]
         public string? NewPassword { get; set; }
 
         [Required]

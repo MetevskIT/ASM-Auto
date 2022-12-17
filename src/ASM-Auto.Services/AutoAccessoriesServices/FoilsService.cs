@@ -38,7 +38,7 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             this.imageService = imageService;
         }
 
-        public async Task CreateFoil(CreateFoilViewModel model)
+        public async Task CreateFoil(EditFoilViewModel model)
         {
             var product = new Product
             {
