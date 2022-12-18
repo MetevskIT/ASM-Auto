@@ -138,7 +138,7 @@ namespace ASM_Auto.Web.Controllers
         {
             var model = new AllOrders
             {
-                Orders = await orderService.GetOrders()
+                Orders = await orderService.GetOrders(GetUserId())
             };
 
 

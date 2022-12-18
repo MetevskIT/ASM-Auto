@@ -1,0 +1,81 @@
+﻿@using ASM_Auto.ViewModels.Administration.ManageOrders
+@model OrderDetailsViewModel
+
+<h1 class="title">Детайли</h1>
+<hr class="line-under-title">
+
+<div class="orders">
+
+   
+
+
+        <div class="order">
+            <div class="head">
+            <p class="owner">Поръчка от: @Model.OrderId</p>
+            <p class="orderStatus">Статус: @Model.Status</p>
+            <p class="orderDate">Дата: @Model.CreateDate</p>
+            </div>
+            <hr class="line-under-head">
+        @foreach (var product in Model.Products)
+            {
+                <div class="product">
+                    <tr class="body">
+                        <td>
+                            <a href="/Products/Details?productId=@product.ProductId">
+                                <div class="product-info">
+                                    <img src="@product.ImageUrl" class="product-img">
+                                    <p class="title">@product.Title</p>
+                                    <p class="price">Цена: @product.Price лв.</p>
+
+                                </div>
+                            </a>
+                        </td>
+
+                        <td>
+                            <div class="status">
+                                <p class="quantity">Количество: @product.Quantity бр.</p>
+
+                            </div>
+                        </td>
+                        <td class="delivery-time">
+                            <p class="priceP">Цена: @product.Price</p>
+
+                        </td>
+                    </tr>
+                </div>
+
+            }
+        <hr class="line-under-head">
+            <div class="user-data">
+                <p class="firstName">Име: @Model.FirstName</p>
+            <p class="lastName">Фамилия: @Model.LastName</p>
+            <p class="town">Град: @Model.Town</p>
+            <p class="address">Адрес: @Model.Address</p>
+            <p class="phone">Телефон: @Model.PhoneNumber</p>
+
+            </div>
+        <form method="get">
+            <div class="form-group">
+                <label></label>
+                <select asp-for="Status" class="form-control">
+                    <option value="" disabled selected hidden>Статус</option>
+                    <option value="0">Pending</option>
+                    <option value="1">Declined</option>
+                    <option value="2">Confirmed</option>
+                    <option value="3">Shipped</option>
+                    <option value="4">Completed</option>
+                    <option value="5">Cancelled</option>
+                </select>
+            </div>
+
+            <input type="submit" value="Търсене..." class="sbtBtn" />
+
+
+        </form>
+            <div class="cancelBtn">
+            <a href="/МanageOrders/Manage?Order=@Model.OrderId">EditStatus</a>
+            </div>
+        </div>
+    
+
+</div>

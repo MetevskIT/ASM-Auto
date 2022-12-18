@@ -105,3 +105,11 @@ margin-right: 15px;
     border-radius: 5px;
     background-color: rgb(236, 35, 35);
 }
+.owner{
+display: inline-block;
+margin-right: 45px;
+}
+.user-data{
+
+    font-size: 18px;
+}

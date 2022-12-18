@@ -39,7 +39,7 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateLedLights()
         {
-            var model = new EditLedLightViewModel();
+            var model = new CreateLedLightViewModel();
             model.LedlightsColors = await ledlightsService.GetLedlightsColors();
             model.LedlightsFormats = await ledlightsService.GetLedlightsFormats();
             model.LedlightsPowers = await ledlightsService.GetLedlightsPower();
@@ -113,7 +113,7 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateFoils()
         {
-            var model = new EditFoilViewModel();
+            var model = new CreateFoilViewModel();
             model.FoilsPurposes = await foilService.GetFoilsPurposes();
             model.FoilsColors = await foilService.GetFoilsColors();
             model.FoilsTypes = await foilService.GetTypes();
