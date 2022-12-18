@@ -1,5 +1,6 @@
 ﻿using ASM_Auto.Services.Common;
 using ASM_Auto.ViewModels.Order;
+using Ganss.Xss;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -41,8 +42,14 @@ namespace ASM_Auto.Web.Controllers
                 }
 
                 var cartProducts = await cartService.GetCartProducts(userId);
+                var sanitizer = new HtmlSanitizer();
+                model.FirstName = sanitizer.Sanitize(model.FirstName);
+                model.LastName = sanitizer.Sanitize(model.LastName);
+                model.Town = sanitizer.Sanitize(model.Town);
+                model.Address = sanitizer.Sanitize(model.Address);
+                model.PhoneNumber = sanitizer.Sanitize(model.PhoneNumber);
 
-                await orderService.CreateOrder(userId, model.FirstName, model.LastName, model.Town, model.Address,model.PhoneNumber, cartProducts);
+              await orderService.CreateOrder(userId, model.FirstName, model.LastName, model.Town, model.Address,model.PhoneNumber, cartProducts);
                
                 await cartService.RemoveAllProductsFromCart(userId);
 

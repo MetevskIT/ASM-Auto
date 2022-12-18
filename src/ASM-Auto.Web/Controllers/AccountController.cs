@@ -1,6 +1,7 @@
 ﻿using ASM_Auto.Data.Models;
 using ASM_Auto.Services.Common;
 using ASM_Auto.ViewModels.Account;
+using Ganss.Xss;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -43,7 +44,9 @@ namespace ASM_Auto.Web.Controllers
             {
                 return View(model);
             }
-          
+            var sanitizer = new HtmlSanitizer();
+            model.Email = sanitizer.Sanitize(model.Email);
+            model.Password = sanitizer.Sanitize(model.Password);
             var user = await userManager.FindByEmailAsync(model.Email);
             
             if (user != null)
@@ -87,6 +90,11 @@ namespace ASM_Auto.Web.Controllers
                 ModelState.AddModelError("", "Вече съществува потребител с този Email!");
                 return View(model);
             }
+            var sanitizer = new HtmlSanitizer();
+            model.Email = sanitizer.Sanitize(model.Email);
+            model.Password = sanitizer.Sanitize(model.Password);
+
+
             var user = new User
             {
                 Email = model.Email,
@@ -138,9 +146,12 @@ namespace ASM_Auto.Web.Controllers
                 ModelState.AddModelError("", "Няма логнат потребител! Моля влезте отново!");
                 return View(model);
             }
+            var sanitizer = new HtmlSanitizer();
+            model.OldPassword = sanitizer.Sanitize(model.OldPassword);
+            model.NewPassword = sanitizer.Sanitize(model.NewPassword);
+            model.ConfirmNewPassword = sanitizer.Sanitize(model.ConfirmNewPassword);
 
-
-           var result = await userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+            var result = await userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
             if (!result.Succeeded)
             {
                 ModelState.AddModelError("", result.Errors.First().Description);
