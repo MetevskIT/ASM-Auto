@@ -1,0 +1,121 @@
+﻿@using ASM_Auto.ViewModels.Administration.EditProducts
+@model EditLedLightViewModel
+
+<section class="sectionLoginForm">
+    <form class="accForm" method="post" enctype="multipart/form-data">
+        <h2 class="formTitle">Добави стелки</h2>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="field">
+            <span asp-validation-for="@Model.Title" class="text-danger"></span>
+            <br>
+            <input class="form-control " autocomplete="title" aria-required="true" asp-for="@Model.Title" placeholder="Загалвие на продукта" required />
+        </div>
+        <div class="field">
+            <span asp-validation-for="@Model.Price" class="text-danger"></span>
+            <br>
+            <input type="number"  class="form-control " autocomplete="price" aria-required="true" asp-for="@Model.Price" placeholder="Цена" required />
+        </div>
+        <div class="field">
+            <span asp-validation-for="@Model.NewPrice" class="text-danger"></span>
+            <br>
+            <input type="number" value="null" class="form-control " autocomplete="price" aria-required="true" asp-for="@Model.NewPrice" placeholder="Нова Цена" />
+        </div>
+
+        <div class="field">
+            <span asp-validation-for="@Model.Description" class="text-danger"></span>
+            <br>
+            <input class="form-control " autocomplete="description" aria-required="true" asp-for="@Model.Description" placeholder="Описание" required />
+        </div>
+
+        <div class="field">
+            <input class="form-control " autocomplete="line-description" aria-required="true" asp-for="@Model.LineDescription" placeholder="Описание-списък" />
+        </div>
+        <div class="field">
+            <span asp-validation-for="@Model.LedlightsColorId" class="text-danger"></span>
+            <br>
+            <select asp-for="LedlightsColorId" class="form-control">
+                <option value="" disabled selected hidden>Цвят</option>
+                @foreach (var color in Model.LedlightsColors)
+                {
+                    <option value="@color.LedlightsColorId">@color.LedlightColor</option>
+                }
+
+            </select>
+        </div>
+
+          <div class="field">
+            <span asp-validation-for="@Model.LedlightsPowerId" class="text-danger"></span>
+      <br>
+            <select asp-for="LedlightsPowerId" class="form-control">
+                <option value="" disabled selected hidden>Мощност</option>
+                @foreach (var power in Model.LedlightsPowers)
+                {
+                        <option value="@power.LedlightsPowerId">@power.LedlightPower</option>
+                }
+
+            </select>
+        </div>
+
+          <div class="field">
+            <span asp-validation-for="@Model.LedlightsFormatId" class="text-danger"></span>
+      <br>
+            <select asp-for="LedlightsFormatId" class="form-control">
+                <option value="" disabled selected hidden>Размер</option>
+                @foreach (var format in Model.LedlightsFormats)
+                {
+                    <option value="@format.LedlightsFormatId">@format.LedlightFormat</option>
+                }
+
+            </select>
+        </div>
+
+        <div class="field">
+            <span asp-validation-for="@Model.LedlightsTypeId" class="text-danger"></span>
+            <br>
+            <select asp-for="LedlightsTypeId" class="form-control">
+                <option value="" disabled selected hidden>Цвят</option>
+                @foreach (var type in Model.LedlightsTypes)
+                {
+                    <option value="@type.LedlightsTypeId">@type.LedlightType</option>
+                }
+
+            </select>
+        </div>
+
+      
+
+        <div class="field">
+            <select asp-for="FreeDelivery" class="form-control">
+                <option value="false">Доставка</option>
+
+                <option value="true">Безплатна доставка</option>
+
+            </select>
+        </div>
+        <div class="field">
+            <select asp-for="IsActive" class="form-control">
+                <option value="true" selected>Активна</option>
+                <option value="false">Неактивна</option>
+
+            </select>
+        </div>
+        <br>
+        <div class="field">
+            <label for="upload">Избери изображения</label>
+            <br>
+            <br>
+            <span asp-validation-for="@Model.Images" class="text-danger"></span>
+            <br>
+            <input id="upload" asp-for="@Model.Images" multiple accept="image/gif, image/jpeg, image/png">
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn-primary">Редактирай</button>
+        </div>
+    </form>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial.cshtml" />
+}

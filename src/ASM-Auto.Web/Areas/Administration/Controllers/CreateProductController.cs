@@ -1,5 +1,6 @@
 ﻿using ASM_Auto.Services.Common;
 using ASM_Auto.ViewModels.Administration.CreateProducts;
+using ASM_Auto.ViewModels.Administration.EditProducts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASM_Auto.Web.Areas.Administration.Controllers
@@ -38,7 +39,7 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateLedLights()
         {
-            var model = new CreateLedLightViewModel();
+            var model = new EditLedLightViewModel();
             model.LedlightsColors = await ledlightsService.GetLedlightsColors();
             model.LedlightsFormats = await ledlightsService.GetLedlightsFormats();
             model.LedlightsPowers = await ledlightsService.GetLedlightsPower();
@@ -121,7 +122,7 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateFoils(EditFoilViewModel model)
+        public async Task<IActionResult> CreateFoils(CreateFoilViewModel model)
         {
             if (!ModelState.IsValid)
             {

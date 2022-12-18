@@ -1,5 +1,4 @@
-﻿using ASM_Auto.Data.Models.Products.Foil;
-using ASM_Auto.Data.Models.Products.Ledlights;
+﻿using ASM_Auto.Data.Models.Products.Ledlights;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ASM_Auto.ViewModels.Administration.EditProducts
 {
-    public class EditFoilViewModel
+    public class EditLedLightViewModel
     {
         [Key]
         public Guid ProductId { get; set; }
@@ -20,8 +19,10 @@ namespace ASM_Auto.ViewModels.Administration.EditProducts
         [Required]
         [Range(0.00, 9999.00)]
         public decimal Price { get; set; }
+
         [Range(0.00, 9999.00)]
-        public decimal NewPrice { get; set; }
+        public decimal? NewPrice { get; set; }
+
         [Required]
         public int Quantity { get; set; } = 50;
         [Required]
@@ -35,14 +36,19 @@ namespace ASM_Auto.ViewModels.Administration.EditProducts
         public bool IsActive { get; set; } = true;
         public List<IFormFile>? Images { get; set; } = new List<IFormFile>();
         [Required]
-        public int? FoilType { get; set; }
+        public int? LedlightsColorId { get; set; }
         [Required]
-        public int? FoilPurposeId { get; set; }
+        public int? LedlightsFormatId { get; set; }
         [Required]
-        public int? FoilColorId { get; set; }
-        public IEnumerable<FoilsColor> FoilsColors { get; set; } = new List<FoilsColor>();
-        public IEnumerable<FoilsType> FoilsTypes { get; set; } = new List<FoilsType>();
-        public IEnumerable<FoilsPurpose> FoilsPurposes { get; set; } = new List<FoilsPurpose>();
+        public int? LedlightsPowerId { get; set; }
+        [Required]
+        public int? LedlightsTypeId { get; set; }
+
+        public IEnumerable<LedlightsColor> LedlightsColors { get; set; } = new List<LedlightsColor>();
+        public IEnumerable<LedlightsFormat> LedlightsFormats { get; set; } = new List<LedlightsFormat>();
+        public IEnumerable<LedlightsPower> LedlightsPowers { get; set; } = new List<LedlightsPower>();
+        public IEnumerable<LedlightsType> LedlightsTypes { get; set; } = new List<LedlightsType>();
+
 
 
     }

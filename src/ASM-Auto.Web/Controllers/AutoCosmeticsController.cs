@@ -20,7 +20,7 @@ namespace ASM_Auto.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Autoshampoo([FromQuery] AllAutoshampooQuery queryModel)
         {
-            queryModel.Shampoos = await autoshampooService.GetShampoos();
+            queryModel.Shampoos = await autoshampooService.GetShampoos(queryModel.currentPage,queryModel.OrderedProducts);
             queryModel.ShampoosCount = await autoshampooService.GetShampooCount();
 
             return View(queryModel);
@@ -32,7 +32,7 @@ namespace ASM_Auto.Web.Controllers
         {
             queryModel.AccessoriesType = await accessoryService.GetCleaningTypes();
             queryModel.AccessoriesCount = await accessoryService.GetAccessoriesCount();
-            queryModel.Accessories = await accessoryService.GetCleaningAccesories();
+            queryModel.Accessories = await accessoryService.GetCleaningAccesories(queryModel.currentPage,queryModel.AccessoriesTypeId,queryModel.OrderedProducts);
 
             return View(queryModel);
         }

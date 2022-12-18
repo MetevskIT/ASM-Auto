@@ -3,6 +3,7 @@ using ASM_Auto.Data.Models.Enums.Products;
 using ASM_Auto.Data.Models.Products.Ledlights;
 using ASM_Auto.ViewModels;
 using ASM_Auto.ViewModels.Administration.CreateProducts;
+using ASM_Auto.ViewModels.Administration.EditProducts;
 using ASM_Auto.ViewModels.AutoAccessories.LedLights;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace ASM_Auto.Services.Common
     {
         public Task CreateLedLight(CreateLedLightViewModel model);
         public Task<int> GetLedlightsCount();
+        public Task EditLedLight(EditLedLightViewModel model);
         public Task<IEnumerable<LedlightsColor>> GetLedlightsColors();
         public Task<IEnumerable<LedlightsFormat>> GetLedlightsFormats();
         public Task<IEnumerable<LedlightsModel>> GetLedlightsModels();

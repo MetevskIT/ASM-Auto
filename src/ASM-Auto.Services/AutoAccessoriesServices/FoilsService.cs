@@ -6,6 +6,7 @@ using ASM_Auto.Services.Common;
 using ASM_Auto.Services.ImageService;
 using ASM_Auto.ViewModels;
 using ASM_Auto.ViewModels.Administration.CreateProducts;
+using ASM_Auto.ViewModels.Administration.EditProducts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             this.imageService = imageService;
         }
 
-        public async Task CreateFoil(EditFoilViewModel model)
+        public async Task CreateFoil(CreateFoilViewModel model)
         {
             var product = new Product
             {
@@ -62,6 +63,39 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
 
             }
             await repository.AddAsync(product);
+            await repository.SaveChangesAsync();
+        }
+
+ 
+
+        public async Task EditFoil(EditFoilViewModel model)
+        {
+            var product = await repository.GetAll()
+                .Where(i => i.ProductId == model.ProductId)
+                .FirstOrDefaultAsync();
+
+            product.Title = model.Title;
+            product.Quantity = model.Quantity;
+            product.Description = model.Description;
+            product.Price = model.Price;
+            product.NewPrice = model.NewPrice;
+            product.IsActive = model.IsActive;
+            product.LineDescription = model.LineDescription;
+            product.FreeDelivery = model.FreeDelivery;
+            product.FoilsPurposeId = model.FoilPurposeId;
+            product.FoilsColorId = model.FoilColorId;
+            product.FoilsTypeId = model.FoilType;
+
+            if (model.Images.Any())
+            {
+                product.Images.Clear();
+                await imageService.RemoveImages(product.ProductId);
+                foreach (var img in model.Images)
+                {
+                    product.Images.Add(await imageService.UploadImage(img));
+
+                }
+            }
             await repository.SaveChangesAsync();
         }
 
