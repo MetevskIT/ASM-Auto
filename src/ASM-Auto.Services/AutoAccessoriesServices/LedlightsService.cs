@@ -8,16 +8,10 @@ using ASM_Auto.ViewModels.Administration.CreateProducts;
 using ASM_Auto.ViewModels.Administration.EditProducts;
 using ASM_Auto.ViewModels.AutoAccessories.LedLights;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASM_Auto.Services.AutoAccessoriesServices
 {
-    public class LedlightsService :ILedlightsService
+    public class LedlightsService : ILedlightsService
     {
         public readonly IRepository<Product> repository;
         public readonly IRepository<LedlightsType> ledLightsTypeRepo;
@@ -26,6 +20,7 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
         public readonly IRepository<LedlightsFormat> ledLightsFormatRepo;
         public readonly IRepository<LedlightsColor> ledLightsColortRepo;
         private readonly IImageService imageService;
+
         public LedlightsService(
             IRepository<Product> repository,
             IRepository<LedlightsType> ledLightsTypeRepo,
@@ -33,10 +28,8 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             IRepository<LedlightsModel> ledLightsModelRepo,
             IRepository<LedlightsFormat> ledLightsFormatRepo,
             IRepository<LedlightsColor> ledLightsColortRepo,
-            IImageService imageService
-            )
+            IImageService imageService)
         {
-
             this.repository = repository;
             this.ledLightsFormatRepo = ledLightsFormatRepo;
             this.ledLightsModelRepo = ledLightsModelRepo;
@@ -44,15 +37,15 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             this.ledLightsPowerRepo = ledLightsPowerRepo;
             this.ledLightsTypeRepo = ledLightsTypeRepo;
             this.imageService = imageService;
-
         }
-        public Task<int> GetLedlightsCount() 
+
+        public Task<int> GetLedlightsCount()
         {
-           return repository
-                  .GetAll()
-                  .Where(t => t.ProductType.Type == "Ledlights")
-                  .AsQueryable()
-                  .CountAsync();
+            return repository
+                   .GetAll()
+                   .Where(t => t.ProductType.Type == "Ledlights")
+                   .AsQueryable()
+                   .CountAsync();
         }
         public async Task<IEnumerable<PartialProductModel>> GetLedlights(
             int currentPage = 1,
@@ -63,35 +56,37 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             OrderedProducts sorting = OrderedProducts.Newest,
             int productsPerPage = 20)
         {
- 
             var result = new List<PartialProductModel>();
 
             var ledlights = this.repository.GetAll()
                 .Include(i => i.Images)
-                .Where(p=>p.ProductType.Type == "Ledlights")
+                .Where(p => p.ProductType.Type == "Ledlights")
                 .Where(p => p.IsActive);
 
             if (!String.IsNullOrEmpty(ledlightsType))
             {
-                ledlights = ledlights.Where(l =>l.LedlightsType.LedlightType==ledlightsType);
+                ledlights = ledlights.Where(l => l.LedlightsType.LedlightType == ledlightsType);
             }
+
             if (!String.IsNullOrEmpty(ledlightsColor))
             {
                 ledlights = ledlights.Where(l => l.LedlightsColor.LedlightColor == ledlightsColor);
             }
+
             if (!String.IsNullOrEmpty(ledlightsPower))
             {
                 ledlights = ledlights.Where(l => l.LedlightsPower.LedlightPower == ledlightsPower);
             }
+
             if (!String.IsNullOrEmpty(ledlightsFormat))
             {
                 ledlights = ledlights.Where(l => l.LedlightsFormat.LedlightFormat == ledlightsFormat);
             }
 
             switch (sorting)
-            { 
+            {
                 case OrderedProducts.PriceLowest:
-                ledlights = ledlights.OrderByDescending(l => l.Price);
+                    ledlights = ledlights.OrderByDescending(l => l.Price);
                     break;
                 case OrderedProducts.PriceHighest:
                     ledlights = ledlights.OrderBy(l => l.Price);
@@ -102,26 +97,23 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             }
 
             result = await ledlights
-                .Skip((currentPage-1)*productsPerPage)
+                .Skip((currentPage - 1) * productsPerPage)
                 .Take(productsPerPage)
                 .Select(p => new PartialProductModel
-            {
-                ProductId = p.ProductId,
-                Title = p.Title,
-                Description = p.Description,
-                Price = p.Price,
-                FreeDelivery = p.FreeDelivery,
+                {
+                    ProductId = p.ProductId,
+                    Title = p.Title,
+                    Description = p.Description,
+                    Price = p.Price,
+                    FreeDelivery = p.FreeDelivery,
                     ImageUrl = p.Images.FirstOrDefault().ImageUrl,
                     IsActive = p.IsActive,
-                Quantity = p.Quantity,
-                ProductTypeId = p.ProductTypeId
-              
+                    Quantity = p.Quantity,
+                    ProductTypeId = p.ProductTypeId
+                }).ToListAsync();
 
-            }).ToListAsync();
             return result;
-
         }
-
 
         public async Task<IEnumerable<LedlightsColor>> GetLedlightsColors()
         {
@@ -157,8 +149,7 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
                 Quantity = model.Quantity,
                 Description = model.Description,
                 Price = model.Price,
-                IsActive= model.IsActive,
-        
+                IsActive = model.IsActive,
                 LineDescription = model.LineDescription,
                 FreeDelivery = model.FreeDelivery,
                 LedlightsColorId = model.LedlightsColorId,
@@ -170,8 +161,8 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             foreach (var img in model.Images)
             {
                 product.Images.Add(await imageService.UploadImage(img));
-
             }
+
             await repository.AddAsync(product);
             await repository.SaveChangesAsync();
         }
@@ -194,18 +185,19 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             product.LedlightsFormatId = model.LedlightsFormatId;
             product.LedlightsPowerId = model.LedlightsPowerId;
             product.LedlightsTypeId = model.LedlightsTypeId;
-             
 
             if (model.Images.Any())
             {
                 product.Images.Clear();
+
                 await imageService.RemoveImages(product.ProductId);
+
                 foreach (var img in model.Images)
                 {
                     product.Images.Add(await imageService.UploadImage(img));
-
                 }
             }
+
             await repository.SaveChangesAsync();
         }
     }

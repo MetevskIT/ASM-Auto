@@ -1,4 +1,5 @@
 ﻿window.onload = load
+
 let makesList = document.querySelector(".carMakes");
 let modelList = document.querySelector(".carModels");
 
@@ -8,7 +9,6 @@ async function load() {
     if (makesList.value != "") {
 
         modelList.innerHTML = "";
-
     }
 
     let request = await fetch(`/Car/GetCarModels?carMakeId=${makesList.value}`);
@@ -20,6 +20,4 @@ async function load() {
         option.textContent = model.carModelText;
         modelList.appendChild(option)
     });
-
-
 }

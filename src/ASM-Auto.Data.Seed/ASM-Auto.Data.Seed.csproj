@@ -12,4 +12,8 @@
     <ProjectReference Include="..\ASM-Auto.Services\ASM-Auto.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Seeders\Test\" />
+  </ItemGroup>
+
 </Project>

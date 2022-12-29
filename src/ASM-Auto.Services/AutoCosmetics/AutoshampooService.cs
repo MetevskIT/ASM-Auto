@@ -2,16 +2,10 @@
 using ASM_Auto.Data.Models.Enums.Products;
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
-using ASM_Auto.Services.ImageService;
 using ASM_Auto.ViewModels;
 using ASM_Auto.ViewModels.Administration.CreateProducts;
 using ASM_Auto.ViewModels.Administration.EditProducts;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASM_Auto.Services.AutoCosmetics
 {
@@ -20,7 +14,9 @@ namespace ASM_Auto.Services.AutoCosmetics
         private IRepository<Product> repository;
         private IImageService imageService;
 
-        public AutoshampooService(IRepository<Product> repository, IImageService imageService)
+        public AutoshampooService(
+            IRepository<Product> repository,
+            IImageService imageService)
         {
             this.repository = repository;
             this.imageService = imageService;
@@ -38,14 +34,13 @@ namespace ASM_Auto.Services.AutoCosmetics
                 IsActive = model.IsActive,
                 LineDescription = model.LineDescription,
                 FreeDelivery = model.FreeDelivery,
-
             };
 
             foreach (var img in model.Images)
             {
                 product.Images.Add(await imageService.UploadImage(img));
-
             }
+
             await repository.AddAsync(product);
             await repository.SaveChangesAsync();
         }
@@ -68,11 +63,12 @@ namespace ASM_Auto.Services.AutoCosmetics
             if (model.Images.Any())
             {
                 product.Images.Clear();
+
                 await imageService.RemoveImages(product.ProductId);
+
                 foreach (var img in model.Images)
                 {
                     product.Images.Add(await imageService.UploadImage(img));
-
                 }
             }
             await repository.SaveChangesAsync();
@@ -81,7 +77,7 @@ namespace ASM_Auto.Services.AutoCosmetics
         public Task<int> GetShampooCount()
         {
             return repository.GetAll()
-                .Include(c=>c.ProductType)
+                .Include(c => c.ProductType)
                 .Where(s => s.ProductType.Type == "Autoshampoo")
                 .AsQueryable()
                 .CountAsync();

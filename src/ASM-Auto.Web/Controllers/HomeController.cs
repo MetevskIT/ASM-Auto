@@ -1,9 +1,7 @@
-﻿using ASM_Auto.Data.Models;
-using ASM_Auto.Services.Common;
+﻿using ASM_Auto.Services.Common;
 using ASM_Auto.ViewModels;
 using ASM_Auto.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -14,7 +12,9 @@ namespace ASM_Auto.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private IProductService _productService;
 
-        public HomeController(ILogger<HomeController> logger, IProductService productService)
+        public HomeController(
+            ILogger<HomeController> logger,
+            IProductService productService)
         {
             _logger = logger;
             _productService = productService;

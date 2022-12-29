@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ASM_Auto.Data.Models.Products.Ledlights
 {
@@ -13,7 +8,7 @@ namespace ASM_Auto.Data.Models.Products.Ledlights
         public int LedlightsPowerId { get; set; }
 
         [Required]
-        public string LedlightPower { get; set; } = null!;
+        public string LedlightPower { get; set; }
 
         public ICollection<Product> Products { get; set; } = new List<Product>();
     }

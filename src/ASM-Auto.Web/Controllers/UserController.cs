@@ -3,7 +3,6 @@ using ASM_Auto.ViewModels.Cart;
 using ASM_Auto.ViewModels.Order;
 using ASM_Auto.ViewModels.User;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 
 namespace ASM_Auto.Web.Controllers
@@ -14,16 +13,19 @@ namespace ASM_Auto.Web.Controllers
         private ICartService cartService;
         private IOrderService orderService;
 
-        public UserController(IUserService userService, ICartService cartService, IOrderService orderService)
+        public UserController(
+            IUserService userService,
+            ICartService cartService,
+            IOrderService orderService)
         {
             this.orderService = orderService;
             this.cartService = cartService;
             this.userService = userService;
         }
 
-        private string? GetUserId() 
+        private string? GetUserId()
         {
-           return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? null;   
+            return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value ?? null;
         }
 
         [HttpGet]
@@ -33,15 +35,12 @@ namespace ASM_Auto.Web.Controllers
             {
                 await userService.AddToLikedCollection(productId, GetUserId());
 
-
                 return Redirect($"/Products/Details?productId={productId}");
             }
             catch (Exception ex)
             {
-
                 return View("Error");
             }
-
         }
 
         [HttpGet]
@@ -54,7 +53,6 @@ namespace ASM_Auto.Web.Controllers
                 if (redirect)
                 {
                     return Redirect($"/Products/Details?productId={productId}");
-
                 }
                 else
                 {
@@ -63,17 +61,13 @@ namespace ASM_Auto.Web.Controllers
             }
             catch (Exception ex)
             {
-
                 return View("Error", ex);
             }
-         
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> AddToCart([FromQuery]Guid productId, int quantity,bool redirect=true) 
+        public async Task<IActionResult> AddToCart([FromQuery] Guid productId, int quantity, bool redirect = true)
         {
-
             try
             {
                 await cartService.AddToCart(productId, quantity, GetUserId());
@@ -82,16 +76,14 @@ namespace ASM_Auto.Web.Controllers
                     return Redirect($"/Products/Details?productId={productId}");
 
                 }
-                else 
+                else
                 {
                     await userService.RemoveFromLikedCollection(productId, GetUserId());
                     return RedirectToAction("LikedProducts", "User");
                 }
-
             }
             catch (Exception ex)
             {
-
                 return View("Error");
             }
         }
@@ -99,16 +91,14 @@ namespace ASM_Auto.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> RemoveFromCart([FromQuery] Guid productId)
         {
-
             try
             {
                 await cartService.RemoveFromCart(productId, GetUserId());
-                return RedirectToAction("Cart");
 
+                return RedirectToAction("Cart");
             }
             catch (Exception ex)
             {
-
                 return View("Error");
             }
         }
@@ -127,10 +117,8 @@ namespace ASM_Auto.Web.Controllers
             }
             catch (Exception ex)
             {
-
                 return View("Error");
             }
-          
         }
 
         [HttpGet]
@@ -140,7 +128,6 @@ namespace ASM_Auto.Web.Controllers
             {
                 Orders = await orderService.GetOrders(GetUserId())
             };
-
 
             return View(model);
         }
@@ -152,9 +139,8 @@ namespace ASM_Auto.Web.Controllers
             {
                 LikedProducts = await userService.GetLikedProducts(GetUserId())
             };
+
             return View(model);
         }
-
-
     }
 }

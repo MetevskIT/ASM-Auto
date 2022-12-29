@@ -1,15 +1,6 @@
-﻿using ASM_Auto.Data.Models;
-using ASM_Auto.Data.Models.Car;
-using ASM_Auto.Services.Common;
-using ASM_Auto.Services.ImageService;
-using ASM_Auto.Services.ProductServices;
-using ASM_Auto.Services.UserServices;
-using ASM_Auto.ViewModels;
-using ASM_Auto.ViewModels.Administration.CreateProducts;
+﻿using ASM_Auto.Services.Common;
 using ASM_Auto.ViewModels.Administration.EditProducts;
-using CloudinaryDotNet;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
 
 namespace ASM_Auto.Web.Areas.Administration.Controllers
 {
@@ -73,12 +64,10 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
                 model.CarMakes = await carService.CarMakes();
                 model.MatsTypes = await matsService.MatsTypes();
 
-
                 return View(model);
             }
             catch (Exception ex)
             {
-
                 return View("Error");
             }
         }
@@ -96,6 +85,7 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
                 await matsService.EditMat(model);
                 return Redirect($"/Product/Details?productId={model.ProductId}");
             }
+
             catch (Exception ex)
             {
 
@@ -127,12 +117,10 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
                 model.FoilsColors = await foilService.GetFoilsColors();
                 model.FoilsPurposes = await foilService.GetFoilsPurposes();
 
-
                 return View(model);
             }
             catch (Exception ex)
             {
-
                 return View("Error");
             }
         }
@@ -150,13 +138,12 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
                 await foilService.EditFoil(model);
                 return Redirect($"/Product/Details?productId={model.ProductId}");
             }
+
             catch (Exception ex)
             {
-
                 return View("Error");
             }
         }
-
 
         [HttpGet]
         public async Task<IActionResult> LedLights(Guid productId)
@@ -185,12 +172,11 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
                 model.LedlightsPowers = await ledlightsService.GetLedlightsPower();
                 model.LedlightsColors = await ledlightsService.GetLedlightsColors();
 
-
                 return View(model);
             }
+
             catch (Exception ex)
             {
-
                 return View("Error");
             }
         }
@@ -210,11 +196,9 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
             }
             catch (Exception ex)
             {
-
                 return View("Error");
             }
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Autoshampoo(Guid productId)
@@ -237,7 +221,6 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
             }
             catch (Exception ex)
             {
-
                 return View("Error");
             }
         }
@@ -285,7 +268,6 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
             }
             catch (Exception ex)
             {
-
                 return View("Error");
             }
         }
@@ -310,7 +292,7 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
             }
         }
 
-         [HttpGet]
+        [HttpGet]
         public async Task<IActionResult> Multimedia(Guid productId)
         {
             try
@@ -334,7 +316,6 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
             }
             catch (Exception ex)
             {
-
                 return View("Error");
             }
         }
@@ -354,7 +335,6 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
             }
             catch (Exception ex)
             {
-
                 return View("Error");
             }
         }
@@ -383,7 +363,6 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
             }
             catch (Exception ex)
             {
-
                 return View("Error");
             }
         }
@@ -403,7 +382,6 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
             }
             catch (Exception ex)
             {
-
                 return View("Error");
             }
         }

@@ -2,7 +2,6 @@
 using ASM_Auto.Data.Models.Enums.Products;
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
-using ASM_Auto.Services.ImageService;
 using ASM_Auto.ViewModels;
 using ASM_Auto.ViewModels.Administration.CreateProducts;
 using ASM_Auto.ViewModels.Administration.EditProducts;
@@ -14,7 +13,9 @@ namespace ASM_Auto.Services.MultimediaServices
     {
         private IRepository<Product> repository;
         private IImageService imageService;
-        public MultimediaService(IRepository<Product> repository, IImageService imageService)
+        public MultimediaService(
+            IRepository<Product> repository,
+            IImageService imageService)
         {
             this.repository = repository;
             this.imageService = imageService;
@@ -30,7 +31,6 @@ namespace ASM_Auto.Services.MultimediaServices
                 Description = model.Description,
                 Price = model.Price,
                 IsActive = model.IsActive,
-
                 LineDescription = model.LineDescription,
                 FreeDelivery = model.FreeDelivery,
                 CarMakeId = model.CarMakeId,
@@ -40,8 +40,8 @@ namespace ASM_Auto.Services.MultimediaServices
             foreach (var img in model.Images)
             {
                 product.Images.Add(await imageService.UploadImage(img));
-
             }
+
             await repository.AddAsync(product);
             await repository.SaveChangesAsync();
         }
@@ -66,13 +66,15 @@ namespace ASM_Auto.Services.MultimediaServices
             if (model.Images.Any())
             {
                 product.Images.Clear();
+
                 await imageService.RemoveImages(product.ProductId);
+
                 foreach (var img in model.Images)
                 {
                     product.Images.Add(await imageService.UploadImage(img));
-
                 }
             }
+
             await repository.SaveChangesAsync();
         }
 
@@ -82,20 +84,20 @@ namespace ASM_Auto.Services.MultimediaServices
 
             var result = repository.GetAll()
                  .Include(i => i.Images)
-                .Include(c => c.CarMake)
-                .Include(cm => cm.CarModel)
+                 .Include(c => c.CarMake)
+                 .Include(cm => cm.CarModel)
                  .Where(pt => pt.ProductType.Type == "Multimedia")
                  .Where(p => p.IsActive == true);
+
             if (CarMakeId != null)
             {
                 result = result.Where(c => c.CarMakeId == CarMakeId);
             }
+
             if (CarModelId != null)
             {
                 result = result.Where(c => c.CarModelId == CarModelId);
             }
-
-   
 
             switch (sorting)
             {
@@ -124,8 +126,6 @@ namespace ASM_Auto.Services.MultimediaServices
                     IsActive = p.IsActive,
                     Quantity = p.Quantity,
                     ProductTypeId = p.ProductTypeId
-
-
                 }).ToListAsync();
 
             return products;

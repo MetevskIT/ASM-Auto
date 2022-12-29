@@ -3,16 +3,10 @@ using ASM_Auto.Data.Models.Enums.Products;
 using ASM_Auto.Data.Models.Products.Foil;
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
-using ASM_Auto.Services.ImageService;
 using ASM_Auto.ViewModels;
 using ASM_Auto.ViewModels.Administration.CreateProducts;
 using ASM_Auto.ViewModels.Administration.EditProducts;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASM_Auto.Services.AutoAccessoriesServices
 {
@@ -29,8 +23,7 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
          IRepository<FoilsType> foilsTypeRepository,
          IRepository<FoilsPurpose> foilsPurposeRepository,
          IRepository<FoilsColor> foilsColorRepository,
-         IImageService imageService
-            )
+         IImageService imageService)
         {
             this.repository = repository;
             this.foilsPurposeRepository = foilsPurposeRepository;
@@ -49,24 +42,21 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
                 Description = model.Description,
                 Price = model.Price,
                 IsActive = model.IsActive,
-
                 LineDescription = model.LineDescription,
                 FreeDelivery = model.FreeDelivery,
-               FoilsPurposeId = model.FoilPurposeId,
-               FoilsColorId = model.FoilColorId,
-               FoilsTypeId = model.FoilType
+                FoilsPurposeId = model.FoilPurposeId,
+                FoilsColorId = model.FoilColorId,
+                FoilsTypeId = model.FoilType
             };
 
             foreach (var img in model.Images)
             {
                 product.Images.Add(await imageService.UploadImage(img));
-
             }
+
             await repository.AddAsync(product);
             await repository.SaveChangesAsync();
         }
-
- 
 
         public async Task EditFoil(EditFoilViewModel model)
         {
@@ -89,13 +79,15 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             if (model.Images.Any())
             {
                 product.Images.Clear();
+
                 await imageService.RemoveImages(product.ProductId);
+
                 foreach (var img in model.Images)
                 {
                     product.Images.Add(await imageService.UploadImage(img));
-
                 }
             }
+
             await repository.SaveChangesAsync();
         }
 
@@ -105,18 +97,20 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
 
             var query = repository.GetAll()
                 .Include(t => t.ProductType)
-                .Include(i=>i.Images)
+                .Include(i => i.Images)
                 .Where(f => f.ProductType.Type == "Foil")
                 .Where(f => f.IsActive == true);
 
-            if (foilTypeId!=null)
+            if (foilTypeId != null)
             {
                 query = query.Where(ft => ft.FoilsTypeId == foilTypeId);
             }
+
             if (ColorId != null)
             {
                 query = query.Where(c => c.FoilsColorId == ColorId);
             }
+
             if (purposeId != null)
             {
                 query = query.Where(p => p.FoilsPurposeId == purposeId);
@@ -150,6 +144,7 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
                     Quantity = p.Quantity,
                     ProductTypeId = p.ProductTypeId
                 }).ToListAsync();
+
             return products;
         }
 
@@ -161,8 +156,8 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
         public Task<int> GetFoilsCount()
         {
             return repository.GetAll()
-                .Include(t=>t.ProductType)
-                .Where(f=>f.ProductType.Type=="Foils")
+                .Include(t => t.ProductType)
+                .Where(f => f.ProductType.Type == "Foils")
                 .AsQueryable()
                 .CountAsync();
         }

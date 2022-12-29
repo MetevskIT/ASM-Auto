@@ -10,7 +10,9 @@ namespace ASM_Auto.Web.Controllers
     {
         private IOrderService orderService;
         private ICartService cartService;
-        public OrderController(IOrderService orderService, ICartService cartService)
+        public OrderController(
+            IOrderService orderService,
+            ICartService cartService)
         {
             this.orderService = orderService;
             this.cartService = cartService;
@@ -20,6 +22,7 @@ namespace ASM_Auto.Web.Controllers
         public IActionResult CreateOrder()
         {
             var model = new CreateOrderViewModel();
+
             return View(model);
         }
 
@@ -29,8 +32,10 @@ namespace ASM_Auto.Web.Controllers
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Error!");
+
                 return View(model);
             }
+
             try
             {
 
@@ -49,8 +54,8 @@ namespace ASM_Auto.Web.Controllers
                 model.Address = sanitizer.Sanitize(model.Address);
                 model.PhoneNumber = sanitizer.Sanitize(model.PhoneNumber);
 
-              await orderService.CreateOrder(userId, model.FirstName, model.LastName, model.Town, model.Address,model.PhoneNumber, cartProducts);
-               
+                await orderService.CreateOrder(userId, model.FirstName, model.LastName, model.Town, model.Address, model.PhoneNumber, cartProducts);
+
                 await cartService.RemoveAllProductsFromCart(userId);
 
                 return RedirectToAction("Orders", "User");
@@ -58,19 +63,16 @@ namespace ASM_Auto.Web.Controllers
             }
             catch (Exception ex)
             {
-
                 return View("Error");
             }
-
         }
 
         [HttpGet]
-        public async Task<IActionResult> Cancel(int order) 
+        public async Task<IActionResult> Cancel(int order)
         {
             try
             {
-
-               await orderService.CancelOrder(order);
+                await orderService.CancelOrder(order);
                 return RedirectToAction("Orders", "User");
             }
             catch (Exception)

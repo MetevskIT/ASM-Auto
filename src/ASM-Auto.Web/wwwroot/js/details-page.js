@@ -9,7 +9,8 @@ miniImgs.childNodes.forEach(img => {
 
 function changeImage(e) {
     Array.from(e.currentTarget.parentNode.children)
-         .forEach(x => x.classList.remove("active"));
+        .forEach(x => x.classList.remove("active"));
+
     mainImg.src = e.currentTarget.src;
     e.currentTarget.classList.add("active")
 }

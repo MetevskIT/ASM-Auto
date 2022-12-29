@@ -1,16 +1,13 @@
 using ASM_Auto.Data;
 using ASM_Auto.Data.Models;
-using ASM_Auto.Data.Repository;
 using ASM_Auto.Data.Seed;
 using ASM_Auto.Data.Seed.Seeders.Administration;
 using ASM_Auto.Data.Seed.Seeders.RolesSeed;
-using ASM_Auto.Services.AutoAccessoriesServices;
 using ASM_Auto.Services.Common;
 using CloudinaryDotNet;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 
 
 namespace ASM_Auto.Web
@@ -46,8 +43,11 @@ namespace ASM_Auto.Web
             });
 
             // Cloudinary api
+            var cloudName = builder.Configuration.GetValue<string>("CloudinaryCredentials:CloudName");
+            var apiKey = builder.Configuration.GetValue<string>("CloudinaryCredentials:ApiKey");
+            var apiSecret = builder.Configuration.GetValue<string>("CloudinaryCredentials:ApiSecret");
 
-            builder.Services.AddSingleton(new Cloudinary(new Account("dh6kqijic", "639656954689724", "yyBqb6eizRMvAYp27ZSN6W4-OkU")));
+            builder.Services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
 
             builder.Services.AddControllersWithViews(
               options =>
@@ -66,19 +66,17 @@ namespace ASM_Auto.Web
 
             using (var scope = app.Services.CreateScope())
             {
-               var dbContext = scope.ServiceProvider.GetRequiredService<ASMAutoDbContext>();
-               var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-               var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+                var dbContext = scope.ServiceProvider.GetRequiredService<ASMAutoDbContext>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
                 var cartService = scope.ServiceProvider.GetRequiredService<ICartService>();
-               
 
                 dbContext.Database.Migrate();
 
-             
                 new ASMAutoDbSeeder().SeedAsync(dbContext).GetAwaiter().GetResult();
 
                 new RolesSeeder(roleManager).SeedRoles().GetAwaiter().GetResult();
-                new AdminSeed(userManager,cartService).SeedAsync(dbContext).GetAwaiter().GetResult();
+                new AdminSeed(userManager, cartService).SeedAsync(dbContext).GetAwaiter().GetResult();
             }
 
             // Configure the HTTP request pipeline.
@@ -105,10 +103,10 @@ namespace ASM_Auto.Web
 
             app.UseEndpoints(endpoints =>
             {
-            endpoints.MapControllerRoute(
-                 name: "default",
-                 pattern: "{controller=Home}/{action=Index}/{id?}"
-                );
+                endpoints.MapControllerRoute(
+                     name: "default",
+                     pattern: "{controller=Home}/{action=Index}/{id?}"
+                    );
 
                 endpoints.MapControllerRoute(
                   name: "areas",

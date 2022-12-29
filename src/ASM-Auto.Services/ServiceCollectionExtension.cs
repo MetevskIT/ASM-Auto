@@ -1,5 +1,4 @@
-﻿
-using ASM_Auto.Data.Repository;
+﻿using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.AutoAccessoriesServices;
 using ASM_Auto.Services.AutoCosmetics;
 using ASM_Auto.Services.Car;
@@ -11,9 +10,8 @@ using ASM_Auto.Services.OrdersServices;
 using ASM_Auto.Services.ProductServices;
 using ASM_Auto.Services.UserServices;
 
-
 namespace Microsoft.Extensions.DependencyInjection
-{ 
+{
     public static class ServiceCollectionExtension
     {
         public static IServiceCollection AddServices(this IServiceCollection services)

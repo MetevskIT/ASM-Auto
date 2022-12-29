@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 
 namespace ASM_Auto.Web.Areas.Administration.Controllers
 {
@@ -9,6 +8,6 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
     [Authorize(Roles = "Administrator")]
     public class BaseController : Controller
     {
-       
+
     }
 }

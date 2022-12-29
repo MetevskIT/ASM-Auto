@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ASM_Auto.ViewModels.Cart
 {
@@ -20,6 +15,7 @@ namespace ASM_Auto.ViewModels.Cart
 
         [Required]
         public decimal Price { get; set; }
+
         [Required]
         public int Quantity { get; set; }
 

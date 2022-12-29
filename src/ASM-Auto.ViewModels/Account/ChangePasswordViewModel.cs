@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASM_Auto.ViewModels.Account
 {
@@ -13,7 +8,6 @@ namespace ASM_Auto.ViewModels.Account
         [Required]
         [PasswordPropertyText]
         public string? OldPassword { get; set; }
-
 
         [Required]
         [PasswordPropertyText]

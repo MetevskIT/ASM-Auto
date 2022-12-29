@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ASM_Auto.Web.Controllers
 {
-    public class AutoCosmeticsController :BaseController
-    {
+    public class AutoCosmeticsController : BaseController
+    {   
         private IAutoshampooService autoshampooService;
         private ICleaningAccessoryService accessoryService;
-        public AutoCosmeticsController(IAutoshampooService autoshampooService, ICleaningAccessoryService accessoryService)
+        public AutoCosmeticsController(
+            IAutoshampooService autoshampooService,
+            ICleaningAccessoryService accessoryService)
         {
             this.autoshampooService = autoshampooService;
             this.accessoryService = accessoryService;
@@ -20,7 +22,7 @@ namespace ASM_Auto.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Autoshampoo([FromQuery] AllAutoshampooQuery queryModel)
         {
-            queryModel.Shampoos = await autoshampooService.GetShampoos(queryModel.currentPage,queryModel.OrderedProducts);
+            queryModel.Shampoos = await autoshampooService.GetShampoos(queryModel.currentPage, queryModel.OrderedProducts);
             queryModel.ShampoosCount = await autoshampooService.GetShampooCount();
 
             return View(queryModel);
@@ -28,11 +30,11 @@ namespace ASM_Auto.Web.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> CleaningAccessories([FromQuery]CleaningAccessoriesQueryModel queryModel)
+        public async Task<IActionResult> CleaningAccessories([FromQuery] CleaningAccessoriesQueryModel queryModel)
         {
             queryModel.AccessoriesType = await accessoryService.GetCleaningTypes();
             queryModel.AccessoriesCount = await accessoryService.GetAccessoriesCount();
-            queryModel.Accessories = await accessoryService.GetCleaningAccesories(queryModel.currentPage,queryModel.AccessoriesTypeId,queryModel.OrderedProducts);
+            queryModel.Accessories = await accessoryService.GetCleaningAccesories(queryModel.currentPage, queryModel.AccessoriesTypeId, queryModel.OrderedProducts);
 
             return View(queryModel);
         }

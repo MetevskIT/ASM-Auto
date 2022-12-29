@@ -1,6 +1,5 @@
 ﻿using ASM_Auto.Services.Common;
 using ASM_Auto.ViewModels;
-using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -11,11 +10,14 @@ namespace ASM_Auto.Web.Controllers
     {
         private IProductService productService;
         private IUserService userService;
-        public ProductsController(IProductService productService, IUserService userService)
+        public ProductsController(
+            IProductService productService,
+            IUserService userService)
         {
             this.userService = userService;
             this.productService = productService;
         }
+
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Details(Guid productId)
@@ -34,23 +36,21 @@ namespace ASM_Auto.Web.Controllers
                     Price = product.Price,
                     Type = product.ProductType.Type,
                     Category = product.ProductType.Category.CategoryName,
-                    ImagesUrl = product.ImageUrl,
                     Make = product.CarMake?.CarMakeText ?? null,
                     Model = product.CarModel?.CarModelText ?? null,
                     IsLiked = await userService.IsLiked(productId, userId),
-                    NewPrice = product.NewPrice??null,
+                    NewPrice = product.NewPrice ?? null,
                     IsAvailable = product.IsAvailable,
                     IsFreeDelivery = product.FreeDelivery
-                    
+
                 };
+
                 return View(model);
             }
             catch (Exception ex)
             {
-
                 return View("Error");
             }
-           
         }
     }
 }

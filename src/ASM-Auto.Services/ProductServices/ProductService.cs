@@ -3,13 +3,7 @@ using ASM_Auto.Data.Models.Enums.Products;
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
 using ASM_Auto.ViewModels;
-using ASM_Auto.ViewModels.User;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASM_Auto.Services.ProductServices
 {
@@ -18,7 +12,9 @@ namespace ASM_Auto.Services.ProductServices
         private IRepository<Product> productRepository;
         private IRepository<ProductType> porductTypeRepo;
 
-        public ProductService(IRepository<Product> productRepository, IRepository<ProductType> porductTypeRepo)
+        public ProductService(
+            IRepository<Product> productRepository,
+            IRepository<ProductType> porductTypeRepo)
         {
             this.productRepository = productRepository;
             this.porductTypeRepo = porductTypeRepo;
@@ -28,8 +24,8 @@ namespace ASM_Auto.Services.ProductServices
         {
             return await productRepository.GetAll()
                  .Include(i => i.Images)
-                .OrderByDescending(p => p.AddDate)
-                .Take(count)
+                 .OrderByDescending(p => p.AddDate)
+                 .Take(count)
                  .Select(p => new PartialProductModel
                  {
                      Title = p.Title,
@@ -49,22 +45,23 @@ namespace ASM_Auto.Services.ProductServices
         {
             var product = await productRepository.GetAll()
                 .Where(p => p.ProductId == productId)
-                .Include(t=>t.ProductType)
-                .Include(c=>c.ProductType.Category)
-                .Include(c=>c.CarMake)
-                .Include(c=>c.CarModel)
-                .Include(i=>i.Images)
+                .Include(t => t.ProductType)
+                .Include(c => c.ProductType.Category)
+                .Include(c => c.CarMake)
+                .Include(c => c.CarModel)
+                .Include(i => i.Images)
                 .FirstOrDefaultAsync();
+
             if (product == null)
             {
                 throw new ArgumentNullException("Продукта не е намерен!");
             }
+
             return product;
         }
 
-        public async Task<IEnumerable<PartialProductModel>> GetProducts(int currentPage, int? productTypeId = null, bool IsActive = true, OrderedProducts sorting = OrderedProducts.Newest, int productsPerPage = 20)
+        public async Task<IEnumerable<PartialProductModel>> GetProducts(int currentPage,int? productTypeId = null,bool IsActive = true,OrderedProducts sorting = OrderedProducts.Newest,int productsPerPage = 20)
         {
-            
             var result = new List<PartialProductModel>();
 
             var products = this.productRepository.GetAll()
@@ -83,7 +80,7 @@ namespace ASM_Auto.Services.ProductServices
             }
 
             switch (sorting)
-            { 
+            {
                 case OrderedProducts.PriceLowest:
                     products = products.OrderByDescending(l => l.Price);
                     break;
@@ -96,28 +93,29 @@ namespace ASM_Auto.Services.ProductServices
             }
 
             result = await products
-                .Skip((currentPage-1)*productsPerPage)
+                .Skip((currentPage - 1) * productsPerPage)
                 .Take(productsPerPage)
                 .Select(p => new PartialProductModel
-            {
-                ProductId = p.ProductId,
-                Title = p.Title,
-                Description = p.Description,
-                Price = p.Price,
-                FreeDelivery = p.FreeDelivery,
+                {
+                    ProductId = p.ProductId,
+                    Title = p.Title,
+                    Description = p.Description,
+                    Price = p.Price,
+                    FreeDelivery = p.FreeDelivery,
                     ImageUrl = p.Images.FirstOrDefault().ImageUrl,
                     IsActive = p.IsActive,
-                Quantity = p.Quantity,
-                ProductTypeId = p.ProductTypeId
-              
+                    Quantity = p.Quantity,
+                    ProductTypeId = p.ProductTypeId
 
-            }).ToListAsync();
+
+                }).ToListAsync();
+
             return result;
         }
 
         public async Task<List<ProductType>> GetProductTypes()
         {
-            var result= await this.porductTypeRepo.GetAll().ToListAsync();
+            var result = await this.porductTypeRepo.GetAll().ToListAsync();
             return result;
         }
     }

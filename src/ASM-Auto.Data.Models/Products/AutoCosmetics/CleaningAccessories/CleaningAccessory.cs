@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ASM_Auto.Data.Models.Products.AutoCosmetics.CleaningAccessories
 {
@@ -13,7 +8,7 @@ namespace ASM_Auto.Data.Models.Products.AutoCosmetics.CleaningAccessories
         public int CleaningAccessoryId { get; set; }
 
         [Required]
-        public string CleaningAccessoryName { get; set; } = null!;
+        public string CleaningAccessoryName { get; set; }
 
         public ICollection<Product> Products { get; set; } = new List<Product>();
     }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ASM_Auto.Data.Models.Products.Exterior
 {
@@ -13,7 +8,8 @@ namespace ASM_Auto.Data.Models.Products.Exterior
         public int ExteriorAccessoryId { get; set; }
 
         [Required]
-        public string ExteriorAccessory { get; set; } = null!;
+        public string ExteriorAccessory { get; set; }
+
         public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }

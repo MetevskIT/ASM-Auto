@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASM_Auto.Data.Models
 {
@@ -15,7 +10,6 @@ namespace ASM_Auto.Data.Models
 
         [Required]
         public string? ImageUrl { get; set; }
-
 
         [ForeignKey(nameof(Product))]
         public Guid? ProductId { get; set; }

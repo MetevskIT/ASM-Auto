@@ -1,6 +1,5 @@
 ﻿using ASM_Auto.Data.Seed.Common;
 using ASM_Auto.Data.Seed.Seeders.AutoAccessories.Mats;
-using ASM_Auto.Data.Seed.Seeders.AutoCosmetics;
 using ASM_Auto.Data.Seed.Seeders.AutoCosmetics.CleaningAccessories;
 using ASM_Auto.Data.Seed.Seeders.Categories;
 using ASM_Auto.Data.Seed.Seeders.Exterior;
@@ -8,13 +7,6 @@ using ASM_Auto.Data.Seed.Seeders.Foil;
 using ASM_Auto.Data.Seed.Seeders.Interior;
 using ASM_Auto.Data.Seed.Seeders.Ledlights;
 using ASM_Auto.Data.Seed.Seeders.ProductTypes;
-using ASM_Auto.Data.Seed.Seeders.RolesSeed;
-using ASM_Auto.Data.Seed.Seeders.Test;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASM_Auto.Data.Seed
 {
@@ -43,7 +35,6 @@ namespace ASM_Auto.Data.Seed
              seeders.Add(new CarMakesSeed());
              seeders.Add(new CarModelsSeed());
             seeders.Add(new MatsTypesSeed());
-            //seeders.Add(new TestProducts());
             seeders.Add(new CleaningAccessoriesSeed());
 
             foreach (var seeder in seeders)

@@ -2,14 +2,7 @@
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
 using ASM_Auto.ViewModels.User;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASM_Auto.Services.UserServices
 {
@@ -18,7 +11,8 @@ namespace ASM_Auto.Services.UserServices
         private IRepository<User> userRepository;
         private IRepository<Product> productRepository;
 
-        public UserService(IRepository<User> userRepository, IRepository<Product> productRepository)
+        public UserService(IRepository<User> userRepository,
+            IRepository<Product> productRepository)
         {
             this.userRepository = userRepository;
             this.productRepository = productRepository;
@@ -32,9 +26,9 @@ namespace ASM_Auto.Services.UserServices
 
             var userCart = await userRepository.GetAll()
                 .Where(u => u.Id == userId)
-                .Include(c=>c.Cart)
-                .ThenInclude(p=>p.Products)
-                .Select(c=>c.Cart)
+                .Include(c => c.Cart)
+                .ThenInclude(p => p.Products)
+                .Select(c => c.Cart)
                 .FirstOrDefaultAsync();
 
             if (product == null)
@@ -42,7 +36,7 @@ namespace ASM_Auto.Services.UserServices
                 throw new ArgumentNullException("Продукта не е намерен!");
             }
 
-            if (product.IsAvailable==false)
+            if (product.IsAvailable == false)
             {
                 throw new Exception("Продукта не е наличен!");
             }
@@ -55,14 +49,16 @@ namespace ASM_Auto.Services.UserServices
             {
                 throw new ArgumentNullException("Възникна проблем!");
             }
-            if (!userCart.Products.Any(p=>p.ProductId==productId))
+
+            if (!userCart.Products.Any(p => p.ProductId == productId))
             {
                 userCart.Products.Add(new CartProduct { ProductId = product.ProductId, ProductCount = quantity });
                 await userRepository.SaveChangesAsync();
             }
+
             else
             {
-                userCart.Products.First(x=>x.ProductId==productId).ProductCount+=quantity;
+                userCart.Products.First(x => x.ProductId == productId).ProductCount += quantity;
                 await userRepository.SaveChangesAsync();
             }
 
@@ -76,19 +72,20 @@ namespace ASM_Auto.Services.UserServices
 
             var user = await userRepository.GetAll()
                 .Where(u => u.Id == userId)
-                .Include(u=>u.LikedProducts)
+                .Include(u => u.LikedProducts)
                 .FirstOrDefaultAsync();
 
-            if (product==null)
+            if (product == null)
             {
                 throw new ArgumentNullException("Продукта не е намерен!");
             }
 
-            if (user==null)
+            if (user == null)
             {
                 throw new ArgumentNullException("Потребителя не е намерен!");
             }
-            if (!user.LikedProducts.Any(x => x.ProductId ==productId))
+
+            if (!user.LikedProducts.Any(x => x.ProductId == productId))
             {
                 user.LikedProducts.Add(product);
                 await userRepository.SaveChangesAsync();
@@ -102,13 +99,16 @@ namespace ASM_Auto.Services.UserServices
                 .Where(u => u.Id == userId)
                 .Include(u => u.LikedProducts)
                 .FirstOrDefaultAsync();
-            if (user==null)
+
+            if (user == null)
             {
                 return false;
             }
+
             var product = await productRepository.GetAll()
                .Where(x => x.ProductId == productId)
                .FirstOrDefaultAsync();
+
             if (product == null)
             {
                 throw new ArgumentNullException("Продукта не е намерен!");
@@ -151,20 +151,19 @@ namespace ASM_Auto.Services.UserServices
         {
             var products = await userRepository.GetAll()
                 .Include(p => p.LikedProducts)
-                .ThenInclude(i=>i.Images)
+                .ThenInclude(i => i.Images)
                 .Where(u => u.Id == userId)
                 .SelectMany(p => p.LikedProducts)
                 .Select(lp => new LikedProductsViewModel
-                  {
-                      Title = lp.Title,
-                      Description = lp.Description,
-                      Price = lp.Price,
+                {
+                    Title = lp.Title,
+                    Description = lp.Description,
+                    Price = lp.Price,
                     ImageUrl = lp.Images.FirstOrDefault().ImageUrl,
                     ProductId = lp.ProductId
-                  })
+                })
                 .ToListAsync();
 
-           
             return products;
         }
 

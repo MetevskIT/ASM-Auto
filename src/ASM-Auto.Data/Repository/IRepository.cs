@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ASM_Auto.Data.Repository
+﻿namespace ASM_Auto.Data.Repository
 {
     public interface IRepository<TEntity> : IDisposable
         where TEntity : class
@@ -17,9 +11,6 @@ namespace ASM_Auto.Data.Repository
 
         void Delete(TEntity entity);
         void DeleteRange(List<TEntity> entities);
-
-        //Task<TEntity> GetByIdAsync(int id);
-
         Task<int> SaveChangesAsync();
     }
 }

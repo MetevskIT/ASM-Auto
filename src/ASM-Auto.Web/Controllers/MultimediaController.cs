@@ -10,7 +10,10 @@ namespace ASM_Auto.Web.Controllers
         private ICarService carService;
         private IMultimediaService multimediaService;
         private IBackUpCameraService cameraService;
-        public MultimediaController(ICarService carService, IMultimediaService multimediaService, IBackUpCameraService cameraService)
+        public MultimediaController(
+            ICarService carService,
+            IMultimediaService multimediaService,
+            IBackUpCameraService cameraService)
         {
             this.carService = carService;
             this.multimediaService = multimediaService;
@@ -19,14 +22,15 @@ namespace ASM_Auto.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Multimedia([FromQuery]MultimediaQueryModel queryModel)
+        public async Task<IActionResult> Multimedia([FromQuery] MultimediaQueryModel queryModel)
         {
             queryModel.CarMakes = await carService.CarMakes();
-            queryModel.Products = await multimediaService.GetProducts(queryModel.currentPage,queryModel.CarMakeId,queryModel.CarModelId,queryModel.OrderedProducts);
+            queryModel.Products = await multimediaService.GetProducts(queryModel.currentPage, queryModel.CarMakeId, queryModel.CarModelId, queryModel.OrderedProducts);
             queryModel.ProductCount = await multimediaService.ProductCount();
 
             return View(queryModel);
         }
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> BackupCameras([FromQuery] MultimediaQueryModel queryModel)

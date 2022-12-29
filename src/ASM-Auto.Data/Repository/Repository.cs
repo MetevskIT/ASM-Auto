@@ -1,10 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASM_Auto.Data.Repository
 {
@@ -22,7 +16,7 @@ namespace ASM_Auto.Data.Repository
         public DbSet<TEntity> DbSet { get; set; }
 
         public async Task AddAsync(TEntity entity)
-                 => await this.DbSet.AddAsync(entity).AsTask();
+               => await this.DbSet.AddAsync(entity).AsTask();
 
         public void Delete(TEntity entity)
                => this.DbSet.Remove(entity);
@@ -31,26 +25,20 @@ namespace ASM_Auto.Data.Repository
                => this.DbSet.RemoveRange(entities);
 
         public IQueryable<TEntity> GetAll()
-        {
-            return this.DbSet;
-        }
+               => this.DbSet;
 
         public Task<int> SaveChangesAsync()
-                   => _dbContext.SaveChangesAsync();
+               => _dbContext.SaveChangesAsync();
 
         public void Update(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
+               => this.DbSet.Update(entity);
 
         protected virtual void Dispose(bool disposing)
         {
-
             if (disposing)
             {
                 this._dbContext?.Dispose();
             }
-
         }
 
         public void Dispose()
@@ -59,6 +47,5 @@ namespace ASM_Auto.Data.Repository
             GC.SuppressFinalize(this);
         }
 
-      
     }
 }

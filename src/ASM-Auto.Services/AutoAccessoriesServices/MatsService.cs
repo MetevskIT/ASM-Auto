@@ -3,18 +3,10 @@ using ASM_Auto.Data.Models.Enums.Products;
 using ASM_Auto.Data.Models.Products.AutoAccessories.Mats;
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
-using ASM_Auto.Services.ImageService;
-using ASM_Auto.Services.ProductServices;
 using ASM_Auto.ViewModels;
 using ASM_Auto.ViewModels.Administration.CreateProducts;
 using ASM_Auto.ViewModels.Administration.EditProducts;
-using ASM_Auto.ViewModels.AutoAccessories.Mats;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASM_Auto.Services.AutoAccessoriesServices
 {
@@ -23,7 +15,11 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
         private IRepository<MatsType> matsTypesRepository;
         private IRepository<Product> matsRepository;
         private IImageService imageService;
-        public MatsService(IRepository<MatsType> matsTypesRepository,IRepository<Product> matsRepository, IImageService imageService)
+
+        public MatsService(
+            IRepository<MatsType> matsTypesRepository,
+            IRepository<Product> matsRepository,
+            IImageService imageService)
         {
             this.matsRepository = matsRepository;
             this.matsTypesRepository = matsTypesRepository;
@@ -40,19 +36,18 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
                 Description = model.Description,
                 Price = model.Price,
                 IsActive = model.IsActive,
-
                 LineDescription = model.LineDescription,
                 FreeDelivery = model.FreeDelivery,
-               CarMakeId = model.CarMakeId,
-               CarModelId = model.CarModelId,
-               MatsTypeId = model.MatTypeId
+                CarMakeId = model.CarMakeId,
+                CarModelId = model.CarModelId,
+                MatsTypeId = model.MatTypeId
             };
 
             foreach (var img in model.Images)
             {
                 product.Images.Add(await imageService.UploadImage(img));
-
             }
+
             await matsRepository.AddAsync(product);
             await matsRepository.SaveChangesAsync();
         }
@@ -61,7 +56,7 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
         {
             var product = await matsRepository.GetAll()
                 .Where(i => i.ProductId == model.ProductId)
-                .FirstOrDefaultAsync(); 
+                .FirstOrDefaultAsync();
 
             product.Title = model.Title;
             product.Quantity = model.Quantity;
@@ -78,38 +73,42 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
             if (model.Images.Any())
             {
                 product.Images.Clear();
+
                 await imageService.RemoveImages(product.ProductId);
+
                 foreach (var img in model.Images)
                 {
                     product.Images.Add(await imageService.UploadImage(img));
-
                 }
             }
+
             await matsRepository.SaveChangesAsync();
         }
 
-        public async Task<List<PartialProductModel>> GetMats(int currentPage = 1, int? CarMakeId = null, int? CarModelId = null, int? MatTypeId = null, OrderedProducts sorting = OrderedProducts.Newest,int productsPerPage = 20)
+        public async Task<List<PartialProductModel>> GetMats(int currentPage = 1, int? CarMakeId = null, int? CarModelId = null, int? MatTypeId = null, OrderedProducts sorting = OrderedProducts.Newest, int productsPerPage = 20)
         {
             var products = new List<PartialProductModel>();
 
             var result = matsRepository.GetAll()
                 .Include(i => i.Images)
-                .Include(c=>c.CarMake)
-                .Include(cm=>cm.CarModel)
-                 .Where(pt => pt.ProductType.Type == "Mats")
-                 .Where(p => p.IsActive == true);
-            if (CarMakeId!=null)
+                .Include(c => c.CarMake)
+                .Include(cm => cm.CarModel)
+                .Where(pt => pt.ProductType.Type == "Mats")
+                .Where(p => p.IsActive == true);
+
+            if (CarMakeId != null)
             {
                 result = result.Where(c => c.CarMakeId == CarMakeId);
             }
-            if (CarModelId!=null)
+
+            if (CarModelId != null)
             {
                 result = result.Where(c => c.CarModelId == CarModelId);
             }
 
-            if (MatTypeId!=null)
+            if (MatTypeId != null)
             {
-                result = result.Where(mt=>mt.MatsTypeId==MatTypeId);
+                result = result.Where(mt => mt.MatsTypeId == MatTypeId);
             }
 
             switch (sorting)
@@ -139,8 +138,6 @@ namespace ASM_Auto.Services.AutoAccessoriesServices
                     IsActive = p.IsActive,
                     Quantity = p.Quantity,
                     ProductTypeId = p.ProductTypeId
-
-
                 }).ToListAsync();
 
             return products;

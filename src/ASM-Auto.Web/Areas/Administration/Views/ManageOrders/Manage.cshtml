@@ -54,28 +54,16 @@
             <p class="phone">Телефон: @Model.PhoneNumber</p>
 
             </div>
-        <form method="get">
-            <div class="form-group">
-                <label></label>
-                <select asp-for="Status" class="form-control">
-                    <option value="" disabled selected hidden>Статус</option>
-                    <option value="0">Pending</option>
-                    <option value="1">Declined</option>
-                    <option value="2">Confirmed</option>
-                    <option value="3">Shipped</option>
-                    <option value="4">Completed</option>
-                    <option value="5">Cancelled</option>
-                </select>
-            </div>
-
-            <input type="submit" value="Търсене..." class="sbtBtn" />
-
-
-        </form>
-            <div class="cancelBtn">
-            <a href="/МanageOrders/Manage?Order=@Model.OrderId">EditStatus</a>
-            </div>
-        </div>
     
-
 </div>
+<script>
+        document.querySelector('.sbtBtn').addEventListener("click",async ()=>
+        {
+            let statusId = document.querySelector(".status-select");
+            console.log(statusId.value)
+            let response = await fetch(`/ManageOrders/ChangeStatus?orderId=${@Model.OrderId}&statusId=${statusId.value}`);
+            if(response.ok){
+            document.location.reload(true)
+            }
+        })
+</script>

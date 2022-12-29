@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ASM_Auto.Data.Models.Products.Interior
 {
@@ -13,7 +8,7 @@ namespace ASM_Auto.Data.Models.Products.Interior
         public int InteriorAccessoryId { get; set; }
 
         [Required]
-        public string InteriorAccessory { get; set; } = null!;
+        public string InteriorAccessory { get; set; }
 
         public ICollection<Product> Products { get; set; } = new List<Product>();
     }

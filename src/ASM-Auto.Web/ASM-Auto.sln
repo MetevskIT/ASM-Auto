@@ -11,8 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{F7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{39FCFD1C-7718-46B2-8352-0A946308967B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AB49EFF5-1913-4B74-9634-920B79930A65}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASM-Auto.Data", "..\ASM-Auto.Data\ASM-Auto.Data.csproj", "{5DB78AB8-DC6F-4D92-86DC-00E3527D969B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASM-Auto.Data.Models", "..\ASM-Auto.Data.Models\ASM-Auto.Data.Models.csproj", "{BF87ACA2-C56F-4A44-97F7-9FABF53A9AD8}"
@@ -20,8 +18,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASM-Auto.Data.Seed", "..\ASM-Auto.Data.Seed\ASM-Auto.Data.Seed.csproj", "{7E580C95-218E-42AD-9F27-00BD8C251DA6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASM-Auto.Services", "..\ASM-Auto.Services\ASM-Auto.Services.csproj", "{D9742A16-0ACB-49C5-9D13-E71F0544CF3B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASM-Auto.Common", "..\ASM-Auto.Common\ASM-Auto.Common.csproj", "{C9453A67-86B2-4650-BF2D-DEDC84215593}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASM-Auto.ViewModels", "..\ASM-Auto.ViewModels\ASM-Auto.ViewModels.csproj", "{F535EFCF-F64E-4BD2-94B8-787C55C02871}"
 EndProject
@@ -51,10 +47,6 @@ Global
 		{D9742A16-0ACB-49C5-9D13-E71F0544CF3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9742A16-0ACB-49C5-9D13-E71F0544CF3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9742A16-0ACB-49C5-9D13-E71F0544CF3B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9453A67-86B2-4650-BF2D-DEDC84215593}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9453A67-86B2-4650-BF2D-DEDC84215593}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9453A67-86B2-4650-BF2D-DEDC84215593}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9453A67-86B2-4650-BF2D-DEDC84215593}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F535EFCF-F64E-4BD2-94B8-787C55C02871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F535EFCF-F64E-4BD2-94B8-787C55C02871}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F535EFCF-F64E-4BD2-94B8-787C55C02871}.Release|Any CPU.ActiveCfg = Release|Any CPU

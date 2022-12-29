@@ -113,3 +113,13 @@ margin-right: 45px;
 
     font-size: 18px;
 }
+.info{
+text-align: center;
+margin-top: 200px;
+margin-bottom: 300px;
+}
+
+.pInfo{
+    color: #4790de;
+    font-size: 30px;
+}

@@ -1,28 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ASM_Auto.Data.Models.Car
 {
     public class CarMake
     {
-        public CarMake()
-        {
-          
-            this.CarModels = new HashSet<CarModel>();
-            this.Products = new List<Product>();
-        }
-
         [Key]
         public int CarMakeId { get; set; }
 
         [Required]
-        public string CarMakeText { get; set; } = null!;
+        public string CarMakeText { get; set; }
 
-        public ICollection<CarModel> CarModels { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public ICollection<CarModel> CarModels { get; set; } = new HashSet<CarModel>();
+        public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }

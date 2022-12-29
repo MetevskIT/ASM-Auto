@@ -1,4 +1,5 @@
 ﻿window.onload = render()
+
  function getColor(initials){
     const colors = [
         '#F48FB1',
@@ -30,5 +31,4 @@ function render(){
         articleEl.appendChild(initials);
         area.insertBefore(articleEl,area.firstChild)
         area.appendChild(document.createElement('hr'))
-   
  }

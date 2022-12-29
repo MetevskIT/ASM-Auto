@@ -1,6 +1,5 @@
 ﻿using ASM_Auto.Services.Common;
 using ASM_Auto.ViewModels.Administration.CreateProducts;
-using ASM_Auto.ViewModels.Administration.EditProducts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASM_Auto.Web.Areas.Administration.Controllers
@@ -14,17 +13,16 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
         private IAutoshampooService autoshampooService;
         private ICleaningAccessoryService accessoryService;
         private IMultimediaService multimediaService;
-        private IBackUpCameraService backUpCameraService; 
+        private IBackUpCameraService backUpCameraService;
         public CreateProductController(
-            ILedlightsService ledlightsService, 
+            ILedlightsService ledlightsService,
             ICarService carService,
             IMatsService matsService,
             IFoilService foilService,
             IAutoshampooService autoshampooService,
             ICleaningAccessoryService accessoryService,
             IMultimediaService multimediaService,
-            IBackUpCameraService backUpCameraService
-            )
+            IBackUpCameraService backUpCameraService)
         {
             this.ledlightsService = ledlightsService;
             this.carService = carService;
@@ -57,30 +55,29 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
                 model.LedlightsFormats = await ledlightsService.GetLedlightsFormats();
                 model.LedlightsPowers = await ledlightsService.GetLedlightsPower();
                 model.LedlightsTypes = await ledlightsService.GetLedlightsTypes();
+
                 return View(model);
             }
+
             try
             {
                 await ledlightsService.CreateLedLight(model);
                 return RedirectToAction("Index", "Admin");
             }
+
             catch (Exception)
             {
-
                 return View("Error");
             }
-           
-
-
 
         }
 
         [HttpGet]
         public async Task<IActionResult> CreateMats()
         {
-            var model = new CreateMatViewModel ();
-             model.MatsTypes = await matsService.MatsTypes();
-             model.CarMakes = await carService.CarMakes();
+            var model = new CreateMatViewModel();
+            model.MatsTypes = await matsService.MatsTypes();
+            model.CarMakes = await carService.CarMakes();
 
             return View(model);
         }
@@ -92,6 +89,7 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
             {
                 model.MatsTypes = await matsService.MatsTypes();
                 model.CarMakes = await carService.CarMakes();
+
                 return View(model);
             }
 
@@ -100,13 +98,11 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
                 await matsService.CreateMat(model);
                 return RedirectToAction("Index", "Admin");
             }
+
             catch (Exception)
             {
-
                 return View("Error");
             }
-
-
 
         }
 
@@ -143,8 +139,6 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
                 return View("Error");
             }
 
-
-
         }
 
         [HttpGet]
@@ -168,13 +162,13 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
                 await autoshampooService.CreateAutoshampoo(model);
                 return RedirectToAction("Index", "Admin");
             }
+
             catch (Exception)
             {
 
                 return View("Error");
             }
         }
-
 
         [HttpGet]
         public async Task<IActionResult> CreateCleaningAccessories()
@@ -195,7 +189,7 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
 
             try
             {
-               await accessoryService.CreateAccessory(model);
+                await accessoryService.CreateAccessory(model);
                 return RedirectToAction("Index", "Admin");
             }
             catch (Exception)
@@ -224,7 +218,7 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
 
             try
             {
-                 await multimediaService.CreateMultimedia(model);
+                await multimediaService.CreateMultimedia(model);
                 return RedirectToAction("Index", "Admin");
             }
             catch (Exception)
@@ -239,6 +233,7 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
         {
             var model = new CreateBackupCamerasViewModel();
             model.CarMakes = await carService.CarMakes();
+
             return View(model);
         }
 
@@ -256,12 +251,11 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
                 await backUpCameraService.CreateBackUpCamera(model);
                 return RedirectToAction("Index", "Admin");
             }
+
             catch (Exception)
             {
-
                 return View("Error");
             }
         }
-
     }
 }

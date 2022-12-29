@@ -3,11 +3,6 @@ using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
 using ASM_Auto.ViewModels.Cart;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASM_Auto.Services.CartService
 {
@@ -17,14 +12,15 @@ namespace ASM_Auto.Services.CartService
         private IRepository<CartProduct> cartProductRepository;
         private IRepository<Product> productRepository;
 
-
-        public CartService(IRepository<Cart> cartRepository, IRepository<CartProduct> cartProductRepository, IRepository<Product> productRepository)
+        public CartService(
+            IRepository<Cart> cartRepository,
+            IRepository<CartProduct> cartProductRepository,
+            IRepository<Product> productRepository)
         {
             this.cartRepository = cartRepository;
             this.cartProductRepository = cartProductRepository;
             this.productRepository = productRepository;
         }
-
 
         public async Task<Guid> CreateCart(string userId)
         {
@@ -32,8 +28,9 @@ namespace ASM_Auto.Services.CartService
             {
                 UserId = userId
             };
-           await cartRepository.AddAsync(cart);
-           await cartRepository.SaveChangesAsync();
+
+            await cartRepository.AddAsync(cart);
+            await cartRepository.SaveChangesAsync();
 
             return cart.CartId;
         }
@@ -43,15 +40,15 @@ namespace ASM_Auto.Services.CartService
             var userCart = await cartRepository.GetAll()
                 .Where(c => c.UserId == userId)
                 .FirstOrDefaultAsync();
-            if (userCart==null)
+
+            if (userCart == null)
             {
                 throw new ArgumentNullException("Възникна грешка!");
             }
 
-
             var products = await cartProductRepository.GetAll()
-              .Include(p=>p.Product)
-              .ThenInclude(i=>i.Images)
+              .Include(p => p.Product)
+              .ThenInclude(i => i.Images)
               .Where(c => c.CartId == userCart.CartId)
               .Select(p => new CartViewModel
               {
@@ -62,8 +59,6 @@ namespace ASM_Auto.Services.CartService
                   ImageUrl = p.Product.Images.FirstOrDefault().ImageUrl,
               })
               .ToListAsync();
-
-          
 
             return products;
 
@@ -76,8 +71,8 @@ namespace ASM_Auto.Services.CartService
                 .FirstOrDefaultAsync();
 
             var userCart = await cartRepository.GetAll()
-                .Where(u => u.UserId==userId)
-                .Include(p=>p.Products)
+                .Where(u => u.UserId == userId)
+                .Include(p => p.Products)
                 .FirstOrDefaultAsync();
 
             if (product == null)
@@ -98,26 +93,27 @@ namespace ASM_Auto.Services.CartService
             {
                 throw new ArgumentNullException("Възникна проблем!");
             }
+
             if (!userCart.Products.Any(p => p.ProductId == productId))
             {
                 userCart.Products.Add(new CartProduct { ProductId = product.ProductId, ProductCount = quantity });
                 await cartRepository.SaveChangesAsync();
             }
+
             else
             {
                 userCart.Products.First(x => x.ProductId == productId).ProductCount += quantity;
                 await cartRepository.SaveChangesAsync();
             }
-
         }
 
         public async Task RemoveFromCart(Guid productId, string userId)
         {
-
             var product = await productRepository.GetAll()
                .Where(x => x.ProductId == productId)
                .FirstOrDefaultAsync();
-            if (product==null)
+
+            if (product == null)
             {
                 throw new ArgumentNullException("Продукта не е намерен!");
             }
@@ -125,6 +121,7 @@ namespace ASM_Auto.Services.CartService
             var cartProduct = await cartProductRepository.GetAll()
                 .Where(p => p.ProductId == productId)
                 .FirstOrDefaultAsync();
+
             if (cartProduct == null)
             {
                 throw new ArgumentNullException("Възникна проблем!");
@@ -133,6 +130,7 @@ namespace ASM_Auto.Services.CartService
             var userCart = await cartRepository.GetAll()
                 .Where(u => u.UserId == userId)
                 .FirstOrDefaultAsync();
+
             if (userCart == null)
             {
                 throw new ArgumentNullException("Възникна проблем!");
@@ -140,14 +138,13 @@ namespace ASM_Auto.Services.CartService
 
             userCart.Products.Remove(cartProduct);
             await cartRepository.SaveChangesAsync();
-
         }
 
         public async Task<List<CartProduct>> GetCartProducts(string userId)
         {
             var cartProducts = await cartProductRepository.GetAll()
-                .Include(c=>c.Cart)
-                .Include(p=>p.Product)
+                .Include(c => c.Cart)
+                .Include(p => p.Product)
                 .Where(c => c.Cart.UserId == userId)
                 .ToListAsync();
 
@@ -156,15 +153,13 @@ namespace ASM_Auto.Services.CartService
 
         public async Task RemoveAllProductsFromCart(string userId)
         {
-          var products = await cartProductRepository.GetAll()
-                 .Include(c => c.Cart)
-                 .Where(c => c.Cart.UserId == userId)
-                 .ToListAsync();
+            var products = await cartProductRepository.GetAll()
+                   .Include(c => c.Cart)
+                   .Where(c => c.Cart.UserId == userId)
+                   .ToListAsync();
 
             cartProductRepository.DeleteRange(products);
             await cartProductRepository.SaveChangesAsync();
-
-
         }
     }
 }

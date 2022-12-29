@@ -3,16 +3,10 @@ using ASM_Auto.Data.Models.Enums.Products;
 using ASM_Auto.Data.Models.Products.AutoCosmetics.CleaningAccessories;
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
-using ASM_Auto.Services.ImageService;
 using ASM_Auto.ViewModels;
 using ASM_Auto.ViewModels.Administration.CreateProducts;
 using ASM_Auto.ViewModels.Administration.EditProducts;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASM_Auto.Services.AutoCosmetics
 {
@@ -22,7 +16,10 @@ namespace ASM_Auto.Services.AutoCosmetics
         private IRepository<CleaningAccessory> accesoriesRepository;
         private IImageService imageService;
 
-        public CleaningAccessoryService(IRepository<Product> repository, IRepository<CleaningAccessory> accesoriesRepository, IImageService imageService)
+        public CleaningAccessoryService(
+            IRepository<Product> repository,
+            IRepository<CleaningAccessory> accesoriesRepository,
+            IImageService imageService)
         {
             this.repository = repository;
             this.accesoriesRepository = accesoriesRepository;
@@ -48,8 +45,8 @@ namespace ASM_Auto.Services.AutoCosmetics
             foreach (var img in model.Images)
             {
                 product.Images.Add(await imageService.UploadImage(img));
-
             }
+
             await repository.AddAsync(product);
             await repository.SaveChangesAsync();
         }
@@ -69,16 +66,17 @@ namespace ASM_Auto.Services.AutoCosmetics
             product.LineDescription = model.LineDescription;
             product.FreeDelivery = model.FreeDelivery;
             product.CleaningAccessoryId = model.CleaningAccessoryId;
-   
+
 
             if (model.Images.Any())
             {
                 product.Images.Clear();
+
                 await imageService.RemoveImages(product.ProductId);
+
                 foreach (var img in model.Images)
                 {
                     product.Images.Add(await imageService.UploadImage(img));
-
                 }
             }
             await repository.SaveChangesAsync();
@@ -100,11 +98,11 @@ namespace ASM_Auto.Services.AutoCosmetics
             var query = repository.GetAll()
                  .Include(i => i.Images)
                  .Include(c => c.ProductType)
-                 .Include(c=>c.CleaningAccessory)
-                .Where(s => s.ProductType.Type == "CleaningTools")
-                .Where(p => p.IsActive == true);
+                 .Include(c => c.CleaningAccessory)
+                 .Where(s => s.ProductType.Type == "CleaningTools")
+                 .Where(p => p.IsActive == true);
 
-            if (typeId!=null)
+            if (typeId != null)
             {
                 query.Where(t => t.CleaningAccessoryId == typeId);
             }

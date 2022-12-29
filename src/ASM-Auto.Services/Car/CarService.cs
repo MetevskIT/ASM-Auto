@@ -2,11 +2,6 @@
 using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASM_Auto.Services.Car
 {
@@ -15,7 +10,8 @@ namespace ASM_Auto.Services.Car
         private IRepository<CarMake> carMakeRepository;
         private IRepository<CarModel> carModelRepository;
 
-        public CarService(IRepository<CarMake> carMakeRepository, IRepository<CarModel> carModelRepository)
+        public CarService(IRepository<CarMake> carMakeRepository
+            , IRepository<CarModel> carModelRepository)
         {
             this.carMakeRepository = carMakeRepository;
             this.carModelRepository = carModelRepository;

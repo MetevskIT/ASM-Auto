@@ -14,18 +14,28 @@ namespace ASM_Auto.Web.Areas.Administration.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AllOrders(OrderStatus Status=OrderStatus.Pending)
+        public async Task<IActionResult> AllOrders(OrderStatus Status = OrderStatus.Pending)
         {
             var model = new AllManageOrdersViewModel();
             model.Orders = await orderService.ManageOrders(Status);
+
             return View(model);
         }
+
         [HttpGet]
-        public async Task<IActionResult> Manage([FromQuery]int Order)
+        public async Task<IActionResult> Manage([FromQuery] int Order)
         {
             var model = await orderService.Manage(Order);
-           
+
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<TaskStatus> ChangeStatus([FromQuery] int orderId, int statusId)
+        {
+            var model = orderService.ChangeStatus(orderId, statusId);
+
+            return model.Status;
         }
     }
 }

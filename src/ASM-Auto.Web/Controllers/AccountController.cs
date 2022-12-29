@@ -16,7 +16,11 @@ namespace ASM_Auto.Web.Controllers
         public RoleManager<IdentityRole> roleManager;
         public ICartService cartService;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ICartService cartService, RoleManager<IdentityRole> roleManager)
+        public AccountController(
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            ICartService cartService,
+            RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -28,7 +32,7 @@ namespace ASM_Auto.Web.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            if (User?.Identity?.IsAuthenticated??false)
+            if (User?.Identity?.IsAuthenticated ?? false)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -44,11 +48,12 @@ namespace ASM_Auto.Web.Controllers
             {
                 return View(model);
             }
+
             var sanitizer = new HtmlSanitizer();
             model.Email = sanitizer.Sanitize(model.Email);
             model.Password = sanitizer.Sanitize(model.Password);
             var user = await userManager.FindByEmailAsync(model.Email);
-            
+
             if (user != null)
             {
                 var result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
@@ -56,9 +61,9 @@ namespace ASM_Auto.Web.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
-
             }
             ModelState.AddModelError("", "Invalid login!");
+
             return View(model);
         }
 
@@ -70,6 +75,7 @@ namespace ASM_Auto.Web.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+
             var model = new RegisterViewModel();
 
             return View(model);
@@ -83,17 +89,18 @@ namespace ASM_Auto.Web.Controllers
             {
                 return View(model);
             }
-            var checkEmail  = await userManager.FindByEmailAsync(model.Email);
 
-            if (checkEmail!=null)
+            var checkEmail = await userManager.FindByEmailAsync(model.Email);
+
+            if (checkEmail != null)
             {
                 ModelState.AddModelError("", "Вече съществува потребител с този Email!");
                 return View(model);
             }
+
             var sanitizer = new HtmlSanitizer();
             model.Email = sanitizer.Sanitize(model.Email);
             model.Password = sanitizer.Sanitize(model.Password);
-
 
             var user = new User
             {
@@ -102,18 +109,18 @@ namespace ASM_Auto.Web.Controllers
             };
 
             var result = await userManager.CreateAsync(user, model.Password);
-            
+
             if (result.Succeeded)
             {
-                 
-                 user.CartId = await cartService.CreateCart(user.Id);
-                 await userManager.UpdateAsync(user);
+
+                user.CartId = await cartService.CreateCart(user.Id);
+                await userManager.UpdateAsync(user);
                 await userManager.AddToRoleAsync(user, "User");
 
                 await signInManager.PasswordSignInAsync(user, model.Password, false, false);
 
                 return RedirectToAction("Index", "Home");
-                
+
             }
 
             foreach (var err in result.Errors)
@@ -122,8 +129,8 @@ namespace ASM_Auto.Web.Controllers
             }
 
             return View(model);
-
         }
+
         [HttpGet]
         public IActionResult ChangePassword()
         {
@@ -141,26 +148,27 @@ namespace ASM_Auto.Web.Controllers
                 return View(model);
             }
             var user = await userManager.FindByIdAsync(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
-            if (user==null)
+            if (user == null)
             {
                 ModelState.AddModelError("", "Няма логнат потребител! Моля влезте отново!");
                 return View(model);
             }
+
             var sanitizer = new HtmlSanitizer();
             model.OldPassword = sanitizer.Sanitize(model.OldPassword);
             model.NewPassword = sanitizer.Sanitize(model.NewPassword);
             model.ConfirmNewPassword = sanitizer.Sanitize(model.ConfirmNewPassword);
 
             var result = await userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+
             if (!result.Succeeded)
             {
                 ModelState.AddModelError("", result.Errors.First().Description);
                 return View(model);
             }
+
             return RedirectToAction("Index", "Home");
         }
-
-
 
         [HttpGet]
         public async Task<IActionResult> Logout()
@@ -169,6 +177,5 @@ namespace ASM_Auto.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
     }
 }

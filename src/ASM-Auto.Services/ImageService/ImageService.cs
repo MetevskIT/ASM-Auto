@@ -3,11 +3,6 @@ using ASM_Auto.Data.Repository;
 using ASM_Auto.Services.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASM_Auto.Services.ImageService
 {
@@ -31,7 +26,7 @@ namespace ASM_Auto.Services.ImageService
                  .Where(p => p.ProductId == productId)
                  .ToListAsync();
 
-             imageRepository.DeleteRange(images);
+            imageRepository.DeleteRange(images);
             await imageRepository.SaveChangesAsync();
         }
 

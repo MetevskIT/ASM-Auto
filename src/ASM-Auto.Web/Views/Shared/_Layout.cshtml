@@ -74,13 +74,18 @@
                         </li>
 
                     @{
-                        var user = await UserManager.FindByIdAsync(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+                        
                     }
-                        @if ((User?.Identity?.IsAuthenticated??false) && await UserManager.IsInRoleAsync(user,"Administrator"))
+                        @if ((User?.Identity?.IsAuthenticated??false))
                     {
+                        var user = await UserManager.FindByIdAsync(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+                        @if (await UserManager.IsInRoleAsync(user, "Administrator"))
+                        {
                         <li>
                             <a class="adminBtn" asp-area="Administration" asp-controller="Admin" asp-action="Index">AdminArea</a>
-                        </li>
+                        </li>     
+                        }
+                       
                     }
                      
 
